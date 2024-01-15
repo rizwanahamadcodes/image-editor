@@ -10,7 +10,7 @@ const Layout = (props: LayoutProps) => {
     return (
         <>
             <Navbar />
-            <main className="grow">{children}</main>
+            <main className="grow flex">{children}</main>
         </>
     );
 };
