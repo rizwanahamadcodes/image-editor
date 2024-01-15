@@ -1,4 +1,4 @@
-import Navbar from "./Navbar/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 
 type LayoutProps = {
     children: React.ReactNode;
@@ -10,7 +10,7 @@ const Layout = (props: LayoutProps) => {
     return (
         <>
             <Navbar />
-            <main>{children}</main>
+            <main className="grow">{children}</main>
         </>
     );
 };

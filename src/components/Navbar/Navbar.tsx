@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Container from "../Container";
-import NavMenu from "./NavMenu/NavMenu";
 import User from "../User";
+import NavMenuWithTabIndicator from "./NavMenuWithTabIndicator";
 
 type NavbarProps = {};
 
@@ -16,7 +16,7 @@ const Navbar = (props: NavbarProps) => {
                     className="text-primary font-bold text-1.25 hover:text-primary-600">
                     CardGen
                 </Link>
-                <NavMenu className="ml-auto" />
+                <NavMenuWithTabIndicator className="ml-auto" />
                 <User />
             </Container>
         </div>
