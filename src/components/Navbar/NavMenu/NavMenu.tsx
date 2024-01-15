@@ -1,13 +1,9 @@
+import { PathConstant, pathConstants } from "@/routes/pathContants";
 import NavItem from "./NavItem";
 
 type NavMenuProps = {};
 
-const navLinks = [
-    { label: "Home", path: "/" },
-    { label: "Projects", path: "/projects" },
-    { label: "Lists", path: "/lists" },
-    { label: "Design", path: "/design" },
-];
+const navLinks: PathConstant[] = [pathConstants.HOME];
 
 const NavMenu = (props: NavMenuProps) => {
     const {} = props;
