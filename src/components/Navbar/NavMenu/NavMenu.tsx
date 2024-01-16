@@ -5,15 +5,15 @@ import clsx from "clsx";
 import { PathConstant, pathConstants } from "@/routes/pathContants";
 
 export type NavMenuProps = {
+    navLinks: PathConstant[];
     className?: string;
     direction?: "horizontal" | "vertical";
     setTabIndicatorBounds?: Dispatch<SetStateAction<TabIndicatorBoundsType>>;
 };
 
-const navLinks: PathConstant[] = [pathConstants.HOME, pathConstants.PROJECTS];
-
 const NavMenu = (props: NavMenuProps) => {
     const {
+        navLinks,
         direction = "horizontal",
         className,
         setTabIndicatorBounds,

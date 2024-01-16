@@ -1,4 +1,4 @@
-import Layout from "@/Layouts/Layout";
+import Layout from "@/Layouts/RootLayout";
 import { NextPageWithLayout } from "../_app";
 import ProjectsListsLayout from "@/Layouts/ProjectsListsLayout";
 

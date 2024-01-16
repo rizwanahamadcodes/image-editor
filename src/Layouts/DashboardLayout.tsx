@@ -1,7 +1,7 @@
 import Sidebar from "@/components/Sidebar/Sidebar";
 import RootLayout from "./RootLayout";
 
-const ProjectsListsLayout = function getLayout(page: React.ReactElement) {
+const DashboardLayout = function getLayout(page: React.ReactElement) {
     return (
         <RootLayout>
             <div className="flex grow">
@@ -12,4 +12,4 @@ const ProjectsListsLayout = function getLayout(page: React.ReactElement) {
     );
 };
 
-export default ProjectsListsLayout;
+export default DashboardLayout;

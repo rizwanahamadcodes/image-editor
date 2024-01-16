@@ -6,7 +6,3 @@ html,
 body {
     @apply h-full;
 }
-
-#__next {
-    @apply min-h-full flex flex-col;
-}

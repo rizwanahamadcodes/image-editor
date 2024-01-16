@@ -5,6 +5,9 @@ export type ParamConstants = {
 export const paramConstants: ParamConstants = {
     PROJECTID: "projectId",
     LISTID: "listId",
+
+    DASHBOARDPROJECTID: "projectId",
+    DASHBOARDLISTID: "listId",
 };
 
 export type PathConstant = {
@@ -36,5 +39,25 @@ export const pathConstants: pathConstants = {
     LISTEDIT: {
         label: "List Edit",
         path: `/lists/:${paramConstants.LISTID}/edit`,
+    },
+    DASHBOARD: {
+        label: "Dashboard",
+        path: "/dashboard",
+    },
+    DASHBOARDLISTS: {
+        label: "Lists",
+        path: "/dashboard/lists",
+    },
+    DASHBOARDLISTDETAILS: {
+        label: "Dashboard List Details",
+        path: `/dashboard/lists:${paramConstants.DASHBOARDLISTDETAILS}`,
+    },
+    DASHBOARDPROJECTS: {
+        label: "Projects",
+        path: "/dashboard/projects",
+    },
+    DASHBOARDPROJECTDETAILS: {
+        label: "Dashboard Project Details",
+        path: `/dashboard/projects:${paramConstants.DASHBOARDPROJECTTID}`,
     },
 } as const;
