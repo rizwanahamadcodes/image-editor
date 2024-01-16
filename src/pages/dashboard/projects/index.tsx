@@ -56,8 +56,9 @@ export const ProjectCard = (props: ProjectCardProps) => {
                 />
             </div>
             <Link
+                title={project.name}
                 href={`${pathConstants.DASHBOARDPROJECTS.path}/${project.projectId}`}
-                className="inline-block px-1 overflow-hidden overflow-ellipsis">
+                className="inline-block px-1 overflow-hidden max-w-full overflow-ellipsis">
                 <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold">
                     {project.name}
                 </h3>

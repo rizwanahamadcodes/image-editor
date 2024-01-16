@@ -14,7 +14,7 @@ const Sidebar = (props: SidebarProps) => {
     const {} = props;
 
     return (
-        <aside className="w-16 border-r shrink-0 border-r-gray-200 flex flex-col">
+        <aside className="w-16 border-r shrink-0 border-r-gray-100 flex flex-col">
             <Section>
                 <FullWidthContainer>
                     <SectionTitle>Dashboard</SectionTitle>
