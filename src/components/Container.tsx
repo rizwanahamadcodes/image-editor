@@ -12,4 +12,14 @@ const Container = (props: ContainerProps) => {
     );
 };
 
+export const FullWidthContainer = (props: ContainerProps) => {
+    const { children, className } = props;
+
+    return (
+        <div className={clsx("m-auto max-w-7xl px-2", className)}>
+            {children}
+        </div>
+    );
+};
+
 export default Container;

@@ -1,7 +1,7 @@
 import Section, { SectionTitle } from "@/components/Section/Section";
 import { pathConstants } from "@/routes/pathContants";
 import NavMenuWithTabIndicator from "../Navbar/NavMenuWithTabIndicator";
-import Container from "@/components/Container";
+import Container, { FullWidthContainer } from "@/components/Container";
 
 type SidebarProps = {};
 
@@ -16,9 +16,9 @@ const Sidebar = (props: SidebarProps) => {
     return (
         <aside className="w-16 border-r shrink-0 border-r-gray-200 flex flex-col">
             <Section>
-                <Container>
+                <FullWidthContainer>
                     <SectionTitle>Dashboard</SectionTitle>
-                </Container>
+                </FullWidthContainer>
             </Section>
             <div className="grow flex flex-col">
                 <NavMenuWithTabIndicator

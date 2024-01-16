@@ -1,5 +1,5 @@
 import DashboardLayout from "@/Layouts/DashboardLayout";
-import Container from "@/components/Container";
+import Container, { FullWidthContainer } from "@/components/Container";
 import Section, { SectionTitle } from "@/components/Section/Section";
 import lists, { List } from "@/data/lists";
 import { paramConstants } from "@/routes/pathContants";
@@ -18,19 +18,19 @@ const ListDetails = (props: ListDetailsProps) => {
     if (!list) {
         return (
             <Section>
-                <Container>
+                <FullWidthContainer>
                     <SectionTitle>The list was not found</SectionTitle>
-                </Container>
+                </FullWidthContainer>
             </Section>
         );
     }
 
     return (
         <Section>
-            <Container>
+            <FullWidthContainer>
                 <SectionTitle>{list.name}</SectionTitle>
                 <ListTable list={list} />
-            </Container>
+            </FullWidthContainer>
         </Section>
     );
 };

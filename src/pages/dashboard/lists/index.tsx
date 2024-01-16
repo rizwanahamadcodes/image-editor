@@ -1,9 +1,10 @@
 import DashboardLayout from "@/Layouts/DashboardLayout";
-import Container from "@/components/Container";
+import Container, { FullWidthContainer } from "@/components/Container";
 import Section, { SectionTitle } from "@/components/Section/Section";
 import lists, { List } from "@/data/lists";
 import { pathConstants } from "@/routes/pathContants";
 import Link from "next/link";
+import { BiPlus } from "react-icons/bi";
 import { IoList } from "react-icons/io5";
 
 type DashboardListsProps = {};
@@ -17,14 +18,15 @@ const DashboardLists = (props: DashboardListsProps) => {
 
     return (
         <Section>
-            <Container>
+            <FullWidthContainer>
                 <SectionTitle>All lists</SectionTitle>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1">
+                    <AddNewList />
                     {activeLists.map((activeList) => (
                         <ListCard key={activeList.listId} list={activeList} />
                     ))}
                 </div>
-            </Container>
+            </FullWidthContainer>
         </Section>
     );
 };
@@ -48,6 +50,18 @@ export const ListCard = (props: ListCardProps) => {
             <div className="text-0.875 text-gray-500 max-w-full overflow-ellipsis overflow-hidden whitespace-nowrap">
                 {Object.keys(list.data[0]).join(", ")}
             </div>
+        </div>
+    );
+};
+
+type AddNewListProps = {};
+
+export const AddNewList = (props: AddNewListProps) => {
+    const {} = props;
+
+    return (
+        <div className="border border-gray-100 rounded-0.5 p-1 bg-gray-50 flex items-center justify-center cursor-pointer hover:border-gray-400 hover:bg-gray-100 text-gray-550 transition-all group/addNewListGroup">
+            <BiPlus className="group-hover/addNewListGroup:text-gray-600 transition-all text-gray-500 text-2.75" />
         </div>
     );
 };

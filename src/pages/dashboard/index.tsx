@@ -1,5 +1,5 @@
 import DashboardLayout from "@/Layouts/DashboardLayout";
-import Container from "@/components/Container";
+import Container, { FullWidthContainer } from "@/components/Container";
 import Section, { SectionTitle } from "@/components/Section/Section";
 
 type DashboardProps = {};
@@ -9,9 +9,9 @@ const Dashboard = (props: DashboardProps) => {
 
     return (
         <Section>
-            <Container>
+            <FullWidthContainer>
                 <SectionTitle>All Dashboard Items</SectionTitle>
-            </Container>
+            </FullWidthContainer>
         </Section>
     );
 };
