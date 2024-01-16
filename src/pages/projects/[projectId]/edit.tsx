@@ -1,6 +1,8 @@
 import { projects } from "@/data/projects";
 import { paramConstants } from "@/routes/pathContants";
 import { useRouter } from "next/router";
+import { FaRegImage } from "react-icons/fa6";
+import { FaList } from "react-icons/fa6";
 
 type EditProjectProps = {};
 
@@ -48,8 +50,14 @@ export const ToolBar = (props: ToolBarProps) => {
     return (
         <nav className="bg-gray-100 w-4">
             <ul>
-                <li className="text-0.625 font-semibold">Templates</li>
-                <li className="text-0.625 font-semibold">Fields</li>
+                <li className="text-0.625 flex flex-col items-center justify-center h-4 bg-whites font-semibold">
+                    <FaRegImage className="text-1.625 text-gray-600" />
+                    Templates
+                </li>
+                <li className="text-0.625 flex flex-col items-center justify-center h-4 bg-white font-semibold">
+                    <FaList className="text-1.625 text-gray-600" />
+                    Fields
+                </li>
             </ul>
         </nav>
     );
