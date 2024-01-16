@@ -3,7 +3,7 @@ import { projects } from "@/data/projects";
 import { paramConstants } from "@/routes/pathContants";
 import { useRouter } from "next/router";
 import { ProjectContext } from "./useProject";
-import { OptionsBar } from "@/components/OptionsBar/OptionsBat";
+import { OptionsBar } from "@/components/OptionsBar/OptionsBar";
 
 type EditProjectProps = {};
 
