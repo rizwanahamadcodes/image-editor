@@ -19,7 +19,7 @@ const DashboardLists = (props: DashboardListsProps) => {
         <Section>
             <Container>
                 <SectionTitle>All lists</SectionTitle>
-                <div className="flex flex-wrap gap-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1">
                     {activeLists.map((activeList) => (
                         <ListCard key={activeList.listId} list={activeList} />
                     ))}
@@ -39,13 +39,13 @@ export const ListCard = (props: ListCardProps) => {
     return (
         <div
             key={list.listId}
-            className="border shadow border-gray-200 rounded-1 flex flex-col p-0.75 items-start gap-0.25 font-medium">
+            className="border border-gray-200 rounded-1 flex flex-col p-0.75 items-start gap-0.25 font-medium">
             <Link
-                href={`${pathConstants.LISTS.path}/${list.listId}/edit`}
+                href={`${pathConstants.DASHBOARDLISTS.path}/${list.listId}`}
                 className="text-gray-700">
                 {list.name}
             </Link>
-            <div className="text-0.875 text-gray-500 max-w-10 overflow-ellipsis overflow-hidden whitespace-nowrap">
+            <div className="text-0.875 text-gray-500 max-w-full overflow-ellipsis overflow-hidden whitespace-nowrap">
                 {Object.keys(list.data[0]).join(", ")}
             </div>
         </div>

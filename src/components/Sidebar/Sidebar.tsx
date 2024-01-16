@@ -1,6 +1,7 @@
-import { SectionTitle } from "@/components/Section/Section";
+import Section, { SectionTitle } from "@/components/Section/Section";
 import { pathConstants } from "@/routes/pathContants";
 import NavMenuWithTabIndicator from "../Navbar/NavMenuWithTabIndicator";
+import Container from "@/components/Container";
 
 type SidebarProps = {};
 
@@ -13,13 +14,14 @@ const Sidebar = (props: SidebarProps) => {
     const {} = props;
 
     return (
-        <aside className="w-20 border-r border-r-gray-200 flex flex-col">
-            <div className="p-1">
-                <SectionTitle>Dashboard</SectionTitle>
-            </div>
-            <div className="grow flex flex-col justify-center">
+        <aside className="w-16 border-r shrink-0 border-r-gray-200 flex flex-col">
+            <Section>
+                <Container>
+                    <SectionTitle>Dashboard</SectionTitle>
+                </Container>
+            </Section>
+            <div className="grow flex flex-col">
                 <NavMenuWithTabIndicator
-                    className="self"
                     navLinks={sidebarNavLinks}
                     direction="vertical"
                 />
