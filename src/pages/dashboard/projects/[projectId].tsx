@@ -17,8 +17,6 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
 
     const project = projects.find((project) => project.projectId === projectId);
 
-    console.log(projectIdString, projectId, project);
-
     if (!project) {
         return (
             <Section>

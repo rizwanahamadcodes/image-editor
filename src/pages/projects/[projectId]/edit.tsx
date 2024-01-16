@@ -1,8 +1,8 @@
 import { projects } from "@/data/projects";
 import { paramConstants } from "@/routes/pathContants";
 import { useRouter } from "next/router";
-import { FaRegImage } from "react-icons/fa6";
-import { FaList } from "react-icons/fa6";
+import { FaList, FaRegImage } from "react-icons/fa6";
+import { ProjectContext, useProject } from "./useProject";
 
 type EditProjectProps = {};
 
@@ -19,13 +19,15 @@ const EditProject = (props: EditProjectProps) => {
     }
 
     return (
-        <div className="flex grow">
-            <ToolBox />
-            <main className="flex grow flex-col">
-                <OptionsBar />
-                <section className="grow">Canvas</section>
-            </main>
-        </div>
+        <ProjectContext.Provider value={project}>
+            <div className="flex grow">
+                <ToolBox />
+                <main className="flex grow flex-col">
+                    <OptionsBar />
+                    <section className="grow">Canvas</section>
+                </main>
+            </div>
+        </ProjectContext.Provider>
     );
 };
 
@@ -33,6 +35,9 @@ type ToolBoxProps = {};
 
 export const ToolBox = (props: ToolBoxProps) => {
     const {} = props;
+
+    const project = useProject();
+    console.log(project);
 
     return (
         <aside className="border-r flex border-r-gray-100 w-16 shrink-0">

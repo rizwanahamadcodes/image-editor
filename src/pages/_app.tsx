@@ -1,8 +1,11 @@
-import "@/styles/globals.css";
-import type { ReactElement, ReactNode } from "react";
-import type { NextPage } from "next";
-import type { AppProps } from "next/app";
 import RootLayout from "@/Layouts/RootLayout";
+import { User } from "@/data/users";
+import "@/styles/globals.css";
+import type { NextComponentType, NextPage, NextPageContext } from "next";
+import type { AppProps } from "next/app";
+import { type ReactElement, type ReactNode } from "react";
+import { createContext } from "react";
+import { CurrentUserContext } from "@/pages/useCurrentUser";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode;
@@ -12,10 +15,31 @@ type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout;
 };
 
-export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-    // Use the layout defined at the page level, if available
-    const getLayout =
-        Component.getLayout ?? ((page) => <RootLayout>{page}</RootLayout>);
+const resolveLayout = (
+    Component: NextComponentType<NextPageContext, any, any> &
+        NextPageWithLayout<{}, {}>,
+    pageProps: any
+) => {
+    if (Component.getLayout) {
+        return Component.getLayout(<Component {...pageProps} />);
+    }
 
-    return getLayout(<Component {...pageProps} />);
+    return (
+        <RootLayout>
+            <Component {...pageProps} />
+        </RootLayout>
+    );
+};
+
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+    return (
+        <CurrentUserContext.Provider
+            value={{
+                userId: 1,
+                name: "John Doe",
+                email: "johndoe@service.com",
+            }}>
+            {resolveLayout(Component, pageProps)}
+        </CurrentUserContext.Provider>
+    );
 }

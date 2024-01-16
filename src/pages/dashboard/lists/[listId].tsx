@@ -45,26 +45,30 @@ export const ListTable = (props: ListTableProps) => {
     return (
         <div className="overflow-auto">
             <table className="border border-gray-100">
-                <tr>
-                    {Object.keys(list.data[0]).map((listColumnName) => (
-                        <th
-                            key={listColumnName}
-                            className="bg-gray-100 text-left border border-gray-200 font-semibold px-1 py-0.5 text-gray-800">
-                            {listColumnName}
-                        </th>
-                    ))}
-                </tr>
-                {list.data.map((dataRow, index) => (
-                    <tr key={index}>
-                        {Object.keys(dataRow).map((dataCell, index) => (
-                            <td
-                                className=" border border-gray-100 px-1 py-0.5"
-                                key={index}>
-                                {dataRow[dataCell]}
-                            </td>
+                <thead>
+                    <tr>
+                        {Object.keys(list.data[0]).map((listColumnName) => (
+                            <th
+                                key={listColumnName}
+                                className="bg-gray-100 text-left border border-gray-200 font-semibold px-1 py-0.5 text-gray-800">
+                                {listColumnName}
+                            </th>
                         ))}
                     </tr>
-                ))}
+                </thead>
+                <tbody>
+                    {list.data.map((dataRow, index) => (
+                        <tr key={index}>
+                            {Object.keys(dataRow).map((dataCell, index) => (
+                                <td
+                                    className=" border border-gray-100 px-1 py-0.5"
+                                    key={index}>
+                                    {dataRow[dataCell]}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
     );

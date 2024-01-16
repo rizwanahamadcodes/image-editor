@@ -2,6 +2,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import Container, { FullWidthContainer } from "@/components/Container";
 import Section, { SectionTitle } from "@/components/Section/Section";
 import { Project, projects } from "@/data/projects";
+import { useCurrentUser } from "@/pages/useCurrentUser";
 import { pathConstants } from "@/routes/pathContants";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,10 +12,10 @@ type DashboardProjectsProps = {};
 
 const DashboardProjects = (props: DashboardProjectsProps) => {
     const {} = props;
-    const activeUserId = 1;
+    const currentUser = useCurrentUser();
 
     const activeProjects = projects.filter(
-        (project) => project.userId === activeUserId
+        (project) => project.userId === currentUser.userId
     );
 
     console.log(activeProjects);

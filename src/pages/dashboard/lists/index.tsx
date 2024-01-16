@@ -2,6 +2,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import Container, { FullWidthContainer } from "@/components/Container";
 import Section, { SectionTitle } from "@/components/Section/Section";
 import lists, { List } from "@/data/lists";
+import { useCurrentUser } from "@/pages/useCurrentUser";
 import { pathConstants } from "@/routes/pathContants";
 import Link from "next/link";
 import { BiPlus } from "react-icons/bi";
@@ -11,9 +12,11 @@ type DashboardListsProps = {};
 
 const DashboardLists = (props: DashboardListsProps) => {
     const {} = props;
-    const activeUserId = 1;
+    const currentUser = useCurrentUser();
 
-    const activeLists = lists.filter((list) => list.userId === activeUserId);
+    const activeLists = lists.filter(
+        (list) => list.userId === currentUser.userId
+    );
     console.log(activeLists);
 
     return (
