@@ -120,14 +120,14 @@ export const employeesFieldTypes: FieldTypesType = {
 export const lists: List[] = [
     {
         listId: 1,
-        userId: 101,
+        userId: 1,
         name: "Students",
         data: studentsData,
         fieldTypes: studentsFieldTypes,
     },
     {
         listId: 2,
-        userId: 101,
+        userId: 1,
         name: "Employees",
         data: employeesData,
         fieldTypes: employeesFieldTypes,
