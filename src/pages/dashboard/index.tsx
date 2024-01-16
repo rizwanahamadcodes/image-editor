@@ -1,11 +1,19 @@
 import DashboardLayout from "@/Layouts/DashboardLayout";
+import Container from "@/components/Container";
+import Section, { SectionTitle } from "@/components/Section/Section";
 
 type DashboardProps = {};
 
 const Dashboard = (props: DashboardProps) => {
     const {} = props;
 
-    return <div>Dashboard</div>;
+    return (
+        <Section>
+            <Container>
+                <SectionTitle>All Dashboard Items lists</SectionTitle>
+            </Container>
+        </Section>
+    );
 };
 
 Dashboard.getLayout = DashboardLayout;
