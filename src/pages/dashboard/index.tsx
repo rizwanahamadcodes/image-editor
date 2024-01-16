@@ -10,7 +10,7 @@ const Dashboard = (props: DashboardProps) => {
     return (
         <Section>
             <Container>
-                <SectionTitle>All Dashboard Items lists</SectionTitle>
+                <SectionTitle>All Dashboard Items</SectionTitle>
             </Container>
         </Section>
     );
