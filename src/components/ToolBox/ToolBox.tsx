@@ -40,7 +40,7 @@ export const ToolBox = (props: ToolBoxProps) => {
                 activeTool={activeTool}
                 setActiveTool={setActiveTool}
             />
-            <ToolProperties />
+            <ToolProperties activeTool={activeTool} />
         </aside>
     );
 };

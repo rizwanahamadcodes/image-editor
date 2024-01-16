@@ -9,7 +9,18 @@ type ToolProps = {
 const Tool = (props: ToolProps) => {
     const { tool, activeTool, setActiveTool } = props;
 
-    return <div>Tool</div>;
+    const { icon: Icon, toolName, toolId } = tool;
+
+    const handleToolClick = () => {
+        setActiveTool(tool);
+    };
+
+    return (
+        <button onClick={handleToolClick}>
+            <Icon />
+            <span>{toolName}</span>
+        </button>
+    );
 };
 
 export default Tool;
