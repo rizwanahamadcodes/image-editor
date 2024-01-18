@@ -1,5 +1,6 @@
 import { ToolType } from "@/components/ToolBox/ToolBox";
 import FieldProperties from "./FieldProperties";
+import ImageProperties from "./ImageProperties";
 
 type ToolPropertiesProps = {
     activeTool: ToolType;
@@ -11,7 +12,7 @@ export const ToolProperties = (props: ToolPropertiesProps) => {
     const getToolProperties = () => {
         switch (activeTool.toolId) {
             case "images":
-                return <p>Image Properties</p>;
+                return <ImageProperties />;
             case "text":
                 return <p>Text Properties</p>;
             case "fields":

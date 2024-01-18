@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 
 export const ProjectContext = createContext<Project | null>(null);
 
-export const useProject = () => {
+export const useCurrentProject = () => {
     const project = useContext(ProjectContext);
 
     if (!project) {

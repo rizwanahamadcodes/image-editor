@@ -1,12 +1,9 @@
 import { ToolBar } from "@/components/ToolBox/ToolBar";
 import { ToolProperties } from "@/components/ToolBox/ToolProperties";
-import { useProject } from "@/pages/projects/[projectId]/useProject";
 import { useState } from "react";
 import { IconType } from "react-icons";
-import { FaList, FaRegImage } from "react-icons/fa6";
-import { PiTextTBold } from "react-icons/pi";
+import { IoIosList } from "react-icons/io";
 import { IoImage, IoShapesOutline, IoText } from "react-icons/io5";
-import { IoIosImage, IoIosList, IoIosText } from "react-icons/io";
 
 type ToolBoxProps = {};
 
@@ -44,8 +41,6 @@ export const ToolBox = (props: ToolBoxProps) => {
     const [showProperties, setShowProperties] = useState(true);
 
     const {} = props;
-
-    const project = useProject();
 
     return (
         <aside className="flex shrink-0">

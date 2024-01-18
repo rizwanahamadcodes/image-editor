@@ -3,8 +3,10 @@ export type Project = {
     userId: number;
     name: string;
     thumbnailUrl: string;
+    canvasHeight: number;
+    canvasWidth: number;
     listId: number;
-    templateId: number;
+    images: string[];
 };
 
 export const projects: Project[] = [
@@ -13,15 +15,27 @@ export const projects: Project[] = [
         userId: 1,
         name: "Student ID card",
         thumbnailUrl: "/images/projects/thumbnails/thumbnail_1.jpg",
+        canvasHeight: 400,
+        canvasWidth: 400,
         listId: 1,
-        templateId: 1,
+        images: [
+            "/images/projects/thumbnails/thumbnail_1.jpg",
+            "/images/projects/thumbnails/thumbnail_2.jpg",
+            "/images/projects/thumbnails/thumbnail_3.jpg",
+        ],
     },
     {
-        projectId: 1,
+        projectId: 2,
         userId: 1,
         name: "Employee ID card",
         thumbnailUrl: "/images/projects/thumbnails/thumbnail_2.jpg",
+        canvasHeight: 400,
+        canvasWidth: 400,
         listId: 2,
-        templateId: 2,
+        images: [
+            "/images/projects/thumbnails/thumbnail_1.jpg",
+            "/images/projects/thumbnails/thumbnail_2.jpg",
+            "/images/projects/thumbnails/thumbnail_3.jpg",
+        ],
     },
 ];
