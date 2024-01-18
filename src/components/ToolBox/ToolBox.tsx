@@ -4,43 +4,52 @@ import { useProject } from "@/pages/projects/[projectId]/useProject";
 import { useState } from "react";
 import { IconType } from "react-icons";
 import { FaList, FaRegImage } from "react-icons/fa6";
+import { RxText } from "react-icons/rx";
+import { PiTextTBold } from "react-icons/pi";
 
 type ToolBoxProps = {};
 
 export type ToolType = {
-    toolId: string;
+    toolId: "images" | "fields" | "text";
     toolName: string;
     icon: IconType;
 };
 
 const tools: ToolType[] = [
     {
-        toolId: "templates",
-        toolName: "Templates",
+        toolId: "images",
+        toolName: "images",
         icon: FaRegImage,
     },
     {
         toolId: "fields",
-        toolName: "Fields",
+        toolName: "fields",
         icon: FaList,
+    },
+    {
+        toolId: "text",
+        toolName: "text",
+        icon: PiTextTBold,
     },
 ];
 
 export const ToolBox = (props: ToolBoxProps) => {
     const [activeTool, setActiveTool] = useState<ToolType>(tools[0]);
+    const [showProperties, setShowProperties] = useState(true);
 
     const {} = props;
 
     const project = useProject();
 
     return (
-        <aside className="border-r flex border-r-gray-100 w-16 shrink-0">
+        <aside className="flex shrink-0">
             <ToolBar
                 tools={tools}
                 activeTool={activeTool}
                 setActiveTool={setActiveTool}
+                setShowProperties={setShowProperties}
             />
-            <ToolProperties activeTool={activeTool} />
+            {showProperties ? <ToolProperties activeTool={activeTool} /> : ""}
         </aside>
     );
 };

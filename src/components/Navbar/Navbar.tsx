@@ -7,8 +7,8 @@ import { PathConstant, pathConstants } from "@/routes/pathContants";
 type NavbarProps = {};
 
 const navbarNavLinks: PathConstant[] = [
-    pathConstants.HOME,
-    pathConstants.DASHBOARD,
+    { label: "H", path: pathConstants.HOME.path },
+    { label: "D", path: pathConstants.DASHBOARD.path },
 ];
 
 const Navbar = (props: NavbarProps) => {
