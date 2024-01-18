@@ -4,13 +4,14 @@ import { useProject } from "@/pages/projects/[projectId]/useProject";
 import { useState } from "react";
 import { IconType } from "react-icons";
 import { FaList, FaRegImage } from "react-icons/fa6";
-import { RxText } from "react-icons/rx";
 import { PiTextTBold } from "react-icons/pi";
+import { IoImage, IoShapesOutline, IoText } from "react-icons/io5";
+import { IoIosImage, IoIosList, IoIosText } from "react-icons/io";
 
 type ToolBoxProps = {};
 
 export type ToolType = {
-    toolId: "images" | "fields" | "text";
+    toolId: "images" | "fields" | "text" | "shapes";
     toolName: string;
     icon: IconType;
 };
@@ -19,17 +20,22 @@ const tools: ToolType[] = [
     {
         toolId: "images",
         toolName: "images",
-        icon: FaRegImage,
+        icon: IoImage,
     },
     {
         toolId: "fields",
         toolName: "fields",
-        icon: FaList,
+        icon: IoIosList,
     },
     {
         toolId: "text",
         toolName: "text",
-        icon: PiTextTBold,
+        icon: IoText,
+    },
+    {
+        toolId: "shapes",
+        toolName: "shapes",
+        icon: IoShapesOutline,
     },
 ];
 
@@ -44,6 +50,7 @@ export const ToolBox = (props: ToolBoxProps) => {
     return (
         <aside className="flex shrink-0">
             <ToolBar
+                showProperties={showProperties}
                 tools={tools}
                 activeTool={activeTool}
                 setActiveTool={setActiveTool}

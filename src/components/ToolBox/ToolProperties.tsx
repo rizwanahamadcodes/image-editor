@@ -11,11 +11,13 @@ export const ToolProperties = (props: ToolPropertiesProps) => {
     const getToolProperties = () => {
         switch (activeTool.toolId) {
             case "images":
-                return <p>Template Properties</p>;
+                return <p>Image Properties</p>;
             case "text":
-                return <FieldProperties />;
+                return <p>Text Properties</p>;
             case "fields":
-                return <p>Fields properties</p>;
+                return <FieldProperties />;
+            case "shapes":
+                return <p>Shapes properties</p>;
             default:
                 return <p>Select a Tool</p>;
         }

@@ -6,6 +6,8 @@ import type { AppProps } from "next/app";
 import { type ReactElement, type ReactNode } from "react";
 import { createContext } from "react";
 import { CurrentUserContext } from "@/pages/useCurrentUser";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode;
@@ -33,13 +35,15 @@ const resolveLayout = (
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     return (
-        <CurrentUserContext.Provider
-            value={{
-                userId: 1,
-                name: "John Doe",
-                email: "johndoe@service.com",
-            }}>
-            {resolveLayout(Component, pageProps)}
-        </CurrentUserContext.Provider>
+        <Provider store={store}>
+            <CurrentUserContext.Provider
+                value={{
+                    userId: 1,
+                    name: "John Doe",
+                    email: "johndoe@service.com",
+                }}>
+                {resolveLayout(Component, pageProps)}
+            </CurrentUserContext.Provider>
+        </Provider>
     );
 }
