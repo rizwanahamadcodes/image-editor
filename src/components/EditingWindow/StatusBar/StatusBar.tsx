@@ -7,18 +7,29 @@ type StatusBarProps = {
 
 const StatusBar = (props: StatusBarProps) => {
     const { zoomLevel, setZoomLevel } = props;
+    const [range, setRange] = useState(50);
+
+    const getZoomFromRange = (x: number) => {
+        return 0.062 * x * x - 1.3 * x + 10;
+    };
+
+    useEffect(() => {
+        console.log(getZoomFromRange(range));
+
+        setZoomLevel(getZoomFromRange(range) / 100);
+    }, [range, setZoomLevel]);
 
     return (
         <div>
             <input
                 onChange={(e) => {
-                    setZoomLevel(parseInt(e.target.value) / 100);
+                    setRange(parseInt(e.target.value));
                 }}
                 type="range"
                 className="border-none outline-none accent-gray-700 h-0.25 bg-gray-100"
-                min={10}
-                max={500}
-                value={zoomLevel * 100}
+                min={0}
+                max={100}
+                value={range}
             />
             <button
                 onClick={() => {
