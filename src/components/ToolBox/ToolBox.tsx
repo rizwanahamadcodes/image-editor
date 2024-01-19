@@ -1,5 +1,6 @@
 import { ToolBar } from "@/components/ToolBox/ToolBar";
 import { ToolProperties } from "@/components/ToolBox/ToolProperties";
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import { IoIosList } from "react-icons/io";
@@ -46,8 +47,19 @@ export const ToolBox = (props: ToolBoxProps) => {
 
     const {} = props;
 
+    // toolbox width = toolbarwidth + toolproperties width
+    // 20 = 4 + 16
+    // all three has to be specified for the desired grow and shrink toggle
+
+    // hence when showProperties is true it is full width ie 20,
+    // else it is the width of the toolbar
+
     return (
-        <aside className="flex shrink-0">
+        <aside
+            className={clsx(
+                "relative shrink-0 transition-all overflow-hidden",
+                showProperties ? "w-20" : "w-4"
+            )}>
             <ToolBar
                 showProperties={showProperties}
                 tools={tools}
@@ -55,7 +67,10 @@ export const ToolBox = (props: ToolBoxProps) => {
                 setActiveTool={setActiveTool}
                 setShowProperties={setShowProperties}
             />
-            {showProperties ? <ToolProperties activeTool={activeTool} /> : ""}
+            <ToolProperties
+                showProperties={showProperties}
+                activeTool={activeTool}
+            />
         </aside>
     );
 };

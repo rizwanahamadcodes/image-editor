@@ -24,7 +24,7 @@ export const ToolBar = (props: ToolBarProps) => {
     };
 
     return (
-        <div className="flex w-4 flex-col border-r border-r-gray-100">
+        <div className="flex absolute bg-white z-50 h-full w-4 flex-col border-r border-r-gray-100">
             <button
                 className="h-4 w-4 flex items-center justify-center border-b-gray-100 border-b shrink-0"
                 onClick={handleToolbarHamburgerClick}>
