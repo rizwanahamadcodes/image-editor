@@ -9,10 +9,6 @@ type CanvasRegionProps = {
 const CanvasRegion = (props: CanvasRegionProps) => {
     const { zoomLevel, setZoomLevel } = props;
 
-    useEffect(() => {
-        console.log(zoomLevel);
-    }, [zoomLevel]);
-
     return (
         <section className="bg-gray-100 grow overflow-auto grid place-items-center shadow-inner">
             <Canvas zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />

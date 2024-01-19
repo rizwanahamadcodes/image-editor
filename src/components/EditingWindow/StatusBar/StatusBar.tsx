@@ -19,9 +19,9 @@ const StatusBar = (props: StatusBarProps) => {
         const scaledZoom = zoom * 100;
 
         if (scaledZoom <= 100) {
-            return (556 / 1000) * scaledZoom - 556 / 1000;
+            return (5 / 9) * scaledZoom - 50 / 9;
         } else {
-            return (125 / 1000) * scaledZoom + 375 / 10;
+            return (1 / 8) * scaledZoom + 75 / 2;
         }
     };
 
@@ -37,7 +37,6 @@ const StatusBar = (props: StatusBarProps) => {
                 max={100}
                 value={getRangeFromZoom(zoomLevel)}
             />
-            {zoomLevel * 100}
             <button
                 onClick={() => {
                     setZoomLevel((prevZoom) => prevZoom - 0.1);
