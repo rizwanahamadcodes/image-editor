@@ -2,7 +2,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import Container, { FullWidthContainer } from "@/components/Container";
 import Section, { SectionTitle } from "@/components/Section/Section";
 import { Project, projects } from "@/data/projects";
-import { useCurrentUser } from "@/pages/useCurrentUser";
+import { useCurrentUser } from "@/context/useCurrentUser";
 import { pathConstants } from "@/routes/pathContants";
 import Image from "next/image";
 import Link from "next/link";

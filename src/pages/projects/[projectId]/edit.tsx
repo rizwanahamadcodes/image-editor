@@ -5,7 +5,7 @@ import { selectProjectById } from "@/store/slices/projectsSlice";
 import { RootState } from "@/store/store";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { ProjectContext } from "./useCurrentProject";
+import { ProjectContext } from "@/context/useCurrentProject";
 
 type EditProjectProps = {};
 

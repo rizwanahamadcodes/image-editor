@@ -2,7 +2,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import Container, { FullWidthContainer } from "@/components/Container";
 import Section, { SectionTitle } from "@/components/Section/Section";
 import lists, { List } from "@/data/lists";
-import { useCurrentUser } from "@/pages/useCurrentUser";
+import { useCurrentUser } from "@/context/useCurrentUser";
 import { pathConstants } from "@/routes/pathContants";
 import Link from "next/link";
 import { BiPlus } from "react-icons/bi";

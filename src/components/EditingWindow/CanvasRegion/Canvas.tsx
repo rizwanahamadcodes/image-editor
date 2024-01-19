@@ -1,4 +1,4 @@
-import { useCurrentProject } from "@/pages/projects/[projectId]/useCurrentProject";
+import { useCurrentProject } from "@/context/useCurrentProject";
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
 

@@ -1,5 +1,5 @@
 import { List } from "@/data/lists";
-import { useCurrentUser } from "@/pages/useCurrentUser";
+import { useCurrentUser } from "@/context/useCurrentUser";
 import { selectListByUserId } from "@/store/slices/listsSlice";
 import { RootState } from "@/store/store";
 import { useState } from "react";
@@ -69,4 +69,3 @@ const FieldProperties = (props: FieldPropertiesProps) => {
 };
 
 export default FieldProperties;
-                                                                                                                                                                 
