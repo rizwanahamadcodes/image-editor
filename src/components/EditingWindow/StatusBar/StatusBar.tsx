@@ -1,7 +1,12 @@
-type StatusBarProps = {};
+import { useEffect, useState } from "react";
+
+type StatusBarProps = {
+    zoomLevel: number;
+    setZoomLevel: React.Dispatch<React.SetStateAction<number>>;
+};
 
 const StatusBar = (props: StatusBarProps) => {
-    const {} = props;
+    const { zoomLevel, setZoomLevel } = props;
 
     return (
         <div>

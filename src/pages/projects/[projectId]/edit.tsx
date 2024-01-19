@@ -1,5 +1,4 @@
-import Canvas from "@/components/Canvas/Canvas";
-import { OptionsBar } from "@/components/OptionsBar/OptionsBar";
+import EditingWindow from "@/components/EditingWindow/EditingWindow";
 import { ToolBox } from "@/components/ToolBox/ToolBox";
 import { paramConstants } from "@/routes/pathContants";
 import { selectProjectById } from "@/store/slices/projectsSlice";
@@ -7,7 +6,6 @@ import { RootState } from "@/store/store";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { ProjectContext } from "./useCurrentProject";
-import EditingWindow from "@/components/EditingWIndow/EditingWindow";
 
 type EditProjectProps = {};
 
@@ -27,7 +25,7 @@ const EditProject = (props: EditProjectProps) => {
 
     return (
         <ProjectContext.Provider value={project}>
-            <div className="flex grow">
+            <div className="overflow-y-auto flex grow">
                 <ToolBox />
                 <EditingWindow />
             </div>

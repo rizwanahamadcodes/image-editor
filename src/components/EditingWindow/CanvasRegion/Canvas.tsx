@@ -2,13 +2,15 @@ import { useCurrentProject } from "@/pages/projects/[projectId]/useCurrentProjec
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
 
-type CanvasProps = {};
+type CanvasProps = {
+    zoomLevel: number;
+    setZoomLevel: React.Dispatch<React.SetStateAction<number>>;
+};
 
 const Canvas = (props: CanvasProps) => {
-    const {} = props;
+    const { zoomLevel, setZoomLevel } = props;
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [canvas, setCanvas] = useState<fabric.Canvas | null>(null);
-    const [zoomLevel, setZoomLevel] = useState(1);
     const currentProject = useCurrentProject();
 
     useEffect(() => {
@@ -19,13 +21,13 @@ const Canvas = (props: CanvasProps) => {
             });
             setCanvas(newCanvas);
         }
-        console.log("i was run");
     }, []);
 
     useEffect(() => {
         canvas?.setZoom(zoomLevel);
         canvas?.setHeight(currentProject.canvasHeight * zoomLevel);
         canvas?.setWidth(currentProject.canvasWidth * zoomLevel);
+        console.log("i was run");
     }, [zoomLevel, canvas]);
 
     useEffect(() => {
@@ -43,13 +45,9 @@ const Canvas = (props: CanvasProps) => {
     }, [canvas]);
 
     return (
-        <div className="relative bg-gray-50">
-            <div>
-                <canvas
-                    className="bg-white transition-all border border-gray-100"
-                    ref={canvasRef}></canvas>
-            </div>
-        </div>
+        <canvas
+            className="shrink-0 shadow-md shadow-black/[0.03]"
+            ref={canvasRef}></canvas>
     );
 };
 

@@ -10,7 +10,7 @@ const RootLayout = (props: RootLayoutProps) => {
     const { children } = props;
 
     return (
-        <div className="min-h-screen miw-w-screen flex flex-col">
+        <div className="h-screen max-h-screen relative flex flex-col overflow-hidden">
             <Header />
             <Navbar />
             {children}

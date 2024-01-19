@@ -4,10 +4,10 @@ import { ComponentPropsWithRef } from "react";
 type SectionProps = ComponentPropsWithRef<"section">;
 
 const Section = (props: SectionProps) => {
-    const { children, ...otherProps } = props;
+    const { className, children, ...otherProps } = props;
 
     return (
-        <section {...otherProps} className="py-1">
+        <section {...otherProps} className={clsx("py-1", className)}>
             {children}
         </section>
     );

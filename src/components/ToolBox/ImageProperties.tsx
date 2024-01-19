@@ -8,8 +8,7 @@ const ImageProperties = (props: ImagePropertiesProps) => {
     const currentProject = useCurrentProject();
 
     return (
-        <>
-            {/* // <div className="relative flex-col flex gap-0.5"> */}
+        <div className="relative flex-col flex gap-0.5">
             {currentProject.images.map((imageUrl, index) => (
                 <div key={index} className="relative">
                     <Image
@@ -19,14 +18,13 @@ const ImageProperties = (props: ImagePropertiesProps) => {
                         }}
                         className="rounded-1"
                         src={imageUrl}
-                        width={30}
+                        width={300}
                         height={300}
                         alt={imageUrl}
                     />
                 </div>
             ))}
-            {/* // </div> */}
-        </>
+        </div>
     );
 };
 
