@@ -21,14 +21,14 @@ const Canvas = (props: CanvasProps) => {
             });
             setCanvas(newCanvas);
         }
-    }, []);
+    }, [currentProject]);
 
     useEffect(() => {
         canvas?.setZoom(zoomLevel);
         canvas?.setHeight(currentProject.canvasHeight * zoomLevel);
         canvas?.setWidth(currentProject.canvasWidth * zoomLevel);
         console.log("i was run");
-    }, [zoomLevel, canvas]);
+    }, [zoomLevel, canvas, currentProject]);
 
     useEffect(() => {
         const fabricText: fabric.Textbox = new fabric.Textbox("text", {
