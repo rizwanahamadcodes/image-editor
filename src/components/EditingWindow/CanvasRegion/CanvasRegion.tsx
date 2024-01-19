@@ -14,7 +14,7 @@ const CanvasRegion = (props: CanvasRegionProps) => {
     }, [zoomLevel]);
 
     return (
-        <section className="bg-gray-100 grow overflow-auto grid place-items-center">
+        <section className="bg-gray-100 grow overflow-auto grid place-items-center shadow-inner">
             <Canvas zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
         </section>
     );
