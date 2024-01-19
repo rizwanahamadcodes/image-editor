@@ -1,6 +1,6 @@
 import { ToolBar } from "@/components/ToolBox/ToolBar";
 import { ToolProperties } from "@/components/ToolBox/ToolProperties";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import { IoIosList } from "react-icons/io";
 import { IoImage, IoShapesOutline, IoText } from "react-icons/io5";
@@ -39,6 +39,10 @@ const tools: ToolType[] = [
 export const ToolBox = (props: ToolBoxProps) => {
     const [activeTool, setActiveTool] = useState<ToolType>(tools[0]);
     const [showProperties, setShowProperties] = useState(true);
+
+    useEffect(() => {
+        setShowProperties(true);
+    }, [activeTool]);
 
     const {} = props;
 

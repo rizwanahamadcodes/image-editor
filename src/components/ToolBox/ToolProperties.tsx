@@ -26,10 +26,10 @@ export const ToolProperties = (props: ToolPropertiesProps) => {
 
     return (
         <div className="border-r border-r-gray-100 w-16 grow flex flex-col">
-            <h4 className="capitalize font-medium h-4 border-b border-b-gray-100 px-1.5 text-gray-700 flex items-center">
+            <h4 className="shrink-0 capitalize font-medium h-4 border-b border-b-gray-100 px-1.5 text-gray-700 flex items-center">
                 {activeTool.toolName}
             </h4>
-            <div className="p-1.5">{getToolProperties()}</div>
+            <div className="p-1 grow  overflow-auto">{getToolProperties()}</div>
         </div>
     );
 };

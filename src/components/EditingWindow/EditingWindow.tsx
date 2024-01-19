@@ -1,7 +1,7 @@
 import CanvasRegion from "@/components/EditingWindow/CanvasRegion/CanvasRegion";
 import { OptionsBar } from "@/components/EditingWindow/OptionsBar/OptionsBar";
 import StatusBar from "@/components/EditingWindow/StatusBar/StatusBar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type EditingWindowProps = {};
 
