@@ -8,18 +8,25 @@ const ImageProperties = (props: ImagePropertiesProps) => {
     const currentProject = useCurrentProject();
 
     return (
-        <div className="relative flex-col flex gap-0.5">
+        <>
+            {/* // <div className="relative flex-col flex gap-0.5"> */}
             {currentProject.images.map((imageUrl, index) => (
-                <div key={index} className="relative h-5">
+                <div key={index} className="relative">
                     <Image
-                        className="rounded-1 object-cover"
+                        draggable={true}
+                        onDragStart={() => {
+                            console.log("i was dragged on the streets");
+                        }}
+                        className="rounded-1"
                         src={imageUrl}
-                        fill
+                        width={30}
+                        height={300}
                         alt={imageUrl}
                     />
                 </div>
             ))}
-        </div>
+            {/* // </div> */}
+        </>
     );
 };
 

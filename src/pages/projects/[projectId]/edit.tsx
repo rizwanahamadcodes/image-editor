@@ -7,6 +7,7 @@ import { RootState } from "@/store/store";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { ProjectContext } from "./useCurrentProject";
+import EditingWindow from "@/components/EditingWIndow/EditingWindow";
 
 type EditProjectProps = {};
 
@@ -28,12 +29,7 @@ const EditProject = (props: EditProjectProps) => {
         <ProjectContext.Provider value={project}>
             <div className="flex grow">
                 <ToolBox />
-                <main className="flex grow flex-col">
-                    <OptionsBar />
-                    <section className="grow">
-                        <Canvas />
-                    </section>
-                </main>
+                <EditingWindow />
             </div>
         </ProjectContext.Provider>
     );
