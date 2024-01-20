@@ -9,10 +9,7 @@ import { ProjectContext } from "@/context/useCurrentProject";
 import { useEffect, useState } from "react";
 import { Project } from "@/data/projects";
 
-type EditProjectProps = {};
-
-const EditProject = (props: EditProjectProps) => {
-    const {} = props;
+const EditProject = () => {
     const router = useRouter();
     const projectIdString = router.query[paramConstants.PROJECTID] as string;
     const projectId = projectIdString ? parseInt(projectIdString) : undefined;
@@ -24,8 +21,8 @@ const EditProject = (props: EditProjectProps) => {
     });
 
     useEffect(() => {
-        setProject(projectFromGlobalState as Project);
-    }, []);
+        setProject(projectFromGlobalState);
+    }, [projectFromGlobalState]);
 
     if (!project) {
         return "The project was not found";

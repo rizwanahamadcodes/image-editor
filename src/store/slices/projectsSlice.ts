@@ -11,9 +11,15 @@ const projectsSlice = createSlice({
 });
 
 export const selectProjectById = (state: RootState, projectId: number) => {
-    return state.projects.find((project) => {
+    const foundProject = state.projects.find((project) => {
         return project.projectId === projectId;
     });
+
+    if (foundProject) {
+        return foundProject;
+    } else {
+        return null;
+    }
 };
 
 export const {} = projectsSlice.actions;

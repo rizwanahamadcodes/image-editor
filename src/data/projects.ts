@@ -22,6 +22,7 @@ export const projects: Project[] = [
             "/images/projects/thumbnails/thumbnail_1.jpg",
             "/images/projects/thumbnails/thumbnail_2.jpg",
             "/images/projects/thumbnails/thumbnail_3.jpg",
+            "/images/projects/thumbnails/thumbnail_4.jpg",
         ],
     },
     {
@@ -33,9 +34,9 @@ export const projects: Project[] = [
         canvasWidth: 400,
         listId: 2,
         images: [
-            "/images/projects/thumbnails/thumbnail_1.jpg",
-            "/images/projects/thumbnails/thumbnail_2.jpg",
-            "/images/projects/thumbnails/thumbnail_3.jpg",
+            "/images/projects/thumbnails/thumbnail_5.jpg",
+            "/images/projects/thumbnails/thumbnail_6.jpg",
+            "/images/projects/thumbnails/thumbnail_7.jpg",
         ],
     },
 ];
