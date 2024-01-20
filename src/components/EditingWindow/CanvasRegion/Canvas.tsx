@@ -1,3 +1,4 @@
+import { useCanvas } from "@/context/useCanvas";
 import { useCurrentProject } from "@/context/useCurrentProject";
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
@@ -10,7 +11,7 @@ type CanvasProps = {
 const Canvas = (props: CanvasProps) => {
     const { zoomLevel, setZoomLevel } = props;
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const [canvas, setCanvas] = useState<fabric.Canvas | null>(null);
+    const { canvas, setCanvas } = useCanvas();
     const { project, setProject } = useCurrentProject();
 
     useEffect(() => {
@@ -43,6 +44,7 @@ const Canvas = (props: CanvasProps) => {
         };
         if (!canvas) return;
         canvas.on("object:modified", addToCanvas);
+        canvas.on("object:added", addToCanvas);
     }, [canvas]);
 
     useEffect(() => {

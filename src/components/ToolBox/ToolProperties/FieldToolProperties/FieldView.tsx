@@ -1,7 +1,9 @@
+import { useCanvas } from "@/context/useCanvas";
 import { useCurrentProject } from "@/context/useCurrentProject";
 import { Project } from "@/data/projects";
 import { selectListByListId } from "@/store/slices/listsSlice";
 import { RootState } from "@/store/store";
+import { fabric } from "fabric";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 
@@ -10,12 +12,11 @@ type FieldViewProps = { listId: number };
 const FieldView = (props: FieldViewProps) => {
     const { listId } = props;
     const { project, setProject } = useCurrentProject();
+    const { canvas, setCanvas } = useCanvas();
 
-    console.log("Listdid in field bewo", listId);
     const list = useSelector((state: RootState) =>
         selectListByListId(state, listId)
     );
-    console.log("Listdid in field bewo", list);
 
     const handleSelectAnotherClick = () => {
         setProject({ ...project, listId: undefined });
@@ -24,6 +25,18 @@ const FieldView = (props: FieldViewProps) => {
     if (!list) {
         return "null";
     }
+
+    const addFieldToCanvas = (columnName: string) => {
+        const typeOfField = list.fieldTypes[columnName];
+        switch (typeOfField) {
+            case "textbox":
+                const fabricTextBox = new fabric.Textbox(columnName);
+                canvas?.add(fabricTextBox);
+                break;
+            default:
+                alert("invalid field type");
+        }
+    };
 
     return (
         <div className="flex flex-col gap-0.5">
@@ -39,7 +52,7 @@ const FieldView = (props: FieldViewProps) => {
                 {Object.keys(list.data[0]).map((columnName) => (
                     <p
                         onClick={() => {
-                            alert("i was clicked");
+                            addFieldToCanvas(columnName);
                         }}
                         key={columnName}
                         className="cursor-pointer hover:text-gray-700 hover:border-gray-400 p-0.75 border border-gray-200  rounded-1 text-gray-500 font-medium">

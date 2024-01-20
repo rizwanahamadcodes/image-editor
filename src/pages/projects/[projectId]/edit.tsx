@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { ProjectContext } from "@/context/useCurrentProject";
 import { useEffect, useState } from "react";
 import { Project } from "@/data/projects";
+import { CanvasContext } from "@/context/useCanvas";
 
 const EditProject = () => {
     const router = useRouter();
@@ -24,18 +25,23 @@ const EditProject = () => {
         setProject(projectFromGlobalState);
     }, [projectFromGlobalState]);
 
+    const [canvas, setCanvas] = useState<fabric.Canvas | null>(null);
+
     if (!project) {
         return "The project was not found";
     }
 
     return (
-        <ProjectContext.Provider
-            value={{ project: project, setProject: setProject }}>
-            <div className="overflow-y-auto flex grow">
-                <ToolBox />
-                <EditingWindow />
-            </div>
-        </ProjectContext.Provider>
+        <CanvasContext.Provider
+            value={{ canvas: canvas, setCanvas: setCanvas }}>
+            <ProjectContext.Provider
+                value={{ project: project, setProject: setProject }}>
+                <div className="overflow-y-auto flex grow">
+                    <ToolBox />
+                    <EditingWindow />
+                </div>
+            </ProjectContext.Provider>
+        </CanvasContext.Provider>
     );
 };
 export default EditProject;
