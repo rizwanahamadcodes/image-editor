@@ -1,3 +1,9 @@
+import { fabric } from "fabric";
+
+export type fieldObject = {
+    [key: string]: fabric.Object;
+};
+
 export type Project = {
     projectId: number;
     userId: number;
@@ -7,6 +13,7 @@ export type Project = {
     canvasWidth: number;
     listId?: number;
     images: string[];
+    canvasObjects: fabric.Object[];
 };
 
 export const projects: Project[] = [
@@ -24,6 +31,7 @@ export const projects: Project[] = [
             "/images/projects/thumbnails/thumbnail_3.jpg",
             "/images/projects/thumbnails/thumbnail_4.jpg",
         ],
+        canvasObjects: [],
     },
     {
         projectId: 2,
@@ -38,5 +46,6 @@ export const projects: Project[] = [
             "/images/projects/thumbnails/thumbnail_6.jpg",
             "/images/projects/thumbnails/thumbnail_7.jpg",
         ],
+        canvasObjects: [],
     },
 ];

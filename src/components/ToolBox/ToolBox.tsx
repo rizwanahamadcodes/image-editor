@@ -6,8 +6,6 @@ import { IconType } from "react-icons";
 import { IoIosList } from "react-icons/io";
 import { IoImage, IoShapesOutline, IoText } from "react-icons/io5";
 
-type ToolBoxProps = {};
-
 export type ToolType = {
     toolId: "images" | "fields" | "text" | "shapes";
     toolName: string;
@@ -37,15 +35,13 @@ const tools: ToolType[] = [
     },
 ];
 
-export const ToolBox = (props: ToolBoxProps) => {
+export const ToolBox = () => {
     const [activeTool, setActiveTool] = useState<ToolType>(tools[0]);
     const [showProperties, setShowProperties] = useState(true);
 
     useEffect(() => {
         setShowProperties(true);
     }, [activeTool]);
-
-    const {} = props;
 
     // toolbox width = toolbarwidth + toolproperties width
     // 20 = 4 + 16

@@ -19,15 +19,36 @@ const Canvas = (props: CanvasProps) => {
                 width: project.canvasWidth,
                 height: project.canvasHeight,
             });
+
+            const newCanvasBackground = new fabric.Rect({
+                width: project.canvasWidth,
+                height: project.canvasHeight,
+                selectable: false,
+                hasControls: false,
+                fill: "#fff",
+            });
+
+            newCanvas.add(newCanvasBackground);
             setCanvas(newCanvas);
         }
-    }, [project]);
+    }, [project.canvasHeight, project.canvasWidth]);
+
+    useEffect(() => {
+        const addToCanvas = () => {
+            if (!canvas) {
+                return;
+            }
+
+            setProject({ ...project, canvasObjects: canvas.getObjects() });
+        };
+        if (!canvas) return;
+        canvas.on("object:modified", addToCanvas);
+    }, [canvas]);
 
     useEffect(() => {
         canvas?.setZoom(zoomLevel);
         canvas?.setHeight(project.canvasHeight * zoomLevel);
         canvas?.setWidth(project.canvasWidth * zoomLevel);
-        console.log("i was run");
     }, [zoomLevel, canvas, project]);
 
     useEffect(() => {
@@ -40,9 +61,12 @@ const Canvas = (props: CanvasProps) => {
             top: 0,
             fill: "#000",
         });
-
         canvas?.add(fabricText);
     }, [canvas]);
+
+    useEffect(() => {
+        console.log(project);
+    }, [project]);
 
     return (
         <canvas

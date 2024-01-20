@@ -1,6 +1,6 @@
 import { ToolType } from "@/components/ToolBox/ToolBox";
-import FieldProperties from "@/components/ToolBox/ToolProperties/FieldToolProperties/FieldToolProperties";
-import ImageProperties from "@/components/ToolBox/ToolProperties/ImageToolProperties";
+import FieldToolProperties from "@/components/ToolBox/ToolProperties/FieldToolProperties/FieldToolProperties";
+import ImageToolProperties from "@/components/ToolBox/ToolProperties/ImageToolProperties";
 import clsx from "clsx";
 
 type ToolPropertiesProps = {
@@ -14,11 +14,11 @@ export const ToolProperties = (props: ToolPropertiesProps) => {
     const getToolProperties = () => {
         switch (activeTool.toolId) {
             case "images":
-                return <ImageProperties />;
+                return <ImageToolProperties />;
             case "text":
                 return <p>Text Properties</p>;
             case "fields":
-                return <FieldProperties />;
+                return <FieldToolProperties />;
             case "shapes":
                 return <p>Shapes properties</p>;
             default:

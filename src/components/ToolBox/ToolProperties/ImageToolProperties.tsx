@@ -3,7 +3,7 @@ import Image from "next/image";
 
 type ImagePropertiesProps = {};
 
-const ImageProperties = (props: ImagePropertiesProps) => {
+const ImageToolProperties = (props: ImagePropertiesProps) => {
     const {} = props;
     const { project, setProject } = useCurrentProject();
 
@@ -28,4 +28,4 @@ const ImageProperties = (props: ImagePropertiesProps) => {
     );
 };
 
-export default ImageProperties;
+export default ImageToolProperties;

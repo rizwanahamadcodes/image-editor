@@ -38,6 +38,9 @@ const FieldView = (props: FieldViewProps) => {
             <div className="flex flex-wrap gap-0.5">
                 {Object.keys(list.data[0]).map((columnName) => (
                     <p
+                        onClick={() => {
+                            alert("i was clicked");
+                        }}
                         key={columnName}
                         className="cursor-pointer hover:text-gray-700 hover:border-gray-400 p-0.75 border border-gray-200  rounded-1 text-gray-500 font-medium">
                         {columnName}
