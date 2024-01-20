@@ -5,7 +5,7 @@ export type Project = {
     thumbnailUrl: string;
     canvasHeight: number;
     canvasWidth: number;
-    listId: number;
+    listId?: number;
     images: string[];
 };
 

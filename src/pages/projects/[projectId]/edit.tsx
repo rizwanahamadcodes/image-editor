@@ -6,6 +6,8 @@ import { RootState } from "@/store/store";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { ProjectContext } from "@/context/useCurrentProject";
+import { useEffect, useState } from "react";
+import { Project } from "@/data/projects";
 
 type EditProjectProps = {};
 
@@ -15,16 +17,23 @@ const EditProject = (props: EditProjectProps) => {
     const projectIdString = router.query[paramConstants.PROJECTID] as string;
     const projectId = projectIdString ? parseInt(projectIdString) : undefined;
 
-    const project = useSelector((state: RootState) => {
+    const [project, setProject] = useState<Project | null>(null);
+
+    const projectFromGlobalState = useSelector((state: RootState) => {
         return selectProjectById(state, projectId as number);
     });
+
+    useEffect(() => {
+        setProject(projectFromGlobalState as Project);
+    }, []);
 
     if (!project) {
         return "The project was not found";
     }
 
     return (
-        <ProjectContext.Provider value={project}>
+        <ProjectContext.Provider
+            value={{ project: project, setProject: setProject }}>
             <div className="overflow-y-auto flex grow">
                 <ToolBox />
                 <EditingWindow />

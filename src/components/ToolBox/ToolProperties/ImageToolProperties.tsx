@@ -5,11 +5,11 @@ type ImagePropertiesProps = {};
 
 const ImageProperties = (props: ImagePropertiesProps) => {
     const {} = props;
-    const currentProject = useCurrentProject();
+    const { project, setProject } = useCurrentProject();
 
     return (
         <div className="relative flex-col flex gap-0.5">
-            {currentProject.images.map((imageUrl, index) => (
+            {project.images.map((imageUrl, index) => (
                 <div key={index} className="relative">
                     <Image
                         draggable={true}

@@ -1,6 +1,6 @@
 import { ToolType } from "@/components/ToolBox/ToolBox";
-import FieldProperties from "./FieldProperties";
-import ImageProperties from "./ImageProperties";
+import FieldProperties from "@/components/ToolBox/ToolProperties/FieldToolProperties/FieldToolProperties";
+import ImageProperties from "@/components/ToolBox/ToolProperties/ImageToolProperties";
 import clsx from "clsx";
 
 type ToolPropertiesProps = {

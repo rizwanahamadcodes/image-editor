@@ -11,24 +11,24 @@ const Canvas = (props: CanvasProps) => {
     const { zoomLevel, setZoomLevel } = props;
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [canvas, setCanvas] = useState<fabric.Canvas | null>(null);
-    const currentProject = useCurrentProject();
+    const { project, setProject } = useCurrentProject();
 
     useEffect(() => {
         if (canvasRef.current) {
             const newCanvas = new fabric.Canvas(canvasRef.current, {
-                width: currentProject.canvasWidth,
-                height: currentProject.canvasHeight,
+                width: project.canvasWidth,
+                height: project.canvasHeight,
             });
             setCanvas(newCanvas);
         }
-    }, [currentProject]);
+    }, [project]);
 
     useEffect(() => {
         canvas?.setZoom(zoomLevel);
-        canvas?.setHeight(currentProject.canvasHeight * zoomLevel);
-        canvas?.setWidth(currentProject.canvasWidth * zoomLevel);
+        canvas?.setHeight(project.canvasHeight * zoomLevel);
+        canvas?.setWidth(project.canvasWidth * zoomLevel);
         console.log("i was run");
-    }, [zoomLevel, canvas, currentProject]);
+    }, [zoomLevel, canvas, project]);
 
     useEffect(() => {
         const fabricText: fabric.Textbox = new fabric.Textbox("text", {

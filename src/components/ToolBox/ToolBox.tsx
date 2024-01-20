@@ -1,5 +1,5 @@
-import { ToolBar } from "@/components/ToolBox/ToolBar";
-import { ToolProperties } from "@/components/ToolBox/ToolProperties";
+import { ToolBar } from "@/components/ToolBox/ToolBar/ToolBar";
+import { ToolProperties } from "@/components/ToolBox/ToolProperties/ToolProperties";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { IconType } from "react-icons";

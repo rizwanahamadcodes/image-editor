@@ -13,6 +13,9 @@ const listsSlice = createSlice({
 export const selectListByUserId = (state: RootState, userId: number) => {
     return state.lists.filter((list) => list.userId === userId);
 };
+export const selectListByListId = (state: RootState, listId: number) => {
+    return state.lists.find((list) => list.listId === listId);
+};
 
 export const {} = listsSlice.actions;
 export default listsSlice.reducer;
