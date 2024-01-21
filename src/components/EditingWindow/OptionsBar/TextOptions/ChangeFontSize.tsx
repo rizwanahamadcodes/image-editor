@@ -1,19 +1,14 @@
 import { useCanvas } from "@/context/useCanvas";
 import { useEffect, useState } from "react";
 
-type ChangeFontSizeProps = {};
+type ChangeFontSizeProps = {
+    initialFontSize: number;
+};
 
 const ChangeFontSize = (props: ChangeFontSizeProps) => {
-    const {} = props;
+    const { initialFontSize } = props;
     const { canvas } = useCanvas();
-    const [fontSize, setFontSize] = useState(0);
-
-    useEffect(() => {
-        const activeObject = canvas?.getActiveObject() as fabric.Textbox;
-        if (activeObject) {
-            setFontSize(activeObject.get("fontSize") || 0);
-        }
-    }, []);
+    const [fontSize, setFontSize] = useState(initialFontSize);
 
     useEffect(() => {
         const activeObject = canvas?.getActiveObject() as fabric.Textbox;

@@ -1,115 +1,60 @@
+import ChangeFontSize from "@/components/EditingWindow/OptionsBar/TextOptions/ChangeFontSize";
 import { useCanvas } from "@/context/useCanvas";
 import { FontFamily, fontFamilies } from "@/data/fontFamilies";
 import { fabric } from "fabric";
 import { useEffect, useState } from "react";
 import Select from "react-select";
-import ChangeFontSize from "@/components/EditingWindow/OptionsBar/TextOptions/ChangeFontSize";
 
-const TextOptions = () => {
-    const [activeObjectProperties, setActiveObjectProperties] = useState<{
-        fontFamily: FontFamily | null;
-        fontSize: number;
-    }>({
-        fontFamily: fontFamilies[0],
-        fontSize: 12,
-    });
+type TextOptionsProps = {
+    initialFontFamily: FontFamily;
+    initialFontSize: number;
+};
+
+const TextOptions = (props: TextOptionsProps) => {
+    const { initialFontFamily, initialFontSize } = props;
+    const [selectedFontFamily, setSelectedFontFamily] =
+        useState<FontFamily>(initialFontFamily);
 
     const { canvas } = useCanvas();
 
-    const getFontFamilyFromFontName = (fontName: string) => {
-        return fontFamilies.find((fontFamily) => fontFamily.value === fontName);
-    };
-
-    const getFontFamily = () => {
-        if (canvas) {
-            const activeObject = canvas.getActiveObject();
-            if (activeObject?.isType("textbox")) {
-                const activeTextObject = activeObject as fabric.Textbox;
-                const fontName = activeTextObject.get("fontFamily");
-                if (fontName) {
-                    return getFontFamilyFromFontName(fontName);
-                }
-            }
-        }
-    };
-
-    useEffect(() => {
-        const setActiveObjectFontFamily = (
-            activeTextObject: fabric.Textbox
-        ) => {
-            const fontName = activeTextObject.get("fontFamily");
-            if (fontName) {
-                const fontFamily = getFontFamilyFromFontName(fontName);
-                if (fontFamily) {
-                    setActiveObjectProperties((prevProperties) => ({
-                        ...prevProperties,
-                        fontFamily: fontFamily,
-                    }));
-                    console.log(fontFamily, activeObjectProperties.fontFamily);
-                }
-            }
-        };
-        const setActiveObjectFontSize = (activeTextObject: fabric.Textbox) => {
-            const fontSize = activeTextObject.get("fontSize");
-            if (fontSize) {
-                setActiveObjectProperties((prevProperties) => ({
-                    ...prevProperties,
-                    fontSize: fontSize,
-                }));
-            }
-        };
-
-        if (canvas) {
-            const activeObject = canvas.getActiveObject();
-
-            if (activeObject?.isType("textbox")) {
-                const activeTextObject = activeObject as fabric.Textbox;
-                setActiveObjectFontFamily(activeTextObject);
-                setActiveObjectFontSize(activeTextObject);
-            }
-        }
-    }, []);
-
-    useEffect(() => {
+    const setFontFamily = (fontFamily: FontFamily) => {
         //  it is important to import the WebFont here inline otherwise app breaks with window not defined error even if it's a client component
-        const activeFontFamily = activeObjectProperties.fontFamily;
-        if (activeFontFamily) {
-            const WebFont = require("webfontloader");
-            WebFont.load({
-                google: {
-                    families: [activeFontFamily.value],
-                },
-                active: () => {
-                    (canvas?.getActiveObject() as fabric.Textbox).set(
-                        "fontFamily",
-                        activeFontFamily.value
-                    );
-                    (
-                        canvas?.getActiveObject() as fabric.Textbox
-                    ).canvas?.renderAll();
-                },
-            });
-        }
+        const WebFont = require("webfontloader");
+        WebFont.load({
+            google: {
+                families: [fontFamily.value],
+            },
+            active: () => {
+                (canvas?.getActiveObject() as fabric.Textbox).set(
+                    "fontFamily",
+                    fontFamily.value
+                );
+                (
+                    canvas?.getActiveObject() as fabric.Textbox
+                ).canvas?.renderAll();
+            },
+        });
+        setSelectedFontFamily(fontFamily);
+    };
 
-        console.log(activeObjectProperties.fontFamily);
-    }, [activeObjectProperties.fontFamily]);
+    useEffect(() => {
+        setSelectedFontFamily(initialFontFamily);
+    }, [initialFontFamily]);
 
     return (
         <div className="flex gap-1">
             <Select
                 options={fontFamilies}
+                value={selectedFontFamily}
                 className="min-w-10 h-2.25"
                 onChange={(option) => {
                     if (!option) return;
-                    setActiveObjectProperties({
-                        ...activeObjectProperties,
-                        fontFamily: option,
-                    });
+                    setFontFamily(option);
                 }}
-                defaultValue={getFontFamily()}
+                defaultValue={initialFontFamily}
             />
-            {activeObjectProperties.fontSize}
-            <ChangeFontSize />
+            {initialFontSize}
+            <ChangeFontSize initialFontSize={initialFontSize} />
         </div>
     );
 };
