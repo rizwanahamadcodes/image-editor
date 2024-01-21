@@ -4,6 +4,7 @@ import { Project } from "@/data/projects";
 import { selectListByListId } from "@/store/slices/listsSlice";
 import { RootState } from "@/store/store";
 import { fabric } from "fabric";
+import Image from "next/image";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 
@@ -33,8 +34,19 @@ const FieldView = (props: FieldViewProps) => {
                 const fabricTextBox = new fabric.Textbox(columnName);
                 canvas?.add(fabricTextBox);
                 break;
+            case "image":
+                fabric.Image.fromURL("/images/lists/default.jpg", (img) => {
+                    img.scaleToWidth(200);
+
+                    img.set({
+                        left: 0,
+                        top: 0,
+                    });
+                    canvas?.add(img);
+                });
+                break;
             default:
-                alert("invalid field type");
+                alert("unknow field type");
         }
     };
 
@@ -49,16 +61,42 @@ const FieldView = (props: FieldViewProps) => {
                 Click to add to the project
             </h4>
             <div className="flex flex-wrap gap-0.5">
-                {Object.keys(list.data[0]).map((columnName) => (
-                    <p
-                        onClick={() => {
-                            addFieldToCanvas(columnName);
-                        }}
-                        key={columnName}
-                        className="cursor-pointer hover:text-gray-700 hover:border-gray-400 p-0.75 border border-gray-200  rounded-1 text-gray-500 font-medium">
-                        {columnName}
-                    </p>
-                ))}
+                {Object.keys(list.data[0]).map((columnName) => {
+                    const typeOfField = list.fieldTypes[columnName];
+
+                    switch (typeOfField) {
+                        case "textbox":
+                            return (
+                                <p
+                                    onClick={() => {
+                                        addFieldToCanvas(columnName);
+                                    }}
+                                    key={columnName}
+                                    className="cursor-pointer hover:text-gray-700 hover:border-gray-400 p-0.75 border border-gray-200  rounded-1 text-gray-500 font-medium">
+                                    {columnName}
+                                </p>
+                            );
+                            break;
+                        case "image":
+                            return (
+                                <div
+                                    onClick={() => {
+                                        addFieldToCanvas(columnName);
+                                    }}
+                                    key={columnName}
+                                    className="cursor-pointer flex overflow-hidden items-center gap-0.5 pr-0.75 hover:text-gray-700 hover:border-gray-400 border border-gray-200  rounded-1 text-gray-500 font-medium">
+                                    <Image
+                                        src={"/images/lists/default.jpg"}
+                                        className="h-3 w-3 object-cover"
+                                        height={100}
+                                        width={100}
+                                        alt="Default image"
+                                    />
+                                    {columnName}
+                                </div>
+                            );
+                    }
+                })}
             </div>
         </div>
     );

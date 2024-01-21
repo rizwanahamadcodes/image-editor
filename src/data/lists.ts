@@ -113,7 +113,7 @@ export const employeesData = [
 export const employeesFieldTypes: FieldTypesType = {
     employeeId: "textbox",
     name: "textbox",
-    position: "textbox",
+    position: "image",
     department: "textbox",
 };
 
