@@ -53,23 +53,6 @@ const Canvas = (props: CanvasProps) => {
         canvas?.setWidth(project.canvasWidth * zoomLevel);
     }, [zoomLevel, canvas, project]);
 
-    useEffect(() => {
-        const fabricText: fabric.Textbox = new fabric.Textbox("text", {
-            fontSize: 30,
-            fontFamily: "Arial",
-            editable: false,
-            charSpacing: 1000,
-            left: 0,
-            top: 0,
-            fill: "#000",
-        });
-        canvas?.add(fabricText);
-    }, [canvas]);
-
-    // useEffect(() => {
-    //     console.log(project);
-    // }, [project]);
-
     return (
         <canvas
             className="shrink-0 shadow-md shadow-black/[0.03]"
