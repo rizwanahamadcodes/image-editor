@@ -1,6 +1,6 @@
 import { FullWidthContainer } from "@/components/Container";
-import { useEffect, useState } from "react";
-
+import FitToScreen from "@/components/EditingWindow/StatusBar/FitToScreen";
+import ZoomSlider from "@/components/EditingWindow/StatusBar/ZoomSlider";
 type StatusBarProps = {
     zoomLevel: number;
     setZoomLevel: React.Dispatch<React.SetStateAction<number>>;
@@ -9,56 +9,15 @@ type StatusBarProps = {
 const StatusBar = (props: StatusBarProps) => {
     const { zoomLevel, setZoomLevel } = props;
 
-    const getZoomFromRange = (range: number) => {
-        if (range <= 50) {
-            return ((18 / 10) * range + 10) / 100;
-        } else {
-            return (8 * range - 300) / 100;
-        }
-    };
-    const getRangeFromZoom = (zoom: number) => {
-        const scaledZoom = zoom * 100;
-
-        if (scaledZoom <= 100) {
-            return (5 / 9) * scaledZoom - 50 / 9;
-        } else {
-            return (1 / 8) * scaledZoom + 75 / 2;
-        }
-    };
-
     return (
         <div className="h-4 shrink-0">
-            <FullWidthContainer>
-                <input
-                    onChange={(e) => {
-                        setZoomLevel(
-                            getZoomFromRange(parseInt(e.target.value))
-                        );
-                    }}
-                    type="range"
-                    className="border-none outline-none accent-gray-700 h-0.25 bg-gray-100"
-                    min={0}
-                    max={100}
-                    value={getRangeFromZoom(zoomLevel)}
+            <FullWidthContainer className="flex gap-1 justify-end h-full items-center">
+                <FitToScreen
+                    zoomLevel={zoomLevel}
+                    setZoomLevel={setZoomLevel}
+                    className="shrink-0"
                 />
-                <button
-                    onClick={() => {
-                        setZoomLevel((prevZoom) => prevZoom - 0.1);
-                    }}>
-                    Zoom out
-                </button>
-                <button
-                    onClick={() => {
-                        setZoomLevel(1);
-                    }}>
-                    Snap to 100
-                </button>
-                <button
-                    onClick={() => {
-                        setZoomLevel((prevZoom) => prevZoom + 0.1);
-                    }}>
-                    Zoom in
-                </button>
+                <ZoomSlider zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
             </FullWidthContainer>
         </div>
     );

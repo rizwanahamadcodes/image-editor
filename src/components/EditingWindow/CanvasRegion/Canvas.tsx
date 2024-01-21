@@ -66,9 +66,9 @@ const Canvas = (props: CanvasProps) => {
         canvas?.add(fabricText);
     }, [canvas]);
 
-    useEffect(() => {
-        console.log(project);
-    }, [project]);
+    // useEffect(() => {
+    //     console.log(project);
+    // }, [project]);
 
     return (
         <canvas

@@ -9,3 +9,46 @@ body {
 #__next {
     @apply min-h-screen;
 }
+
+/* styles taken from https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/ */
+
+/********** Range Input Styles **********/
+/*Range Reset*/
+input[type="range"] {
+    @apply appearance-none bg-transparent cursor-pointer grow min-w-0 max-w-10;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+    @apply outline-none;
+}
+
+/***** Chrome, Safari, Opera and Edge Chromium styles *****/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+    @apply bg-gray-100 rounded-full h-0.25;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+    @apply appearance-none bg-gray-500 h-1 w-1 rounded-full -mt-0.375;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+    @apply bg-gray-700;
+}
+
+/******** Firefox styles ********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+    @apply bg-gray-100 rounded-full h-0.25;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+    @apply appearance-none bg-gray-500 h-1 w-1 rounded-full -mt-0.375 border-none;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+    @apply bg-gray-700;
+}
