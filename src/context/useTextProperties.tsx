@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { TextProperties } from "@/components/EditingWindow/OptionsBar/TextOptions/TextOptions";
+import { TextProperties } from "@/components/EditingWindow/PropertiesBar/TextProperties/TextProperties";
 
 type TextPropertiesContextType = {
     textProperties: TextProperties;
