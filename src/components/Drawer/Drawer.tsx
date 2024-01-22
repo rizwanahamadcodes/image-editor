@@ -19,11 +19,7 @@ const Drawer = (props: DrawerProps) => {
     return (
         <DrawerContext.Provider value={{ isOpen, open, close, toggle }}>
             <DrawerWrapper>
-                <DrawerMain>
-                    <DrawerDefaultHead />
-                    <DrawerBody>{children}</DrawerBody>
-                    <DrawerFoot>Foot</DrawerFoot>
-                </DrawerMain>
+                <DrawerMain>{children}</DrawerMain>
             </DrawerWrapper>
         </DrawerContext.Provider>
     );
