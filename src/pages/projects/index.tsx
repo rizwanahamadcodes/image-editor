@@ -17,8 +17,6 @@ const DashboardProjects = (props: DashboardProjectsProps) => {
         (project) => project.userId === currentUser.userId
     );
 
-    console.log(activeProjects);
-
     return (
         <Section>
             <FullWidthContainer>

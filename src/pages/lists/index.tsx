@@ -15,7 +15,6 @@ const Lists = (props: ListsProps) => {
     const activeLists = lists.filter(
         (list) => list.userId === currentUser.userId
     );
-    console.log(activeLists);
 
     return (
         <Section>

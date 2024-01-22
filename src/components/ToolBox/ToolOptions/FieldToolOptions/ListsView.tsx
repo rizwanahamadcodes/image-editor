@@ -19,7 +19,6 @@ const ListsView = (props: ListsViewProps) => {
 
     const handleListClick = (listId: number) => {
         setProject({ ...project, listId: listId });
-        console.log("i was ran");
     };
 
     return (

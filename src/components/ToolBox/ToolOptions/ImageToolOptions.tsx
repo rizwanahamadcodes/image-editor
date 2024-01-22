@@ -12,10 +12,6 @@ const ImageToolOptions = (props: ImageOptionsProps) => {
             {project.images.map((imageUrl, index) => (
                 <div key={index} className="relative">
                     <Image
-                        draggable={true}
-                        onDragStart={() => {
-                            console.log("i was dragged on the streets");
-                        }}
                         className="rounded-1"
                         src={imageUrl}
                         width={300}
