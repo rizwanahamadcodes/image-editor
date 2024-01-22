@@ -1,5 +1,5 @@
-import FontFamilySelector from "@/components/EditingWindow/OptionsBar/TextOptions/FontFamilySelector";
-import FontSizeChanger from "@/components/EditingWindow/OptionsBar/TextOptions/FontSizeChanger";
+import FontFamilySelector from "@/components/EditingWindow/PropertiesBar/TextProperties/FontFamilySelector";
+import FontSizeChanger from "@/components/EditingWindow/PropertiesBar/TextProperties/FontSizeChanger";
 import { TextPropertiesContext } from "@/context/useTextProperties";
 import { FontFamily, fontFamilies } from "@/data/fontFamilies";
 import { fabric } from "fabric";
@@ -16,11 +16,11 @@ export type TextProperties = {
     isItalic: boolean;
 };
 
-type TextOptionsProps = {
+type TextPropertiesProps = {
     activeTextObject: fabric.Textbox;
 };
 
-const TextOptions = (props: TextOptionsProps) => {
+const TextProperties = (props: TextPropertiesProps) => {
     const { activeTextObject } = props;
     const [textProperties, setTextProperties] = useState<TextProperties>({
         fontFamily: fontFamilies[0],
@@ -81,4 +81,4 @@ const TextOptions = (props: TextOptionsProps) => {
     );
 };
 
-export default TextOptions;
+export default TextProperties;

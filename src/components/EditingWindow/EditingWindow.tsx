@@ -1,5 +1,5 @@
 import CanvasRegion from "@/components/EditingWindow/CanvasRegion/CanvasRegion";
-import { OptionsBar } from "@/components/EditingWindow/OptionsBar/OptionsBar";
+import { PropertiesBar } from "@/components/EditingWindow/PropertiesBar/PropertiesBar";
 import StatusBar from "@/components/EditingWindow/StatusBar/StatusBar";
 import { useState } from "react";
 
@@ -11,7 +11,7 @@ const EditingWindow = (props: EditingWindowProps) => {
 
     return (
         <main className="flex overflow-auto grow flex-col">
-            <OptionsBar />
+            <PropertiesBar />
             <CanvasRegion zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
             <StatusBar zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
         </main>
