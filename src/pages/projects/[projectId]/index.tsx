@@ -1,4 +1,3 @@
-import DashboardLayout from "@/Layouts/DashboardLayout";
 import { FullWidthContainer } from "@/components/Container";
 import Section, { SectionTitle } from "@/components/Section/Section";
 import { projects } from "@/data/projects";
@@ -40,7 +39,5 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
         </Section>
     );
 };
-
-ProjectDetails.getLayout = DashboardLayout;
 
 export default ProjectDetails;

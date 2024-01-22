@@ -12,8 +12,9 @@ import { useRef } from "react";
 type NavbarProps = {};
 
 const navbarNavLinks: PathConstant[] = [
-    { label: "H", path: pathConstants.HOME.path },
-    { label: "D", path: pathConstants.DASHBOARD.path },
+    { label: "Home", path: pathConstants.HOME.path },
+    { label: "Projects", path: pathConstants.PROJECTS.path },
+    { label: "Lists", path: pathConstants.LISTS.path },
 ];
 
 const Navbar = (props: NavbarProps) => {
@@ -22,14 +23,13 @@ const Navbar = (props: NavbarProps) => {
     const hamburgerRef = useRef<HTMLDivElement | null>(null);
 
     return (
-        <nav className="h-navHeight border-b border-b-gray-100">
+        <nav className="h-navHeight shrink-0 border-b border-b-gray-100">
             <Container className="flex justify-between h-full items-center gap-1">
                 <BrandLogo />
                 <NavMenuWithTabIndicator
                     navLinks={navbarNavLinks}
                     className="ml-auto hidden sm:flex"
                 />
-                <User />
                 <Drawer
                     open={open}
                     isOpen={isOpen}

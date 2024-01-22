@@ -1,4 +1,4 @@
-import RootLayout from "@/Layouts/RootLayout";
+import RootLayout from "@/layouts/RootLayout";
 import { User } from "@/data/users";
 import "@/styles/globals.css";
 import type { NextComponentType, NextPage, NextPageContext } from "next";
