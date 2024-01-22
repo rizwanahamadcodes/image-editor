@@ -1,13 +1,11 @@
+import { CurrentUserContext } from "@/context/useCurrentUser";
 import RootLayout from "@/layouts/RootLayout";
-import { User } from "@/data/users";
+import { store } from "@/store/store";
 import "@/styles/globals.css";
 import type { NextComponentType, NextPage, NextPageContext } from "next";
 import type { AppProps } from "next/app";
 import { type ReactElement, type ReactNode } from "react";
-import { createContext } from "react";
-import { CurrentUserContext } from "@/context/useCurrentUser";
 import { Provider } from "react-redux";
-import { store } from "@/store/store";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode;
