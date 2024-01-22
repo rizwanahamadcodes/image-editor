@@ -1,21 +1,12 @@
-import ChangeFontSize from "@/components/EditingWindow/OptionsBar/TextOptions/ChangeFontSize";
-import { useCanvas } from "@/context/useCanvas";
+import FontFamilySelector from "@/components/EditingWindow/OptionsBar/TextOptions/FontFamilySelector";
+import FontSizeChanger from "@/components/EditingWindow/OptionsBar/TextOptions/FontSizeChanger";
+import { TextPropertiesContext } from "@/context/useTextProperties";
 import { FontFamily, fontFamilies } from "@/data/fontFamilies";
 import { fabric } from "fabric";
-import { useEffect, useState } from "react";
-import Select from "react-select";
-import { BiBold } from "react-icons/bi";
-import { RiItalic } from "react-icons/ri";
 import { Gradient, Pattern } from "fabric/fabric-impl";
-import clsx from "clsx";
-
-type TextOptionsProps = {
-    initialFontFamily: FontFamily;
-    initialFontSize: number;
-    color?: string | Pattern | Gradient;
-    isBold: boolean;
-    isItalic: boolean;
-};
+import { useEffect, useState } from "react";
+import BoldToggle from "./BoldToggle";
+import ItalicToggle from "./ItalicToggle";
 
 export type TextProperties = {
     fontFamily: FontFamily;
@@ -25,126 +16,68 @@ export type TextProperties = {
     isItalic: boolean;
 };
 
+type TextOptionsProps = {
+    activeTextObject: fabric.Textbox;
+};
+
 const TextOptions = (props: TextOptionsProps) => {
-    const { initialFontFamily, initialFontSize, color, isBold, isItalic } =
-        props;
+    const { activeTextObject } = props;
     const [textProperties, setTextProperties] = useState<TextProperties>({
-        fontFamily: initialFontFamily,
-        fontSize: initialFontSize,
-        color: color,
-        isBold: isBold,
-        isItalic: isItalic,
+        fontFamily: fontFamilies[0],
+        fontSize: 12,
+        color: "#000",
+        isBold: false,
+        isItalic: false,
     });
 
-    const { canvas } = useCanvas();
-
-    const setFontFamily = (fontFamily: FontFamily) => {
-        //  it is important to import the WebFont here inline otherwise app breaks with window not defined error even if it's a client component
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
-
-        const activeTextObject = activeObject as fabric.Textbox;
-        const WebFont = require("webfontloader");
-        WebFont.load({
-            google: {
-                families: [fontFamily.value],
-            },
-
-            active: () => {
-                activeTextObject.set("fontFamily", fontFamily.value);
-                canvas?.renderAll();
-            },
-        });
-        setTextProperties({ ...textProperties, fontFamily: fontFamily });
-    };
-
     useEffect(() => {
-        setTextProperties({
-            ...textProperties,
-            fontFamily: initialFontFamily,
-            fontSize: initialFontSize,
-            color: color,
-            isBold: isBold,
-            isItalic: isItalic,
-        });
-    }, [initialFontFamily, initialFontSize, color, isBold, isItalic]);
+        const updateTextProperties = () => {
+            const fontName = activeTextObject.get("fontFamily");
 
-    const toggleBold = () => {
-        setTextProperties({
-            ...textProperties,
-            isBold: !textProperties.isBold,
-        });
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
-        const activeTextObject = activeObject as fabric.Textbox;
-        if (activeTextObject.get("fontWeight") === "bold") {
-            activeTextObject.set("fontWeight", "normal");
-        } else {
-            activeTextObject.set("fontWeight", "bold");
-        }
-        canvas?.renderAll();
-    };
-    const toggleItalic = () => {
-        setTextProperties({
-            ...textProperties,
-            isItalic: !textProperties.isItalic,
-        });
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
-        const activeTextObject = activeObject as fabric.Textbox;
+            let fontFamily = fontFamilies[0];
 
-        if (activeTextObject.get("fontStyle") === "italic") {
-            activeTextObject.set("fontStyle", "normal");
-        } else {
-            activeTextObject.set("fontStyle", "italic");
-        }
-        canvas?.renderAll();
-    };
+            if (fontName) {
+                const foundFontFamily = fontFamilies.find(
+                    (fontFamilyInList) => fontFamilyInList.value === fontName
+                );
+
+                if (foundFontFamily) {
+                    fontFamily = foundFontFamily;
+                }
+            }
+
+            const fontSize = activeTextObject.get("fontSize");
+            const color = activeTextObject.get("fill");
+            const isBold = activeTextObject.get("fontWeight") === "bold";
+            const isItalic = activeTextObject.get("fontStyle") === "italic";
+
+            setTextProperties((prevTextProperties) => {
+                return {
+                    ...prevTextProperties,
+                    fontFamily: fontFamily,
+                    fontSize: fontSize || 12,
+                    color: color,
+                    isBold: isBold,
+                    isItalic: isItalic,
+                };
+            });
+        };
+        updateTextProperties();
+    }, [activeTextObject]);
 
     return (
-        <div className="flex gap-1">
-            <Select
-                options={fontFamilies}
-                value={textProperties.fontFamily}
-                className="w-10 h-2.25"
-                onChange={(option) => {
-                    if (!option) return;
-                    setFontFamily(option);
-                }}
-                defaultValue={textProperties.fontFamily}
-            />
-            <ChangeFontSize
-                textProperties={textProperties}
-                setTextProperties={setTextProperties}
-                initialFontSize={initialFontSize}
-            />
-            <button
-                onClick={toggleBold}
-                className={clsx(
-                    "border border-gray-200 rounded-0.25 px-0.25",
-                    textProperties.isBold
-                        ? "bg-gray-100 border-gray-300 text-gray-600"
-                        : ""
-                )}>
-                <BiBold className="text-1.5" />
-            </button>
-            <button
-                onClick={toggleItalic}
-                className={clsx(
-                    "border border-gray-200 rounded-0.25 px-0.25",
-                    textProperties.isItalic
-                        ? "bg-gray-100 border-gray-300 text-gray-600"
-                        : ""
-                )}>
-                <RiItalic className="text-1.5" />
-            </button>
-        </div>
+        <TextPropertiesContext.Provider
+            value={{
+                textProperties: textProperties,
+                setTextProperties: setTextProperties,
+            }}>
+            <div className="flex gap-1">
+                <FontFamilySelector />
+                <FontSizeChanger />
+                <BoldToggle />
+                <ItalicToggle />
+            </div>
+        </TextPropertiesContext.Provider>
     );
 };
 

@@ -1,23 +1,11 @@
 import { useCanvas } from "@/context/useCanvas";
-import { FontFamily } from "@/data/fontFamilies";
-import { useEffect } from "react";
-import { TextProperties } from "@/components/EditingWindow/OptionsBar/TextOptions/TextOptions";
+import { useTextProperties } from "@/context/useTextProperties";
 
-type ChangeFontSizeProps = {
-    textProperties: TextProperties;
-    setTextProperties: React.Dispatch<React.SetStateAction<TextProperties>>;
-    initialFontSize: number;
-};
+type FontSizeChangerProps = {};
 
-const ChangeFontSize = (props: ChangeFontSizeProps) => {
-    const { initialFontSize, textProperties, setTextProperties } = props;
+const FontSizeChanger = (props: FontSizeChangerProps) => {
+    const { textProperties, setTextProperties } = useTextProperties();
     const { canvas } = useCanvas();
-
-    useEffect(() => {
-        setTextProperties((prev) => {
-            return { ...prev, fontSize: initialFontSize };
-        });
-    }, [initialFontSize]);
 
     const setFontSize = (fontSize: number) => {
         const activeObject = canvas?.getActiveObject();
@@ -59,4 +47,4 @@ const ChangeFontSize = (props: ChangeFontSizeProps) => {
     );
 };
 
-export default ChangeFontSize;
+export default FontSizeChanger;

@@ -1,14 +1,12 @@
 import { FullWidthContainer } from "@/components/Container";
+import TextOptions from "@/components/EditingWindow/OptionsBar/TextOptions/TextOptions";
 import { useCanvas } from "@/context/useCanvas";
 import { useEffect, useState } from "react";
-import Select from "react-select";
-import TextOptions from "@/components/EditingWindow/OptionsBar/TextOptions/TextOptions";
-import { fontFamilies } from "@/data/fontFamilies";
 
 type OptionsBarProps = {};
 export const OptionsBar = (props: OptionsBarProps) => {
     const {} = props;
-    const { canvas, setCanvas } = useCanvas();
+    const { canvas } = useCanvas();
     const [activeObject, setActiveObject] = useState<fabric.Object | null>(
         null
     );
@@ -37,36 +35,7 @@ export const OptionsBar = (props: OptionsBarProps) => {
             case "textbox":
                 {
                     const activeTextObject = activeObject as fabric.Textbox;
-                    const fontName = activeTextObject.get("fontFamily");
-
-                    let fontFamily = fontFamilies[0];
-
-                    if (fontName) {
-                        const foundFontFamily = fontFamilies.find(
-                            (fontFamilyInList) =>
-                                fontFamilyInList.value === fontName
-                        );
-
-                        if (foundFontFamily) {
-                            fontFamily = foundFontFamily;
-                        }
-                    }
-
-                    const fontSize = activeTextObject.get("fontSize");
-                    const color = activeTextObject.get("fill");
-                    const isBold =
-                        activeTextObject.get("fontWeight") === "bold";
-                    const isItalic =
-                        activeTextObject.get("fontStyle") === "italic";
-                    return (
-                        <TextOptions
-                            initialFontFamily={fontFamily}
-                            initialFontSize={fontSize || 12}
-                            color={color}
-                            isBold={isBold}
-                            isItalic={isItalic}
-                        />
-                    );
+                    return <TextOptions activeTextObject={activeTextObject} />;
                 }
                 break;
             case "image":
