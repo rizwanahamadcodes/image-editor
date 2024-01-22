@@ -1,5 +1,4 @@
 import { CurrentUserContext } from "@/context/useCurrentUser";
-import RootLayout from "@/layouts/RootLayout";
 import { store } from "@/store/store";
 import "@/styles/globals.css";
 import type { NextComponentType, NextPage, NextPageContext } from "next";
