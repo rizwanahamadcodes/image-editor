@@ -11,31 +11,43 @@ export type DrawerProps = {
     open: () => void;
     close: () => void;
     toggle?: () => void;
+    excludeElementRefs?: React.MutableRefObject<HTMLElement | null>[];
+    className?: string;
 };
 
 const Drawer = (props: DrawerProps) => {
-    const { children, isOpen, open, close, toggle } = props;
-
+    const {
+        className,
+        children,
+        isOpen,
+        open,
+        close,
+        toggle,
+        excludeElementRefs,
+    } = props;
+    console.log("i was here", isOpen);
     return (
-        <DrawerContext.Provider value={{ isOpen, open, close, toggle }}>
-            <DrawerWrapper>
+        <DrawerContext.Provider
+            value={{ isOpen, open, close, toggle, excludeElementRefs }}>
+            <DrawerWrapper className={className}>
                 <DrawerMain>{children}</DrawerMain>
             </DrawerWrapper>
         </DrawerContext.Provider>
     );
 };
 
-type DrawerWrapperProps = { children: React.ReactNode };
+type DrawerWrapperProps = { children: React.ReactNode; className?: string };
 
 export const DrawerWrapper = (props: DrawerWrapperProps) => {
-    const { children } = props;
+    const { children, className } = props;
     const { isOpen } = useDrawerProps();
 
     return (
         <div
             className={clsx(
                 "h-[100dvh] w-[100dvw] absolute top-0 left-0 bg-gray-100/50 backdrop-blur-sm z-[1000] overflow-hidden transition-all",
-                isOpen ? "visible opacity-100" : "invisible opacity-0"
+                isOpen ? "visible opacity-100" : "invisible opacity-0",
+                className
             )}>
             {children}
         </div>
@@ -46,11 +58,13 @@ type DrawerMainProps = { children: React.ReactNode };
 
 export const DrawerMain = (props: DrawerMainProps) => {
     const { children } = props;
-    const { isOpen, close } = useDrawerProps();
+    const { isOpen, close, excludeElementRefs } = useDrawerProps();
     const drawerRef = useRef<HTMLDivElement | null>(null);
+    console.log(excludeElementRefs);
     useClickOutside({
         elementRef: drawerRef,
         onClickOutside: close,
+        excludeElementRefs,
     });
 
     return (

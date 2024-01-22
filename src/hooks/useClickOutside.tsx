@@ -4,16 +4,10 @@ type useClickOutsideProps = {
     elementRef: React.MutableRefObject<HTMLElement | null>;
     excludeElementRefs?: React.MutableRefObject<HTMLElement | null>[];
     onClickOutside: Function;
-    onClickOutsideParams?: {};
 };
 
 const useClickOutside = (props: useClickOutsideProps) => {
-    const {
-        elementRef,
-        excludeElementRefs,
-        onClickOutside,
-        onClickOutsideParams,
-    } = props;
+    const { elementRef, excludeElementRefs, onClickOutside } = props;
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             const clickedElement = e.target as Node;
@@ -27,7 +21,7 @@ const useClickOutside = (props: useClickOutsideProps) => {
                 !elementRef.current.contains(clickedElement) &&
                 !intersectingElement
             ) {
-                onClickOutside({ ...onClickOutsideParams });
+                onClickOutside();
             }
         };
 
@@ -36,7 +30,7 @@ const useClickOutside = (props: useClickOutsideProps) => {
         return () => {
             document.removeEventListener("click", handleClickOutside);
         };
-    }, [onClickOutside, excludeElementRefs, elementRef, onClickOutsideParams]);
+    }, [onClickOutside, excludeElementRefs, elementRef]);
 };
 
 export default useClickOutside;

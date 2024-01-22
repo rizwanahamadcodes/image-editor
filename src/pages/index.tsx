@@ -5,15 +5,8 @@ type HomeProps = {};
 
 const Home = (props: HomeProps) => {
     const {} = props;
-    const { isOpen, open, close } = useToggle(true);
 
-    return (
-        <main>
-            <Drawer isOpen={isOpen} open={open} close={close}>
-                Hello
-            </Drawer>
-        </main>
-    );
+    return <main>Home</main>;
 };
 
 export default Home;
