@@ -17,10 +17,18 @@ type TextOptionsProps = {
     isItalic: boolean;
 };
 
+export type TextProperties = {
+    fontFamily: FontFamily;
+    fontSize: number;
+    color?: string | Pattern | Gradient;
+    isBold: boolean;
+    isItalic: boolean;
+};
+
 const TextOptions = (props: TextOptionsProps) => {
     const { initialFontFamily, initialFontSize, color, isBold, isItalic } =
         props;
-    const [textProperties, setTextProperties] = useState({
+    const [textProperties, setTextProperties] = useState<TextProperties>({
         fontFamily: initialFontFamily,
         fontSize: initialFontSize,
         color: color,
@@ -53,8 +61,15 @@ const TextOptions = (props: TextOptionsProps) => {
     };
 
     useEffect(() => {
-        setTextProperties({ ...textProperties, fontFamily: initialFontFamily });
-    }, [initialFontFamily]);
+        setTextProperties({
+            ...textProperties,
+            fontFamily: initialFontFamily,
+            fontSize: initialFontSize,
+            color: color,
+            isBold: isBold,
+            isItalic: isItalic,
+        });
+    }, [initialFontFamily, initialFontSize, color, isBold, isItalic]);
 
     const toggleBold = () => {
         setTextProperties({
@@ -104,7 +119,11 @@ const TextOptions = (props: TextOptionsProps) => {
                 }}
                 defaultValue={textProperties.fontFamily}
             />
-            <ChangeFontSize initialFontSize={initialFontSize} />
+            <ChangeFontSize
+                textProperties={textProperties}
+                setTextProperties={setTextProperties}
+                initialFontSize={initialFontSize}
+            />
             <button
                 onClick={toggleBold}
                 className={clsx(
