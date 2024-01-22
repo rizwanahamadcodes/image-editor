@@ -13,7 +13,7 @@ const RootLayout = (props: RootLayoutProps) => {
         <div className="h-[100dvh] relative flex flex-col overflow-hidden">
             <Header />
             <Navbar />
-            <main className="grow flex flex-col">{children}</main>
+            {children}
             <Footer />
         </div>
     );
