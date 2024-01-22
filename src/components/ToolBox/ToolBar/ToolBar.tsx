@@ -6,21 +6,16 @@ type ToolBarProps = {
     tools: ToolType[];
     activeTool: ToolType;
     setActiveTool: React.Dispatch<React.SetStateAction<ToolType>>;
-    showProperties: boolean;
-    setShowProperties: React.Dispatch<React.SetStateAction<boolean>>;
+    showOptions: boolean;
+    setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const ToolBar = (props: ToolBarProps) => {
-    const {
-        tools,
-        activeTool,
-        setActiveTool,
-        showProperties,
-        setShowProperties,
-    } = props;
+    const { tools, activeTool, setActiveTool, showOptions, setShowOptions } =
+        props;
 
     const handleToolbarHamburgerClick = () => {
-        setShowProperties((prevShowProperty) => !prevShowProperty);
+        setShowOptions((prevShowProperty) => !prevShowProperty);
     };
 
     return (
@@ -28,7 +23,7 @@ export const ToolBar = (props: ToolBarProps) => {
             <button
                 className="h-4 w-4 flex items-center justify-center border-b-gray-100 border-b shrink-0"
                 onClick={handleToolbarHamburgerClick}>
-                {showProperties ? (
+                {showOptions ? (
                     <IoChevronBackOutline className="text-1.325 text-gray-500 hover:text-gray-700" />
                 ) : (
                     <IoChevronForwardOutline className="text-1.325 text-gray-500 hover:text-gray-700" />

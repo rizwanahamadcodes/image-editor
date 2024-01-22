@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { useCurrentProject } from "@/context/useCurrentProject";
-import FieldView from "@/components/ToolBox/ToolProperties/FieldToolProperties/FieldView";
-import ListView from "@/components/ToolBox/ToolProperties/FieldToolProperties/ListsView";
+import FieldView from "@/components/ToolBox/ToolOptions/FieldToolOptions/FieldView";
+import ListView from "@/components/ToolBox/ToolOptions/FieldToolOptions/ListsView";
 
-type FieldToolPropertiesProps = {};
+type FieldToolOptionsProps = {};
 
-const FieldToolProperties = (props: FieldToolPropertiesProps) => {
+const FieldToolOptions = (props: FieldToolOptionsProps) => {
     const {} = props;
     const [selectedList, setSelectedList] = useState<List | null>(null);
     const currentUser = useCurrentUser();
@@ -32,4 +32,4 @@ const FieldToolProperties = (props: FieldToolPropertiesProps) => {
     return <ListView />;
 };
 
-export default FieldToolProperties;
+export default FieldToolOptions;

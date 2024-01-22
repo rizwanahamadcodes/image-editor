@@ -1,6 +1,5 @@
 import { useCanvas } from "@/context/useCanvas";
 import { useCurrentProject } from "@/context/useCurrentProject";
-import { Project } from "@/data/projects";
 import { selectListByListId } from "@/store/slices/listsSlice";
 import { RootState } from "@/store/store";
 import { fabric } from "fabric";
@@ -13,7 +12,7 @@ type FieldViewProps = { listId: number };
 const FieldView = (props: FieldViewProps) => {
     const { listId } = props;
     const { project, setProject } = useCurrentProject();
-    const { canvas, setCanvas } = useCanvas();
+    const { canvas } = useCanvas();
 
     const list = useSelector((state: RootState) =>
         selectListByListId(state, listId)

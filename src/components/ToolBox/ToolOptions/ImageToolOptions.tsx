@@ -1,9 +1,9 @@
 import { useCurrentProject } from "@/context/useCurrentProject";
 import Image from "next/image";
 
-type ImagePropertiesProps = {};
+type ImageOptionsProps = {};
 
-const ImageToolProperties = (props: ImagePropertiesProps) => {
+const ImageToolOptions = (props: ImageOptionsProps) => {
     const {} = props;
     const { project, setProject } = useCurrentProject();
 
@@ -28,4 +28,4 @@ const ImageToolProperties = (props: ImagePropertiesProps) => {
     );
 };
 
-export default ImageToolProperties;
+export default ImageToolOptions;
