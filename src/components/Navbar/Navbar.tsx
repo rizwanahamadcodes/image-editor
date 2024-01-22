@@ -19,7 +19,7 @@ const navbarNavLinks: PathConstant[] = [
 
 const Navbar = (props: NavbarProps) => {
     const {} = props;
-    const { open, isOpen, close } = useToggle(true);
+    const { open, isOpen, close } = useToggle(false);
     const hamburgerRef = useRef<HTMLDivElement | null>(null);
 
     return (
