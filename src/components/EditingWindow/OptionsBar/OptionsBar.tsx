@@ -53,11 +53,18 @@ export const OptionsBar = (props: OptionsBarProps) => {
                     }
 
                     const fontSize = activeTextObject.get("fontSize");
-
+                    const color = activeTextObject.get("fill");
+                    const isBold =
+                        activeTextObject.get("fontWeight") === "bold";
+                    const isItalic =
+                        activeTextObject.get("fontStyle") === "italic";
                     return (
                         <TextOptions
                             initialFontFamily={fontFamily}
                             initialFontSize={fontSize || 12}
+                            color={color}
+                            isBold={isBold}
+                            isItalic={isItalic}
                         />
                     );
                 }
@@ -74,10 +81,10 @@ export const OptionsBar = (props: OptionsBarProps) => {
 
     return (
         <div className="border-b border-b-gray-100 h-4 shrink-0">
-            <FullWidthContainer className="flex flex-col justify-center items-start h-full">
-                <p className="font-medium text-gray-500">
+            <FullWidthContainer className="flex flex-col justify-center items-end h-full">
+                <div className="font-medium text-gray-500">
                     {activeObject ? getObjectOptions(activeObject) : <></>}
-                </p>
+                </div>
             </FullWidthContainer>
         </div>
     );

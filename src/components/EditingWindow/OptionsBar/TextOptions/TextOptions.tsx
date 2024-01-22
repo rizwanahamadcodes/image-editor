@@ -4,16 +4,29 @@ import { FontFamily, fontFamilies } from "@/data/fontFamilies";
 import { fabric } from "fabric";
 import { useEffect, useState } from "react";
 import Select from "react-select";
+import { BiBold } from "react-icons/bi";
+import { RiItalic } from "react-icons/ri";
+import { Gradient, Pattern } from "fabric/fabric-impl";
+import clsx from "clsx";
 
 type TextOptionsProps = {
     initialFontFamily: FontFamily;
     initialFontSize: number;
+    color?: string | Pattern | Gradient;
+    isBold: boolean;
+    isItalic: boolean;
 };
 
 const TextOptions = (props: TextOptionsProps) => {
-    const { initialFontFamily, initialFontSize } = props;
-    const [selectedFontFamily, setSelectedFontFamily] =
-        useState<FontFamily>(initialFontFamily);
+    const { initialFontFamily, initialFontSize, color, isBold, isItalic } =
+        props;
+    const [textProperties, setTextProperties] = useState({
+        fontFamily: initialFontFamily,
+        fontSize: initialFontSize,
+        color: color,
+        isBold: isBold,
+        isItalic: isItalic,
+    });
 
     const { canvas } = useCanvas();
 
@@ -25,7 +38,6 @@ const TextOptions = (props: TextOptionsProps) => {
         }
 
         const activeTextObject = activeObject as fabric.Textbox;
-
         const WebFont = require("webfontloader");
         WebFont.load({
             google: {
@@ -37,27 +49,82 @@ const TextOptions = (props: TextOptionsProps) => {
                 canvas?.renderAll();
             },
         });
-        setSelectedFontFamily(fontFamily);
+        setTextProperties({ ...textProperties, fontFamily: fontFamily });
     };
 
     useEffect(() => {
-        setSelectedFontFamily(initialFontFamily);
+        setTextProperties({ ...textProperties, fontFamily: initialFontFamily });
     }, [initialFontFamily]);
+
+    const toggleBold = () => {
+        setTextProperties({
+            ...textProperties,
+            isBold: !textProperties.isBold,
+        });
+        const activeObject = canvas?.getActiveObject();
+        if (!activeObject || !activeObject.isType("textbox")) {
+            return;
+        }
+        const activeTextObject = activeObject as fabric.Textbox;
+        if (activeTextObject.get("fontWeight") === "bold") {
+            activeTextObject.set("fontWeight", "normal");
+        } else {
+            activeTextObject.set("fontWeight", "bold");
+        }
+        canvas?.renderAll();
+    };
+    const toggleItalic = () => {
+        setTextProperties({
+            ...textProperties,
+            isItalic: !textProperties.isItalic,
+        });
+        const activeObject = canvas?.getActiveObject();
+        if (!activeObject || !activeObject.isType("textbox")) {
+            return;
+        }
+        const activeTextObject = activeObject as fabric.Textbox;
+
+        if (activeTextObject.get("fontStyle") === "italic") {
+            activeTextObject.set("fontStyle", "normal");
+        } else {
+            activeTextObject.set("fontStyle", "italic");
+        }
+        canvas?.renderAll();
+    };
 
     return (
         <div className="flex gap-1">
             <Select
                 options={fontFamilies}
-                value={selectedFontFamily}
-                className="min-w-10 h-2.25"
+                value={textProperties.fontFamily}
+                className="w-10 h-2.25"
                 onChange={(option) => {
                     if (!option) return;
                     setFontFamily(option);
                 }}
-                defaultValue={initialFontFamily}
+                defaultValue={textProperties.fontFamily}
             />
-            {initialFontSize}
             <ChangeFontSize initialFontSize={initialFontSize} />
+            <button
+                onClick={toggleBold}
+                className={clsx(
+                    "border border-gray-200 rounded-0.25 px-0.25",
+                    textProperties.isBold
+                        ? "bg-gray-100 border-gray-300 text-gray-600"
+                        : ""
+                )}>
+                <BiBold className="text-1.5" />
+            </button>
+            <button
+                onClick={toggleItalic}
+                className={clsx(
+                    "border border-gray-200 rounded-0.25 px-0.25",
+                    textProperties.isItalic
+                        ? "bg-gray-100 border-gray-300 text-gray-600"
+                        : ""
+                )}>
+                <RiItalic className="text-1.5" />
+            </button>
         </div>
     );
 };
