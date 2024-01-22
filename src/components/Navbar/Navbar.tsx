@@ -3,6 +3,7 @@ import Container from "../Container";
 import User from "../User";
 import NavMenuWithTabIndicator from "./NavMenuWithTabIndicator";
 import { PathConstant, pathConstants } from "@/routes/pathContants";
+import BrandLogo from "@/components/BrandLogo/BrandLogo";
 
 type NavbarProps = {};
 
@@ -17,11 +18,7 @@ const Navbar = (props: NavbarProps) => {
     return (
         <nav className="h-navHeight border-b border-b-gray-100">
             <Container className="flex justify-between items-center gap-1">
-                <Link
-                    href="/"
-                    className="text-primary font-bold text-1.25 hover:text-primary-600">
-                    CardGen
-                </Link>
+                <BrandLogo />
                 <NavMenuWithTabIndicator
                     navLinks={navbarNavLinks}
                     className="ml-auto"
