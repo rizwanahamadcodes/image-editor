@@ -39,10 +39,6 @@ export const ToolBox = () => {
     const [activeTool, setActiveTool] = useState<ToolType>(tools[0]);
     const [showOptions, setShowOptions] = useState(false);
 
-    // useEffect(() => {
-    // setShowOptions(true);
-    // }, [activeTool]);
-
     // toolbox width = toolbarwidth + tooloptions width
     // 20 = 4 + 16
     // all three has to be specified for the desired grow and shrink toggle

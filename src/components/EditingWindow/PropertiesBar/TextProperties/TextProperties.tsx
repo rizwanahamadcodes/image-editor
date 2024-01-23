@@ -7,6 +7,8 @@ import { Gradient, Pattern } from "fabric/fabric-impl";
 import { useEffect, useState } from "react";
 import BoldToggle from "./BoldToggle";
 import ItalicToggle from "./ItalicToggle";
+import AlignmentSelector from "./AlignmentSelector";
+import UnderlineToggle from "./UnderlineToggle";
 
 export type TextProperties = {
     fontFamily: FontFamily;
@@ -14,6 +16,8 @@ export type TextProperties = {
     color?: string | Pattern | Gradient;
     isBold: boolean;
     isItalic: boolean;
+    alignment: string;
+    isUnderlined: boolean;
 };
 
 type TextPropertiesProps = {
@@ -28,6 +32,8 @@ const TextProperties = (props: TextPropertiesProps) => {
         color: "#000",
         isBold: false,
         isItalic: false,
+        alignment: "left",
+        isUnderlined: false,
     });
 
     useEffect(() => {
@@ -50,6 +56,8 @@ const TextProperties = (props: TextPropertiesProps) => {
             const color = activeTextObject.get("fill");
             const isBold = activeTextObject.get("fontWeight") === "bold";
             const isItalic = activeTextObject.get("fontStyle") === "italic";
+            const alignment = activeTextObject.get("textAlign");
+            const isUnderlined = activeTextObject.underline;
 
             setTextProperties((prevTextProperties) => {
                 return {
@@ -59,6 +67,8 @@ const TextProperties = (props: TextPropertiesProps) => {
                     color: color,
                     isBold: isBold,
                     isItalic: isItalic,
+                    alignment: alignment || "left",
+                    isUnderlined: isUnderlined || false,
                 };
             });
         };
@@ -76,6 +86,8 @@ const TextProperties = (props: TextPropertiesProps) => {
                 <FontSizeChanger />
                 <BoldToggle />
                 <ItalicToggle />
+                <UnderlineToggle />
+                <AlignmentSelector />
             </div>
         </TextPropertiesContext.Provider>
     );
