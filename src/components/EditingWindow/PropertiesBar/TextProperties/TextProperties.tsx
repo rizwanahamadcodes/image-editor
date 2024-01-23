@@ -9,6 +9,7 @@ import BoldToggle from "./BoldToggle";
 import ItalicToggle from "./ItalicToggle";
 import AlignmentSelector from "./AlignmentSelector";
 import UnderlineToggle from "./UnderlineToggle";
+import ColorSelector from "./ColorSelector";
 
 export type TextProperties = {
     fontFamily: FontFamily;
@@ -84,6 +85,7 @@ const TextProperties = (props: TextPropertiesProps) => {
             <div className="flex gap-1">
                 <FontFamilySelector />
                 <FontSizeChanger />
+                <ColorSelector />
                 <BoldToggle />
                 <ItalicToggle />
                 <UnderlineToggle />
