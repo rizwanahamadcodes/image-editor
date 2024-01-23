@@ -25,7 +25,6 @@ const Drawer = (props: DrawerProps) => {
         toggle,
         excludeElementRefs,
     } = props;
-    console.log("i was here", isOpen);
     return (
         <DrawerContext.Provider
             value={{ isOpen, open, close, toggle, excludeElementRefs }}>
@@ -60,7 +59,6 @@ export const DrawerMain = (props: DrawerMainProps) => {
     const { children } = props;
     const { isOpen, close, excludeElementRefs } = useDrawerProps();
     const drawerRef = useRef<HTMLDivElement | null>(null);
-    console.log(excludeElementRefs);
     useClickOutside({
         elementRef: drawerRef,
         onClickOutside: close,

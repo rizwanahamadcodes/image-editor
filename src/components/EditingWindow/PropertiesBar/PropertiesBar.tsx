@@ -18,7 +18,6 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
                 setActiveObject(activeObject);
             });
             canvas.on("selection:updated", () => {
-                console.log("something got modified");
                 const activeObject = canvas.getActiveObject();
                 setActiveObject(() => activeObject);
             });

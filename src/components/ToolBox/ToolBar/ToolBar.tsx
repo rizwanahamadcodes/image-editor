@@ -38,6 +38,7 @@ export const ToolBar = (props: ToolBarProps) => {
                                 tool={tool}
                                 activeTool={activeTool}
                                 setActiveTool={setActiveTool}
+                                setShowOptions={setShowOptions}
                             />
                         ))}
                     </li>

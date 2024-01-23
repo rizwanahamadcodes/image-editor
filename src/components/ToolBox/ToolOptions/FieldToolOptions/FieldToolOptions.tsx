@@ -21,10 +21,6 @@ const FieldToolOptions = (props: FieldToolOptionsProps) => {
 
     const { project, setProject } = useCurrentProject();
 
-    useEffect(() => {
-        console.log("listid was changed", project.listId), [project.listId];
-    });
-
     if (project.listId) {
         return <FieldView listId={project.listId} />;
     }

@@ -37,11 +37,11 @@ const tools: ToolType[] = [
 
 export const ToolBox = () => {
     const [activeTool, setActiveTool] = useState<ToolType>(tools[0]);
-    const [showOptions, setShowOptions] = useState(true);
+    const [showOptions, setShowOptions] = useState(false);
 
-    useEffect(() => {
-        setShowOptions(true);
-    }, [activeTool]);
+    // useEffect(() => {
+    // setShowOptions(true);
+    // }, [activeTool]);
 
     // toolbox width = toolbarwidth + tooloptions width
     // 20 = 4 + 16
