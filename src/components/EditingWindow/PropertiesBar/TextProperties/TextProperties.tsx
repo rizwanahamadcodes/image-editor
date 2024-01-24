@@ -13,6 +13,8 @@ import ColorSelector from "./ColorSelector";
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import { TbAlignCenter } from "react-icons/tb";
 import BoldItalicUnderlineToggles from "./BoldItalicUnderlineToggles";
+import DeleteObject from "../ImageProperties/DeleteObject";
+import TextResetter from "./TextResetter";
 
 export type TextProperties = {
     fontFamily: FontFamily;
@@ -86,11 +88,13 @@ const TextProperties = (props: TextPropertiesProps) => {
                 setTextProperties: setTextProperties,
             }}>
             <div className="flex gap-1">
+                <TextResetter />
                 <FontFamilySelector />
                 <FontSizeChanger />
                 <ColorSelector />
                 <BoldItalicUnderlineToggles />
                 <AlignmentSelector />
+                <DeleteObject />
             </div>
         </TextPropertiesContext.Provider>
     );
