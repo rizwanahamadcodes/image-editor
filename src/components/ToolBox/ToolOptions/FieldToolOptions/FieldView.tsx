@@ -35,12 +35,30 @@ const FieldView = (props: FieldViewProps) => {
                 break;
             case "image":
                 fabric.Image.fromURL("/images/lists/default.jpg", (img) => {
-                    img.scaleToWidth(200);
+                    const canvasHeight = canvas?.getHeight() || 1;
+                    const canvasWidth = canvas?.getWidth() || 1;
+                    const canvasZoomLevel = canvas?.getZoom() || 1;
+                    const percievedCanvasHeight =
+                        canvasHeight / canvasZoomLevel;
+                    const percievedCanvasWidth = canvasWidth / canvasZoomLevel;
 
+                    const imageHeight = img.get("height") || 1;
+                    const imageWidth = img.get("width") || 1;
+
+                    const scaleRatioX = canvasWidth / imageWidth;
+
+                    if (scaleRatioX * imageHeight <= canvasHeight) {
+                        img.scaleToWidth(percievedCanvasWidth, true);
+                    } else {
+                        img.scaleToHeight(percievedCanvasHeight, true);
+                    }
+                    console.log("img Width", img.getScaledWidth());
+                    console.log("img Height", img.getScaledHeight());
                     img.set({
                         left: 0,
                         top: 0,
                     });
+
                     canvas?.add(img);
                 });
                 break;

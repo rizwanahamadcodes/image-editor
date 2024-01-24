@@ -2,6 +2,7 @@ import { FullWidthContainer } from "@/components/Container";
 import TextProperties from "@/components/EditingWindow/PropertiesBar/TextProperties/TextProperties";
 import { useCanvas } from "@/context/useCanvas";
 import { useEffect, useState } from "react";
+import ImageProperties from "./ImageProperties/ImageProperties";
 
 type PropertiesBarProps = {};
 export const PropertiesBar = (props: PropertiesBarProps) => {
@@ -40,7 +41,10 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
                 }
                 break;
             case "image":
-                return <p>Properties for image</p>;
+                const activeImageObject = activeObject as fabric.Image;
+                return (
+                    <ImageProperties activeImageObject={activeImageObject} />
+                );
                 break;
             default:
                 return <p>No properties</p>;

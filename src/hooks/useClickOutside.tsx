@@ -22,7 +22,6 @@ const useClickOutside = (props: useClickOutsideProps) => {
                 !intersectingElement
             ) {
                 onClickOutside();
-                console.log("i was called", onClickOutside);
             }
         };
 
