@@ -51,8 +51,8 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
 
     return (
         <div className="border-b border-b-gray-100 h-4 shrink-0">
-            <FullWidthContainer className="flex flex-col justify-center items-end h-full">
-                <div className="font-medium text-gray-500">
+            <FullWidthContainer className="flex flex-col justify-center items-center h-full">
+                <div>
                     {activeObject ? getObjectProperties(activeObject) : <></>}
                 </div>
             </FullWidthContainer>

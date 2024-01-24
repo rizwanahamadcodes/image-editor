@@ -12,6 +12,7 @@ import UnderlineToggle from "./UnderlineToggle";
 import ColorSelector from "./ColorSelector";
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import { TbAlignCenter } from "react-icons/tb";
+import BoldItalicUnderlineToggles from "./BoldItalicUnderlineToggles";
 
 export type TextProperties = {
     fontFamily: FontFamily;
@@ -88,9 +89,7 @@ const TextProperties = (props: TextPropertiesProps) => {
                 <FontFamilySelector />
                 <FontSizeChanger />
                 <ColorSelector />
-                <BoldToggle />
-                <ItalicToggle />
-                <UnderlineToggle />
+                <BoldItalicUnderlineToggles />
                 <AlignmentSelector />
             </div>
         </TextPropertiesContext.Provider>

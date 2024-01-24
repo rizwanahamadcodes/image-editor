@@ -1,8 +1,12 @@
 import Button, { ButtonGroup, ButtonIcon } from "@/components/Button/Button";
+import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
 import { useTextProperties } from "@/context/useTextProperties";
+import { useToggle } from "@/hooks/useToggle";
+import { useRef } from "react";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { TiMinus, TiPlug, TiPlus } from "react-icons/ti";
+import { BiFontSize } from "react-icons/bi";
 
 type FontSizeChangerProps = {};
 
@@ -21,9 +25,8 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
         setTextProperties({ ...textProperties, fontSize: fontSize });
         canvas?.renderAll();
     };
-
-    return (
-        <>
+    const fontSizeChangerCore = () => {
+        return (
             <ButtonGroup>
                 <Button
                     regular
@@ -54,6 +57,34 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
                     <ButtonIcon icon={FiPlus} />
                 </Button>
             </ButtonGroup>
+        );
+    };
+
+    const { open, close, toggle, isOpen } = useToggle();
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+    return (
+        <>
+            <div className="hidden sm:block">{fontSizeChangerCore()}</div>
+            <div className="flex sm:hidden gap-0.5 relative">
+                <PopOver
+                    isOpen={isOpen}
+                    close={close}
+                    className="left-0"
+                    toggleButtonRefs={[buttonRef]}>
+                    <div className="bg-white shadow border border-gray-100 rounded-0.375 mt-0.25 p-0.25">
+                        {fontSizeChangerCore()}
+                    </div>
+                </PopOver>
+
+                <Button
+                    onClick={toggle}
+                    regular
+                    btnRef={buttonRef}
+                    variant="outline"
+                    colorScheme="gray-200">
+                    <ButtonIcon icon={BiFontSize} />
+                </Button>
+            </div>
         </>
     );
 };
