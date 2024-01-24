@@ -10,6 +10,8 @@ import ItalicToggle from "./ItalicToggle";
 import AlignmentSelector from "./AlignmentSelector";
 import UnderlineToggle from "./UnderlineToggle";
 import ColorSelector from "./ColorSelector";
+import Button, { ButtonIcon } from "@/components/Button/Button";
+import { TbAlignCenter } from "react-icons/tb";
 
 export type TextProperties = {
     fontFamily: FontFamily;

@@ -1,6 +1,7 @@
 import { useCanvas } from "@/context/useCanvas";
 import { useTextProperties } from "@/context/useTextProperties";
 import { FontFamily, fontFamilies } from "@/data/fontFamilies";
+import clsx from "clsx";
 import Select from "react-select";
 
 type FontFamilySelectorProps = {};
@@ -36,7 +37,17 @@ const FontFamilySelector = (props: FontFamilySelectorProps) => {
         <Select
             options={fontFamilies}
             value={textProperties.fontFamily}
-            className="w-10 h-2.25"
+            className=""
+            classNamePrefix="ff"
+            classNames={{
+                container: ({ isFocused }) => clsx("!min-h-0 h-2 w-10"),
+                control: () => "!min-h-0 h-2",
+                indicatorsContainer: () => "h-2",
+                dropdownIndicator: () =>
+                    "!p-0 h-2 w-2 flex items-center justify-center",
+                valueContainer: () => "!py-0 !px-0.5",
+                input: () => "!p-0 !m-0",
+            }}
             onChange={(option) => {
                 if (!option) return;
                 setFontFamily(option);

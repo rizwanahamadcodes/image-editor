@@ -1,7 +1,9 @@
+import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
 import { useTextProperties } from "@/context/useTextProperties";
 import clsx from "clsx";
 import { BiBold } from "react-icons/bi";
+import { RiBold } from "react-icons/ri";
 
 type BoldToggleProps = {};
 
@@ -28,16 +30,14 @@ const BoldToggle = (props: BoldToggleProps) => {
     };
 
     return (
-        <button
-            onClick={handleBoldToggleClick}
-            className={clsx(
-                "border border-gray-200 rounded-0.25 px-0.25",
-                textProperties.isBold
-                    ? "bg-gray-100 border-gray-300 text-gray-600"
-                    : ""
-            )}>
-            <BiBold className="text-1.5" />
-        </button>
+        <Button
+            variant="outline"
+            colorScheme="gray-200"
+            regular
+            active={textProperties.isBold}
+            onClick={handleBoldToggleClick}>
+            <ButtonIcon icon={RiBold} />
+        </Button>
     );
 };
 

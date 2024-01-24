@@ -128,6 +128,11 @@ module.exports = {
                     900: "hsl(200deg, 5%, 10%)",
                 },
             },
+
+            boxShadow: {
+                "halo-primary": "0px 0px 0px 3px hsla(200deg, 100%, 50%, 0.5)",
+                "halo-gray-500": "0px 0px 0px 3px hsl(200deg, 5%, 50%, 0.5)",
+            },
         },
 
         fontFamily: {

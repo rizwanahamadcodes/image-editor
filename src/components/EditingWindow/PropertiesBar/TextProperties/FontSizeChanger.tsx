@@ -1,5 +1,8 @@
+import Button, { ButtonGroup, ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
 import { useTextProperties } from "@/context/useTextProperties";
+import { FiMinus, FiPlus } from "react-icons/fi";
+import { TiMinus, TiPlug, TiPlus } from "react-icons/ti";
 
 type FontSizeChangerProps = {};
 
@@ -20,30 +23,38 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
     };
 
     return (
-        <div className="flex w-7">
-            <button
-                className="text-gray-400 h-2.25 text-1.5 px-0.5 rounded-l-0.25 border border-gray-200 z-10"
-                onClick={() => {
-                    setFontSize(textProperties.fontSize - 1);
-                }}>
-                -
-            </button>
-            <input
-                onChange={(e) => {
-                    setFontSize(Number(e.target.value));
-                }}
-                type="number"
-                className="text-center min-w-0 grow border-y border-y-gray-200 focus:outline-primary"
-                value={textProperties.fontSize}
-            />
-            <button
-                className="text-gray-400 h-2.25 text-1.5 px-0.5 rounded-r-0.25 border border-gray-200"
-                onClick={() => {
-                    setFontSize(textProperties.fontSize + 1);
-                }}>
-                +
-            </button>
-        </div>
+        <>
+            <ButtonGroup>
+                <Button
+                    regular
+                    colorScheme="white"
+                    variant="solid"
+                    className="!rounded-r-0"
+                    onClick={() => {
+                        setFontSize(textProperties.fontSize - 1);
+                    }}>
+                    <ButtonIcon icon={FiMinus} />
+                </Button>
+                <input
+                    onChange={(e) => {
+                        setFontSize(Number(e.target.value));
+                    }}
+                    type="number"
+                    className="text-center w-3 min-w-0 grow border-x border-x-gray-200 focus:shadow-halo-gray-500 focus:outline-none focus:z-10"
+                    value={textProperties.fontSize}
+                />
+                <Button
+                    className="!rounded-l-0"
+                    regular
+                    colorScheme="white"
+                    variant="solid"
+                    onClick={() => {
+                        setFontSize(textProperties.fontSize + 1);
+                    }}>
+                    <ButtonIcon icon={FiPlus} />
+                </Button>
+            </ButtonGroup>
+        </>
     );
 };
 

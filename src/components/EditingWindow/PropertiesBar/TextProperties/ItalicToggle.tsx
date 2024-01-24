@@ -1,3 +1,4 @@
+import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
 import { useTextProperties } from "@/context/useTextProperties";
 import clsx from "clsx";
@@ -29,16 +30,14 @@ const ItalicToggle = (props: ItalicToggleProps) => {
     };
 
     return (
-        <button
-            onClick={handleItalicToggleClick}
-            className={clsx(
-                "border border-gray-200 rounded-0.25 px-0.25",
-                textProperties.isItalic
-                    ? "bg-gray-100 border-gray-300 text-gray-600"
-                    : ""
-            )}>
-            <RiItalic className="text-1.5" />
-        </button>
+        <Button
+            variant="outline"
+            colorScheme="gray-200"
+            regular
+            active={textProperties.isItalic}
+            onClick={handleItalicToggleClick}>
+            <ButtonIcon icon={RiItalic} />
+        </Button>
     );
 };
 

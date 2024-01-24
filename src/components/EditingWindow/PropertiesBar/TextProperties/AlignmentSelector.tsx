@@ -1,6 +1,10 @@
+import Button, { ButtonGroup, ButtonIcon } from "@/components/Button/Button";
+import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
 import { useTextProperties } from "@/context/useTextProperties";
+import { useToggle } from "@/hooks/useToggle";
 import clsx from "clsx";
+import { useRef } from "react";
 import { TbAlignCenter, TbAlignLeft, TbAlignRight } from "react-icons/tb";
 
 const AlignmentSelector = () => {
@@ -24,39 +28,81 @@ const AlignmentSelector = () => {
         return alignment === textProperties.alignment;
     };
 
+    const { open, close, isOpen, toggle } = useToggle();
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+    const buttonIconRef = useRef<HTMLButtonElement | null>(null);
+    const alignmentSelectorCore = () => {
+        return (
+            <ButtonGroup>
+                <Button
+                    colorScheme="white"
+                    regular
+                    className="!rounded-r-none"
+                    active={isActive("left")}
+                    onClick={() => {
+                        setAlignment("left");
+                    }}>
+                    <ButtonIcon icon={TbAlignLeft} />
+                </Button>
+                <Button
+                    colorScheme="white"
+                    regular
+                    className="border-x border-gray-200 !rounded-0"
+                    active={isActive("center")}
+                    onClick={() => {
+                        setAlignment("center");
+                    }}>
+                    <ButtonIcon icon={TbAlignCenter} />
+                </Button>
+                <Button
+                    colorScheme="white"
+                    regular
+                    className="!rounded-l-none"
+                    active={isActive("right")}
+                    onClick={() => {
+                        setAlignment("right");
+                    }}>
+                    <ButtonIcon icon={TbAlignLeft} />
+                </Button>
+            </ButtonGroup>
+        );
+    };
     return (
-        <div className="border overflow-hidden border-gray-200 rounded-0.25 flex items-center">
-            <button
-                className={clsx(
-                    "h-full px-0.5",
-                    isActive("left") ? "bg-gray-100 border-gray-300" : ""
-                )}
-                onClick={() => {
-                    setAlignment("left");
-                }}>
-                <TbAlignLeft className="text-1.25" />
-            </button>
-            <button
-                className={clsx(
-                    "h-full px-0.5 border-x border-x-gray-100",
-                    isActive("center") ? "bg-gray-100 border-gray-300" : ""
-                )}
-                onClick={() => {
-                    setAlignment("center");
-                }}>
-                <TbAlignCenter className="text-1.25" />
-            </button>
-            <button
-                className={clsx(
-                    "h-full px-0.5",
-                    isActive("right") ? "bg-gray-100 border-gray-300" : ""
-                )}
-                onClick={() => {
-                    setAlignment("right");
-                }}>
-                <TbAlignRight className="text-1.25" />
-            </button>
-        </div>
+        <>
+            <span className="hidden sm:inline-block">
+                {alignmentSelectorCore()}
+            </span>
+            <div className="relative h-2 sm:hidden">
+                <PopOver
+                    toggleButtonRefs={[buttonRef]}
+                    isOpen={isOpen}
+                    close={close}
+                    className="right-0 mt-0.5 shadow">
+                    {alignmentSelectorCore()}
+                </PopOver>
+                <Button
+                    variant="outline"
+                    regular
+                    colorScheme="gray-200"
+                    btnRef={buttonRef}
+                    onClick={toggle}>
+                    <ButtonIcon
+                        icon={() => {
+                            switch (textProperties.alignment) {
+                                case "left":
+                                    return <TbAlignLeft />;
+                                case "center":
+                                    return <TbAlignCenter />;
+                                case "right":
+                                    return <TbAlignRight />;
+                                default:
+                                    return <TbAlignCenter />;
+                            }
+                        }}
+                    />
+                </Button>
+            </div>
+        </>
     );
 };
 
