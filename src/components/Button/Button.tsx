@@ -99,9 +99,9 @@ type ButtonIconProps = IconBaseProps & {
 };
 
 export const ButtonIcon = (props: ButtonIconProps) => {
-    const { icon: Icon } = props;
+    const { icon: Icon, className } = props;
 
-    return <Icon className="text-1.25" />;
+    return <Icon className={clsx("text-1.25", className)} />;
 };
 
 export default Button;

@@ -52,12 +52,9 @@ const FieldView = (props: FieldViewProps) => {
                     } else {
                         img.scaleToHeight(percievedCanvasHeight, true);
                     }
-                    console.log("img Width", img.getScaledWidth());
-                    console.log("img Height", img.getScaledHeight());
                     img.set({
                         left: 0,
                         top: 0,
-                        lockUniScaling: true,
                     });
 
                     canvas?.add(img);

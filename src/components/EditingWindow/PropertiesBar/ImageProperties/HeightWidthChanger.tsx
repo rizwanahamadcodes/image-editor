@@ -1,5 +1,9 @@
+import Button, { ButtonIcon } from "@/components/Button/Button";
+import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
 import { useImageProperties } from "@/context/useImageProperties";
+import { useToggle } from "@/hooks/useToggle";
+import { useRef } from "react";
 import { AiOutlineColumnHeight, AiOutlineColumnWidth } from "react-icons/ai";
 import { FaLink, FaLinkSlash } from "react-icons/fa6";
 
@@ -11,7 +15,10 @@ const HeightWidthChanger = () => {
         const newHeight = Number(e.target.value);
 
         setImageProperties((prevImageProperties) => {
-            return { ...prevImageProperties, height: newHeight };
+            return {
+                ...prevImageProperties,
+                height: parseInt(newHeight.toFixed(2)),
+            };
         });
 
         const activeObject = canvas?.getActiveObject();
@@ -47,7 +54,10 @@ const HeightWidthChanger = () => {
         const newWidth = Number(e.target.value);
 
         setImageProperties((prevImageProperties) => {
-            return { ...prevImageProperties, width: newWidth };
+            return {
+                ...prevImageProperties,
+                width: parseInt(newWidth.toFixed(2)),
+            };
         });
 
         const activeObject = canvas?.getActiveObject();
@@ -73,7 +83,6 @@ const HeightWidthChanger = () => {
             activeImageObject.set("scaleX", newScaleX);
         }
 
-        console.log(canvas?.getZoom());
         canvas?.renderAll();
     };
 
@@ -86,44 +95,73 @@ const HeightWidthChanger = () => {
         });
     };
 
+    const linkIconClasses = "text-gray-500 cursor-pointer hover:text-gray-700";
+
+    const heightWidthChangerCore = () => {
+        return (
+            <div className="flex items-center">
+                <div className="flex items-center h-2 overflow-hidden hover:border-gray-400 px-0.25 rounded-0.25 border-gray-200 border gap-0.25 group/dimensionGroup has-[:focus]:shadow-halo-gray-500">
+                    <AiOutlineColumnHeight className="text-gray-500 text-1.25 group-hover/dimensionGroup:text-gray-700 group-has-[:focus]/dimensionGroup:text-gray-700" />
+                    <input
+                        type="number"
+                        value={imageProperties.height.toFixed(2)}
+                        className="text-gray-600 font-medium min-w-0 w-4 h-2 rounded-0.25 focus:outline-none px-0.25"
+                        onChange={(e) => {
+                            setHeight(e);
+                        }}
+                    />
+                </div>
+                <div
+                    className="h-1.25 w-2 flex justify-center"
+                    onClick={flipAspectRatioLockedStatus}>
+                    {imageProperties.aspectRatioLocked ? (
+                        <FaLink className={linkIconClasses} />
+                    ) : (
+                        <FaLinkSlash className={linkIconClasses} />
+                    )}
+                </div>
+                <div className="flex items-center h-2 overflow-hidden hover:border-gray-400 px-0.25 rounded-0.25 border-gray-200 border gap-0.25 group/dimensionGroup has-[:focus]:shadow-halo-gray-500">
+                    <AiOutlineColumnWidth className="text-gray-500 text-1.25 group-hover/dimensionGroup:text-gray-700 group-has-[:focus]/dimensionGroup:text-gray-700" />
+                    <input
+                        type="number"
+                        value={imageProperties.width.toFixed(2)}
+                        className="text-gray-600 font-medium min-w-0 w-4 h-2 rounded-0.25 focus:outline-none px-0.25"
+                        onChange={(e) => {
+                            setWidth(e);
+                        }}
+                    />
+                </div>
+            </div>
+        );
+    };
+
+    const { open, close, isOpen, toggle } = useToggle();
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
     return (
-        <div className="flex items-center">
-            <div className="flex items-center h-2 overflow-hidden hover:border-gray-400 px-0.25 rounded-0.25 border-gray-200 border gap-0.25 group/dimensionGroup has-[:focus]:shadow-halo-gray-500">
-                <AiOutlineColumnHeight className="text-gray-500 text-1.25 group-hover/dimensionGroup:text-gray-700 group-has-[:focus]/dimensionGroup:text-gray-700" />
-                <input
-                    type="number"
-                    value={imageProperties.height}
-                    className="text-gray-600 font-medium min-w-0 w-4 h-2 rounded-0.25 focus:outline-none px-0.25"
-                    onChange={(e) => {
-                        setHeight(e);
-                    }}
-                />
+        <>
+            <span className="hidden sm:inline-block">
+                {heightWidthChangerCore()}
+            </span>
+            <div className="relative h-2 sm:hidden">
+                <PopOver
+                    toggleButtonRefs={[buttonRef]}
+                    isOpen={isOpen}
+                    close={close}
+                    className="left-1/2 -translate-x-1/2">
+                    <div className="bg-white shadow border border-gray-100 rounded-0.375 mt-0.25 right-0 p-0.25">
+                        {heightWidthChangerCore()}
+                    </div>
+                </PopOver>
+                <Button
+                    variant="outline"
+                    regular
+                    colorScheme="gray-200"
+                    btnRef={buttonRef}
+                    onClick={toggle}>
+                    <ButtonIcon icon={AiOutlineColumnWidth} />
+                </Button>
             </div>
-            {imageProperties.aspectRatioLocked ? (
-                <div
-                    className="h-1.25 w-2 border-y border-y-200 flex justify-center"
-                    onClick={flipAspectRatioLockedStatus}>
-                    <FaLink className="text-gray-500 cursor-pointer hover:text-gray-700" />
-                </div>
-            ) : (
-                <div
-                    className="h-1.25 w-2 flex justify-center border border-transparent"
-                    onClick={flipAspectRatioLockedStatus}>
-                    <FaLinkSlash className="text-gray-500 cursor-pointer hover:text-gray-700" />
-                </div>
-            )}
-            <div className="flex items-center h-2 overflow-hidden hover:border-gray-400 px-0.25 rounded-0.25 border-gray-200 border gap-0.25 group/dimensionGroup has-[:focus]:shadow-halo-gray-500">
-                <AiOutlineColumnWidth className="text-gray-500 text-1.25 group-hover/dimensionGroup:text-gray-700 group-has-[:focus]/dimensionGroup:text-gray-700" />
-                <input
-                    type="number"
-                    value={imageProperties.width}
-                    className="text-gray-600 font-medium min-w-0 w-4 h-2 rounded-0.25 focus:outline-none px-0.25"
-                    onChange={(e) => {
-                        setWidth(e);
-                    }}
-                />
-            </div>
-        </div>
+        </>
     );
 };
 
