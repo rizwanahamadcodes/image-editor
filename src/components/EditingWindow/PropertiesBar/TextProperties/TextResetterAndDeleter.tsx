@@ -1,39 +1,19 @@
-import Button, { ButtonGroup, ButtonIcon } from "@/components/Button/Button";
+import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
 import { useTextProperties } from "@/context/useTextProperties";
 import { useToggle } from "@/hooks/useToggle";
-import clsx from "clsx";
 import { useRef } from "react";
-import { TbAlignCenter, TbAlignLeft, TbAlignRight } from "react-icons/tb";
+import { IoReloadSharp } from "react-icons/io5";
 import DeleteObject from "../ImageProperties/DeleteObject";
 import TextResetter from "./TextResetter";
-import { IoReloadSharp } from "react-icons/io5";
 
 const TextResetterAndDeleter = () => {
     const { textProperties, setTextProperties } = useTextProperties();
     const { canvas } = useCanvas();
 
-    const setAlignment = (alignment: "left" | "right" | "center") => {
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
-        const activeTextObject = activeObject as fabric.Textbox;
-
-        activeTextObject.set("textAlign", alignment);
-        canvas?.renderAll();
-
-        setTextProperties({ ...textProperties, alignment: alignment });
-    };
-
-    const isActive = (alignment: string) => {
-        return alignment === textProperties.alignment;
-    };
-
-    const { open, close, isOpen, toggle } = useToggle();
+    const { close, isOpen, toggle } = useToggle();
     const buttonRef = useRef<HTMLButtonElement | null>(null);
-    const buttonIconRef = useRef<HTMLButtonElement | null>(null);
     const textResetterAndDeleterCore = () => {
         return (
             <div className="flex gap-0.25">
