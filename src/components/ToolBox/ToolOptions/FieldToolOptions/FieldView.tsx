@@ -57,6 +57,7 @@ const FieldView = (props: FieldViewProps) => {
                     img.set({
                         left: 0,
                         top: 0,
+                        lockUniScaling: true,
                     });
 
                     canvas?.add(img);

@@ -8,8 +8,10 @@ const HeightWidthChanger = () => {
     const { canvas } = useCanvas();
 
     const setHeight = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newHeight = Number(e.target.value);
+
         setImageProperties((prevImageProperties) => {
-            return { ...prevImageProperties, height: Number(e.target.value) };
+            return { ...prevImageProperties, height: newHeight };
         });
 
         const activeObject = canvas?.getActiveObject();
@@ -18,31 +20,60 @@ const HeightWidthChanger = () => {
         }
 
         const activeImageObject = activeObject as fabric.Image;
-        const scaleYRatio =
-            Number(e.target.value) / (activeImageObject.get("height") || 1);
 
-        console.log(scaleYRatio);
+        const activeImageHeight = activeImageObject.getScaledHeight();
+        const activeImageWidth = activeImageObject.getScaledWidth();
+        const activeImageHeightByWidthRatio =
+            activeImageHeight / activeImageWidth;
+        const newWidth = newHeight / activeImageHeightByWidthRatio;
+
+        // const oldScaleY = activeImageObject.get("scaleY"); // activeHeight / height
+
+        // hence
+        const newScaleX = newWidth / (activeImageObject.width || newWidth);
+        const newScaleY = newHeight / (activeImageObject.height || newHeight);
 
         if (imageProperties.aspectRatioLocked) {
-            activeImageObject.scaleToHeight(Number(e.target.value), true);
+            activeImageObject.set("scaleX", newScaleX);
+            activeImageObject.set("scaleY", newScaleY);
         } else {
-            activeImageObject.set("scaleY", scaleYRatio);
+            activeImageObject.set("scaleY", newScaleY);
         }
+
+        console.log(canvas?.getZoom());
         canvas?.renderAll();
     };
     const setWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newWidth = Number(e.target.value);
+
         setImageProperties((prevImageProperties) => {
-            return { ...prevImageProperties, width: Number(e.target.value) };
+            return { ...prevImageProperties, width: newWidth };
         });
 
         const activeObject = canvas?.getActiveObject();
         if (!activeObject || !activeObject.isType("image")) {
             return;
         }
+
         const activeImageObject = activeObject as fabric.Image;
+
+        const activeImageWidth = activeImageObject.getScaledWidth();
+        const activeImageHeight = activeImageObject.getScaledHeight();
+        const activeImageWidthByHeightRatio =
+            activeImageWidth / activeImageHeight;
+        const newHeight = newWidth / activeImageWidthByHeightRatio;
+
+        const newScaleY = newHeight / (activeImageObject.height || newHeight);
+        const newScaleX = newWidth / (activeImageObject.width || newWidth);
+
         if (imageProperties.aspectRatioLocked) {
-            activeImageObject.scaleToWidth(Number(e.target.value), true);
+            activeImageObject.set("scaleX", newScaleX);
+            activeImageObject.set("scaleY", newScaleY);
+        } else {
+            activeImageObject.set("scaleX", newScaleX);
         }
+
+        console.log(canvas?.getZoom());
         canvas?.renderAll();
     };
 
