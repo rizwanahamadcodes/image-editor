@@ -17,6 +17,7 @@ import DeleteObject from "../ImageProperties/DeleteObject";
 import TextResetter from "./TextResetter";
 import TextResetterAndDeleter from "./TextResetterAndDeleter";
 import PositionSetter from "../PositionSetter";
+import FontFamilyAndSizeSelector from "./FontFamilyAndSizeSelector";
 
 export type TextProperties = {
     fontFamily: FontFamily;
@@ -90,8 +91,7 @@ const TextProperties = (props: TextPropertiesProps) => {
                 setTextProperties: setTextProperties,
             }}>
             <div className="flex gap-1">
-                <FontFamilySelector />
-                <FontSizeChanger />
+                <FontFamilyAndSizeSelector />
                 <ColorSelector />
                 <BoldItalicUnderlineToggles />
                 <AlignmentSelector />
