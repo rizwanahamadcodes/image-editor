@@ -24,10 +24,10 @@ const FontFamilyAndSizeSelector = (props: FontFamilyAndSizeSelectorProps) => {
 
     return (
         <>
-            <div className="hidden sm:block">
+            <div className="hidden lg:block">
                 {fontFamilyAndSizeSelectorCore()}
             </div>
-            <div className="flex sm:hidden gap-0.5 relative">
+            <div className="flex lg:hidden gap-0.5 relative">
                 <PopOver
                     isOpen={isOpen}
                     close={close}

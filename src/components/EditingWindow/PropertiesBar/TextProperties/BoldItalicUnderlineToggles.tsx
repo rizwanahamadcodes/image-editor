@@ -22,8 +22,8 @@ const BoldItalicUnderlineToggles = (props: BoldItalicUnderlineTogglesProps) => {
 
     return (
         <>
-            <div className="hidden sm:block">{boldItalicUnderlineCore()}</div>
-            <div className="flex sm:hidden gap-0.5 relative">
+            <div className="hidden md:block">{boldItalicUnderlineCore()}</div>
+            <div className="flex md:hidden gap-0.5 relative">
                 <PopOver
                     isOpen={isOpen}
                     close={close}

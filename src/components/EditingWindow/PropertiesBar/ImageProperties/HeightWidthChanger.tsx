@@ -139,10 +139,10 @@ const HeightWidthChanger = () => {
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     return (
         <>
-            <span className="hidden sm:inline-block">
+            <span className="hidden md:inline-block">
                 {heightWidthChangerCore()}
             </span>
-            <div className="relative h-2 sm:hidden">
+            <div className="relative h-2 md:hidden">
                 <PopOver
                     toggleButtonRefs={[buttonRef]}
                     isOpen={isOpen}
