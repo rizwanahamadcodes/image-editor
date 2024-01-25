@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import AspectRatioResetter from "./AspectRatioResetter";
 import DeleteObject from "./DeleteObject";
 import HeightWidthChanger from "./HeightWidthChanger";
+import PositionSetter from "../PositionSetter";
 
 type ImagePropertiesProps = {
     activeImageObject: fabric.Image;
@@ -48,6 +49,7 @@ const ImageProperties = (props: ImagePropertiesProps) => {
             <div className="flex gap-1">
                 <AspectRatioResetter />
                 <HeightWidthChanger />
+                <PositionSetter />
                 <DeleteObject />
             </div>
         </ImagePropertiesContext.Provider>

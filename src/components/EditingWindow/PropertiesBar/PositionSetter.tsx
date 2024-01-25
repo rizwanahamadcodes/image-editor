@@ -1,9 +1,7 @@
 import Button, { ButtonGroup, ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
-import { useTextProperties } from "@/context/useTextProperties";
 import { useToggle } from "@/hooks/useToggle";
-import clsx from "clsx";
 import { useRef } from "react";
 import {
     RiBringForward,
@@ -11,17 +9,15 @@ import {
     RiSendBackward,
     RiSendToBack,
 } from "react-icons/ri";
-import { TbAlignCenter, TbAlignLeft, TbAlignRight } from "react-icons/tb";
 
 const PositionSetter = () => {
-    const { textProperties, setTextProperties } = useTextProperties();
     const { canvas } = useCanvas();
 
     const setPosition = (
         whereTo: "forward" | "front" | "backward" | "back"
     ) => {
         const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
+        if (!activeObject) {
             return;
         }
         switch (whereTo) {
