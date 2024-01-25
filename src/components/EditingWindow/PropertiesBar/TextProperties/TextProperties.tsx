@@ -16,6 +16,7 @@ import BoldItalicUnderlineToggles from "./BoldItalicUnderlineToggles";
 import DeleteObject from "../ImageProperties/DeleteObject";
 import TextResetter from "./TextResetter";
 import TextResetterAndDeleter from "./TextResetterAndDeleter";
+import PositionSetter from "../PositionSetter";
 
 export type TextProperties = {
     fontFamily: FontFamily;
@@ -94,6 +95,7 @@ const TextProperties = (props: TextPropertiesProps) => {
                 <ColorSelector />
                 <BoldItalicUnderlineToggles />
                 <AlignmentSelector />
+                <PositionSetter />
                 <TextResetterAndDeleter />
             </div>
         </TextPropertiesContext.Provider>
