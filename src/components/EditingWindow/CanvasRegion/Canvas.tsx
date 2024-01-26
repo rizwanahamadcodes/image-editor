@@ -16,20 +16,17 @@ const Canvas = (props: CanvasProps) => {
 
     useEffect(() => {
         if (canvasRef.current) {
-            const newCanvas = new fabric.Canvas(canvasRef.current, {
+            const newCanvas = new fabric.Canvas(null, {
                 width: project.canvasWidth,
                 height: project.canvasHeight,
             });
 
-            const newCanvasBackground = new fabric.Rect({
-                width: project.canvasWidth,
-                height: project.canvasHeight,
-                selectable: false,
-                hasControls: false,
-                fill: "#fff",
+            newCanvas.initialize(canvasRef.current);
+
+            newCanvas?.setBackgroundColor("#fff", () => {
+                console.log("background was set to red");
             });
 
-            newCanvas.add(newCanvasBackground);
             setCanvas(newCanvas);
         }
     }, [project.canvasHeight, project.canvasWidth]);
@@ -46,6 +43,10 @@ const Canvas = (props: CanvasProps) => {
         canvas.on("object:modified", addToCanvas);
         canvas.on("object:added", addToCanvas);
     }, [canvas]);
+
+    useEffect(() => {
+        console.log(project);
+    }, [project]);
 
     useEffect(() => {
         canvas?.setZoom(zoomLevel);
