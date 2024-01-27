@@ -1,23 +1,14 @@
-import FontFamilySelector from "@/components/EditingWindow/PropertiesBar/TextProperties/FontFamilySelector";
-import FontSizeChanger from "@/components/EditingWindow/PropertiesBar/TextProperties/FontSizeChanger";
 import { TextPropertiesContext } from "@/context/useTextProperties";
 import { FontFamily, fontFamilies } from "@/data/fontFamilies";
 import { fabric } from "fabric";
 import { Gradient, Pattern } from "fabric/fabric-impl";
 import { useEffect, useState } from "react";
-import BoldToggle from "./BoldToggle";
-import ItalicToggle from "./ItalicToggle";
-import AlignmentSelector from "./AlignmentSelector";
-import UnderlineToggle from "./UnderlineToggle";
-import ColorSelector from "./ColorSelector";
-import Button, { ButtonIcon } from "@/components/Button/Button";
-import { TbAlignCenter } from "react-icons/tb";
-import BoldItalicUnderlineToggles from "./BoldItalicUnderlineToggles";
-import DeleteObject from "../ImageProperties/DeleteObject";
-import TextResetter from "./TextResetter";
-import TextResetterAndDeleter from "./TextResetterAndDeleter";
 import PositionSetter from "../PositionSetter";
+import AlignmentSelector from "./AlignmentSelector";
+import BoldItalicUnderlineToggles from "./BoldItalicUnderlineToggles";
+import ColorSelector from "./ColorSelector";
 import FontFamilyAndSizeSelector from "./FontFamilyAndSizeSelector";
+import TextResetterAndDeleter from "./TextResetterAndDeleter";
 
 export type TextProperties = {
     fontFamily: FontFamily;

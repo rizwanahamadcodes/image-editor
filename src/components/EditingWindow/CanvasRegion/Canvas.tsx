@@ -24,7 +24,7 @@ const Canvas = (props: CanvasProps) => {
             newCanvas.initialize(canvasRef.current);
 
             newCanvas?.setBackgroundColor("#fff", () => {
-                console.log("background was set to red");
+                console.log("background was set to white");
             });
 
             setCanvas(newCanvas);

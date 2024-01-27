@@ -37,7 +37,8 @@ const BoldItalicUnderlineToggles = (props: BoldItalicUnderlineTogglesProps) => {
                 <Button
                     onClick={toggle}
                     regular
-                    btnRef={buttonRef}
+                    size="sm"
+                    buttonRef={buttonRef}
                     variant="outline"
                     colorScheme="gray-200"
                     className="!font-semibold italic underline text-1.125 decoration-2 decoration-gray-400">

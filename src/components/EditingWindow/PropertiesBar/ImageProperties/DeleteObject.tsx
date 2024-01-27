@@ -20,7 +20,12 @@ const DeleteObject = (props: DeleteObjectProps) => {
     };
 
     return (
-        <Button variant="solid" onClick={handleTrashButtonClick}>
+        <Button
+            variant="outline"
+            size="sm"
+            colorScheme="gray-200"
+            regular
+            onClick={handleTrashButtonClick}>
             <ButtonIcon icon={FaTrash} className="!text-1" />
         </Button>
     );

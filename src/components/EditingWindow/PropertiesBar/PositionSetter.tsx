@@ -1,4 +1,4 @@
-import Button, { ButtonGroup, ButtonIcon } from "@/components/Button/Button";
+import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
 import { useToggle } from "@/hooks/useToggle";
@@ -44,10 +44,12 @@ const PositionSetter = () => {
     const buttonIconRef = useRef<HTMLButtonElement | null>(null);
     const positionSetterCore = () => {
         return (
-            <ButtonGroup>
+            <div className="flex">
                 <Button
-                    colorScheme="white"
+                    colorScheme="gray-200"
                     regular
+                    variant="outline"
+                    size="sm"
                     className="!rounded-r-none"
                     onClick={() => {
                         setPosition("forward");
@@ -55,33 +57,39 @@ const PositionSetter = () => {
                     <ButtonIcon icon={RiBringForward} />
                 </Button>
                 <Button
-                    colorScheme="white"
+                    colorScheme="gray-200"
                     regular
-                    className="border-x border-gray-200 !rounded-0"
+                    variant="outline"
+                    size="sm"
+                    className="!rounded-l-none !rounded-r-none !border-l-0"
                     onClick={() => {
                         setPosition("front");
                     }}>
                     <ButtonIcon icon={RiBringToFront} />
                 </Button>
                 <Button
-                    colorScheme="white"
+                    colorScheme="gray-200"
                     regular
-                    className="border-r border-r-gray-200 !rounded-0"
+                    variant="outline"
+                    size="sm"
+                    className="!rounded-l-none !rounded-r-none !border-l-0"
                     onClick={() => {
                         setPosition("backward");
                     }}>
                     <ButtonIcon icon={RiSendBackward} />
                 </Button>
                 <Button
-                    colorScheme="white"
+                    colorScheme="gray-200"
                     regular
-                    className="!rounded-l-none"
+                    variant="outline"
+                    size="sm"
+                    className="!rounded-l-none !border-l-0"
                     onClick={() => {
                         setPosition("back");
                     }}>
                     <ButtonIcon icon={RiSendToBack} />
                 </Button>
-            </ButtonGroup>
+            </div>
         );
     };
     return (
@@ -102,8 +110,9 @@ const PositionSetter = () => {
                 <Button
                     variant="outline"
                     regular
+                    size="sm"
                     colorScheme="gray-200"
-                    btnRef={buttonRef}
+                    buttonRef={buttonRef}
                     onClick={toggle}>
                     <ButtonIcon icon={RiBringForward} />
                 </Button>

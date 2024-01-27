@@ -1,4 +1,4 @@
-import Button, { ButtonGroup, ButtonIcon } from "@/components/Button/Button";
+import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
 import { useTextProperties } from "@/context/useTextProperties";
 import { FiMinus, FiPlus } from "react-icons/fi";
@@ -22,11 +22,12 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
     };
 
     return (
-        <ButtonGroup>
+        <div className="flex">
             <Button
                 regular
-                colorScheme="white"
-                variant="solid"
+                colorScheme="gray-200"
+                variant="outline"
+                size="sm"
                 className="!rounded-r-0"
                 onClick={() => {
                     setFontSize(textProperties.fontSize - 1);
@@ -38,20 +39,21 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
                     setFontSize(Number(e.target.value));
                 }}
                 type="number"
-                className="text-center w-3 min-w-0 grow border-x border-x-gray-200 focus:shadow-halo-gray-500 focus:outline-none focus:z-10"
+                className="text-center w-3 min-w-0 grow border-y border-y-gray-200 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 focus:z-10 focus:outline-none focus:border-x focus:border-x-gray-200"
                 value={textProperties.fontSize}
             />
             <Button
-                className="!rounded-l-0"
                 regular
-                colorScheme="white"
-                variant="solid"
+                colorScheme="gray-200"
+                variant="outline"
+                size="sm"
+                className="!rounded-l-0"
                 onClick={() => {
                     setFontSize(textProperties.fontSize + 1);
                 }}>
                 <ButtonIcon icon={FiPlus} />
             </Button>
-        </ButtonGroup>
+        </div>
     );
 };
 

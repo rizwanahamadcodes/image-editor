@@ -1,9 +1,8 @@
-import Button, { ButtonGroup, ButtonIcon } from "@/components/Button/Button";
+import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
 import { useTextProperties } from "@/context/useTextProperties";
 import { useToggle } from "@/hooks/useToggle";
-import clsx from "clsx";
 import { useRef } from "react";
 import { TbAlignCenter, TbAlignLeft, TbAlignRight } from "react-icons/tb";
 
@@ -33,10 +32,12 @@ const AlignmentSelector = () => {
     const buttonIconRef = useRef<HTMLButtonElement | null>(null);
     const alignmentSelectorCore = () => {
         return (
-            <ButtonGroup>
+            <div className="flex">
                 <Button
-                    colorScheme="white"
+                    colorScheme="gray-200"
                     regular
+                    variant="outline"
+                    size="sm"
                     className="!rounded-r-none"
                     active={isActive("left")}
                     onClick={() => {
@@ -45,9 +46,11 @@ const AlignmentSelector = () => {
                     <ButtonIcon icon={TbAlignLeft} />
                 </Button>
                 <Button
-                    colorScheme="white"
+                    colorScheme="gray-200"
                     regular
-                    className="border-x border-gray-200 !rounded-0"
+                    variant="outline"
+                    size="sm"
+                    className="!rounded-r-none !rounded-l-none !border-l-0"
                     active={isActive("center")}
                     onClick={() => {
                         setAlignment("center");
@@ -55,16 +58,18 @@ const AlignmentSelector = () => {
                     <ButtonIcon icon={TbAlignCenter} />
                 </Button>
                 <Button
-                    colorScheme="white"
+                    colorScheme="gray-200"
                     regular
-                    className="!rounded-l-none"
+                    variant="outline"
+                    size="sm"
+                    className="!rounded-l-none !border-l-0"
                     active={isActive("right")}
                     onClick={() => {
                         setAlignment("right");
                     }}>
                     <ButtonIcon icon={TbAlignLeft} />
                 </Button>
-            </ButtonGroup>
+            </div>
         );
     };
     return (
@@ -85,8 +90,9 @@ const AlignmentSelector = () => {
                 <Button
                     variant="outline"
                     regular
+                    size="sm"
                     colorScheme="gray-200"
-                    btnRef={buttonRef}
+                    buttonRef={buttonRef}
                     onClick={toggle}>
                     <ButtonIcon
                         icon={() => {

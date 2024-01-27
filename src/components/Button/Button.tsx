@@ -4,7 +4,7 @@ import { IconType } from "react-icons";
 
 export const button = cva(
     [
-        "font-medium transition-all focus:outline-none items-center active:scale-95 flex gap-0.75 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 rounded-0.25 justify-center",
+        "font-medium transition-all focus:outline-none items-center active:scale-95 flex gap-0.75 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 rounded-0.25 justify-center focus:z-20",
     ],
     {
         variants: {
@@ -55,7 +55,7 @@ export const button = cva(
 
 type ButtonProps = React.ComponentPropsWithoutRef<"button"> &
     VariantProps<typeof button> & {
-        buttonRef: React.MutableRefObject<HTMLButtonElement | null>;
+        buttonRef?: React.MutableRefObject<HTMLButtonElement | null>;
         children?: React.ReactNode;
         className?: string;
     };
@@ -66,8 +66,8 @@ export const Button = (props: ButtonProps) => {
         variant,
         colorScheme,
         size,
-        regular,
-        active,
+        regular = false,
+        active = false,
         className,
         buttonRef,
         ...otherProps
@@ -85,6 +85,7 @@ export const Button = (props: ButtonProps) => {
         </button>
     );
 };
+export default Button;
 
 type ButtonIconProps = React.ComponentPropsWithoutRef<IconType> & {
     icon: IconType;
@@ -96,5 +97,3 @@ export const ButtonIcon = (props: ButtonIconProps) => {
 
     return <Icon className={clsx("text-1.25", className)} {...otherProps} />;
 };
-
-export default Button;

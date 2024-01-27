@@ -48,7 +48,12 @@ const TextResetter = (props: TextResetterProps) => {
     };
 
     return (
-        <Button onClick={handleAspectRatioReset}>
+        <Button
+            variant="outline"
+            size="sm"
+            colorScheme="gray-200"
+            regular
+            onClick={handleAspectRatioReset}>
             <ButtonIcon icon={IoReloadSharp} />
         </Button>
     );

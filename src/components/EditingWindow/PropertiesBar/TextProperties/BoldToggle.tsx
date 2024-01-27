@@ -34,6 +34,7 @@ const BoldToggle = (props: BoldToggleProps) => {
             variant="outline"
             colorScheme="gray-200"
             regular
+            size="sm"
             active={textProperties.isBold}
             onClick={handleBoldToggleClick}>
             <ButtonIcon icon={RiBold} />

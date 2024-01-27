@@ -34,6 +34,7 @@ const UnderlineToggle = (props: UnderlineToggleProps) => {
             variant="outline"
             colorScheme="gray-200"
             regular
+            size="sm"
             active={textProperties.isUnderlined}
             onClick={handleUnderlineToggleClick}>
             <ButtonIcon icon={RiUnderline} />

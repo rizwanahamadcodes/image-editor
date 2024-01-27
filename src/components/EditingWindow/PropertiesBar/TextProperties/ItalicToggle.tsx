@@ -34,6 +34,7 @@ const ItalicToggle = (props: ItalicToggleProps) => {
             variant="outline"
             colorScheme="gray-200"
             regular
+            size="sm"
             active={textProperties.isItalic}
             onClick={handleItalicToggleClick}>
             <ButtonIcon icon={RiItalic} />

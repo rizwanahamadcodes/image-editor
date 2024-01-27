@@ -1,4 +1,4 @@
-import Button, { ButtonIcon } from "@/components/NewButton/Button";
+import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useToggle } from "@/hooks/useToggle";
 import { useRef } from "react";
