@@ -5,6 +5,9 @@ import Modal, {
 } from "@/components/Modal/Modal";
 import Input, { InputControl, Label } from "../Input/Input";
 import Button from "../Button/Button";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import newProjectSchema, { NewProjectSchema } from "@/schemas/newProjectSchema";
 
 type CreateNewProjectModalProps = Omit<ModalProps, "children">;
 
@@ -27,28 +30,36 @@ type CreateNewProjectFormProps = {
 
 export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
     const { close } = props;
-    const handleCreateNewProjectFormSubmit = (
-        e: React.FormEvent<HTMLFormElement>
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<NewProjectSchema>({
+        resolver: zodResolver(newProjectSchema),
+    });
+
+    const handleCreateNewProjectFormSubmit: SubmitHandler<NewProjectSchema> = (
+        data
     ) => {
-        e.preventDefault();
+        console.log(data);
     };
 
     return (
         <form
-            onSubmit={(e) => handleCreateNewProjectFormSubmit(e)}
+            onSubmit={handleSubmit(handleCreateNewProjectFormSubmit)}
             className="flex flex-col gap-1.5">
             <InputControl>
                 <Label htmlFor="projectName">Name:</Label>
-                <Input id="projectName" />
+                <Input id="projectName" {...register("name")} />
             </InputControl>
             <div className="flex gap-1">
                 <InputControl>
                     <Label htmlFor="projectHeight">Height</Label>
-                    <Input id="projectHeight" />
+                    <Input id="projectHeight" {...register("height")} />
                 </InputControl>
                 <InputControl>
                     <Label htmlFor="projectWidth">Width:</Label>
-                    <Input id="projectWidth" />
+                    <Input id="projectWidth" {...register("width")} />
                 </InputControl>
             </div>
             <div className="flex justify-end gap-1">

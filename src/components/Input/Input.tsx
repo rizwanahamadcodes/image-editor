@@ -1,13 +1,14 @@
 import clsx from "clsx";
+import React from "react";
 
 type InputProps = React.ComponentPropsWithoutRef<"input">;
 
-const Input = (props: InputProps) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     const { className, ...otherProps } = props;
 
     return (
         <input
-            type="text"
+            ref={ref}
             className={clsx(
                 "h-2 border border-gray-200 focus:outline-none px-0.5 rounded-0.5 w-full min-w-0 focus:ring focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-white hover:border-gray-300 hover:bg-gray-50",
                 className
@@ -15,7 +16,9 @@ const Input = (props: InputProps) => {
             {...otherProps}
         />
     );
-};
+});
+
+Input.displayName = "Input";
 
 export default Input;
 
