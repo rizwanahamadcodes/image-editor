@@ -15,16 +15,18 @@ const CreateNewProjectModal = (props: CreateNewProjectModalProps) => {
         <Modal isOpen={isOpen} open={open} close={close}>
             <DefaultModalHead>Create New Project</DefaultModalHead>
             <ModalBody>
-                <CreateNewProjectForm />
+                <CreateNewProjectForm close={close} />
             </ModalBody>
         </Modal>
     );
 };
 
-type CreateNewProjectFormProps = {};
+type CreateNewProjectFormProps = {
+    close: () => void;
+};
 
 export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
-    const {} = props;
+    const { close } = props;
     const handleCreateNewProjectFormSubmit = (
         e: React.FormEvent<HTMLFormElement>
     ) => {
@@ -49,9 +51,21 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
                     <Input id="projectWidth" />
                 </InputControl>
             </div>
-            <div className="">
-                <Button variant="solid" colorScheme="gray-200">
-                    Hello
+            <div className="flex justify-end gap-1">
+                <Button
+                    variant="ghost"
+                    type="reset"
+                    colorScheme="gray-900"
+                    size="sm"
+                    onClick={close}>
+                    Cancel
+                </Button>
+                <Button
+                    type="submit"
+                    variant="solid"
+                    colorScheme="gray-900"
+                    size="sm">
+                    OK
                 </Button>
             </div>
         </form>

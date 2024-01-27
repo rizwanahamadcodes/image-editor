@@ -9,7 +9,7 @@ const Input = (props: InputProps) => {
         <input
             type="text"
             className={clsx(
-                "h-2 border border-gray-200 focus:outline-none px-0.5 rounded-0.5 w-full min-w-0 focus:ring focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-white hover:border-gray-300 hover:bg-gray-50 transition-all",
+                "h-2 border border-gray-200 focus:outline-none px-0.5 rounded-0.5 w-full min-w-0 focus:ring focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-white hover:border-gray-300 hover:bg-gray-50",
                 className
             )}
             {...otherProps}

@@ -4,12 +4,12 @@ import { IconType } from "react-icons";
 
 export const button = cva(
     [
-        "font-medium transition-all focus:outline-none items-center active:scale-95 flex gap-0.75 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 rounded-0.25 justify-center",
+        "font-medium focus:outline-none items-center active:scale-95 flex gap-0.75 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 rounded-0.25 justify-center",
     ],
     {
         variants: {
             variant: {
-                solid: "",
+                solid: "shadow hover:shadow-md",
                 outline: "border",
                 ghost: "",
             },
@@ -37,11 +37,24 @@ export const button = cva(
             { size: "sm", regular: true, className: "w-2" },
             { size: "md", regular: true, className: "w-3" },
             { size: "lg", regular: true, className: "w-4" },
+            { size: "sm", regular: false, className: "px-1" },
+            { size: "md", regular: false, className: "px-1.5" },
+            { size: "lg", regular: false, className: "px-2" },
             {
-                variant: "solid",
+                variant: "outline",
                 colorScheme: "gray-200",
                 className:
                     "text-gray-500 border-gray-200 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700",
+            },
+            {
+                variant: "solid",
+                colorScheme: "gray-900",
+                className: "bg-gray-900 text-gray-100 hover:bg-gray-950",
+            },
+            {
+                variant: "ghost",
+                colorScheme: "gray-900",
+                className: "hover:bg-gray-50 text-gray-900 hover:text-gray-950",
             },
         ],
 
