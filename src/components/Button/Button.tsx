@@ -4,7 +4,7 @@ import { IconType } from "react-icons";
 
 export const button = cva(
     [
-        "font-medium transition-all focus:outline-none items-center active:scale-95 flex gap-0.75 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 rounded-0.25 justify-center focus:z-20",
+        "font-medium transition-all focus:outline-none items-center active:scale-95 flex gap-0.75 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 rounded-0.25 justify-center",
     ],
     {
         variants: {
@@ -38,18 +38,14 @@ export const button = cva(
             { size: "md", regular: true, className: "w-3" },
             { size: "lg", regular: true, className: "w-4" },
             {
-                variant: "outline",
+                variant: "solid",
                 colorScheme: "gray-200",
                 className:
                     "text-gray-500 border-gray-200 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700",
             },
         ],
 
-        defaultVariants: {
-            variant: "solid",
-            colorScheme: "primary",
-            size: "md",
-        },
+        defaultVariants: {},
     }
 );
 

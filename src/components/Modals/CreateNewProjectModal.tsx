@@ -1,11 +1,10 @@
 import Modal, {
     DefaultModalHead,
     ModalBody,
-    ModalFoot,
     ModalProps,
 } from "@/components/Modal/Modal";
-import clsx from "clsx";
 import Input, { InputControl, Label } from "../Input/Input";
+import Button from "../Button/Button";
 
 type CreateNewProjectModalProps = Omit<ModalProps, "children">;
 
@@ -18,10 +17,6 @@ const CreateNewProjectModal = (props: CreateNewProjectModalProps) => {
             <ModalBody>
                 <CreateNewProjectForm />
             </ModalBody>
-            <ModalFoot className="gap-1 flex justify-end">
-                <button onClick={close}>Cancel</button>
-                <button>Ok</button>
-            </ModalFoot>
         </Modal>
     );
 };
@@ -32,7 +27,9 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
     const {} = props;
     const handleCreateNewProjectFormSubmit = (
         e: React.FormEvent<HTMLFormElement>
-    ) => {};
+    ) => {
+        e.preventDefault();
+    };
 
     return (
         <form
@@ -51,6 +48,11 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
                     <Label htmlFor="projectWidth">Width:</Label>
                     <Input id="projectWidth" />
                 </InputControl>
+            </div>
+            <div className="">
+                <Button variant="solid" colorScheme="gray-200">
+                    Hello
+                </Button>
             </div>
         </form>
     );
