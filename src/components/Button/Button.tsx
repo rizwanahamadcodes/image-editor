@@ -1,107 +1,100 @@
+import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
-import { IconBaseProps, IconType } from "react-icons";
-import { MdBolt } from "react-icons/md";
+import { IconType } from "react-icons";
 
-type Colors = "gray-500" | "primary" | "white" | "gray-200";
+export const button = cva(
+    [
+        "font-medium transition-all focus:outline-none items-center active:scale-95 flex gap-0.75 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 rounded-0.25 justify-center",
+    ],
+    {
+        variants: {
+            variant: {
+                solid: "",
+                outline: "border",
+                ghost: "",
+            },
+            colorScheme: {
+                primary: "",
+                "gray-200": "",
+                "gray-900": "",
+            },
+            size: {
+                sm: "h-2",
+                md: "h-3",
+                lg: "h-4",
+            },
+            regular: {
+                true: "",
+                false: "",
+            },
+            active: {
+                true: "",
+                false: "",
+            },
+        },
 
-type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
-    variant?: "outline" | "solid";
-    colorScheme?: Colors;
-    active?: boolean;
-    regular?: boolean;
-    btnRef?: React.MutableRefObject<HTMLButtonElement | null>;
-};
+        compoundVariants: [
+            { size: "sm", regular: true, className: "w-2" },
+            { size: "md", regular: true, className: "w-3" },
+            { size: "lg", regular: true, className: "w-4" },
+            {
+                variant: "outline",
+                colorScheme: "gray-200",
+                className:
+                    "text-gray-500 border-gray-200 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700",
+            },
+        ],
 
-const Button = (props: ButtonProps) => {
+        defaultVariants: {
+            variant: "solid",
+            colorScheme: "primary",
+            size: "md",
+        },
+    }
+);
+
+type ButtonProps = React.ComponentPropsWithoutRef<"button"> &
+    VariantProps<typeof button> & {
+        buttonRef: React.MutableRefObject<HTMLButtonElement | null>;
+        children?: React.ReactNode;
+        className?: string;
+    };
+
+export const Button = (props: ButtonProps) => {
     const {
-        variant = "solid",
-        colorScheme = "white",
-        active = false,
-        regular = false,
-        className,
         children,
-        btnRef,
+        variant,
+        colorScheme,
+        size,
+        regular,
+        active,
+        className,
+        buttonRef,
         ...otherProps
     } = props;
 
-    const baseClasses = `transition-all h-2 max-h-2 min-w-2 px-0.75 rounded-0.25 overflow-hidden flex flex-col gap-0.5 items-center justify-center focus:outline-none active:scale-95 font-medium ${
-        regular ? "max-w-2" : ""
-    }`;
-
-    const baseVariantClasses: { [key: string]: string } = {
-        solid: "",
-        outline: "border",
-    };
-    const focusClasses: { [key: string]: string } = {
-        primary: "focus:shadow-halo-primary",
-        white: "focus:z-10",
-        "gray-500": "focus:shadow-halo-gray-500",
-        "gray-200":
-            "focus:shadow-halo-gray-500  focus:text-gray-800 focus:border-gray-400 ",
-    };
-
-    const activeClasses: { [key: string]: string } = {
-        "gray-200": "text-gray-800 bg-gray-100 border-gray-400",
-        white: "text-gray-800 !bg-gray-100",
-    };
-
-    const styleClasses: { [key: string]: any } = {
-        solid: {
-            primary: "bg-primary text-white hover:bg-primary-600",
-            "gray-500": "bg-gray-500 text-white hover:bg-gray-600",
-            white: "bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:shadow-halo-gray-500",
-        },
-        outline: {
-            primary: "border-primary text-primary",
-            "gray-500": "",
-            "gray-200":
-                "border-gray-200 text-gray-600 hover:text-gray-800 hover:bg-gray-100 hover:border-gray-400",
-        },
-    };
     return (
         <button
-            ref={btnRef}
             className={clsx(
-                baseClasses,
-                baseVariantClasses[variant],
-                focusClasses[colorScheme],
-                styleClasses[variant][colorScheme],
-                active ? activeClasses[colorScheme] : null,
+                button({ variant, colorScheme, size, regular, active }),
                 className
             )}
+            ref={buttonRef}
             {...otherProps}>
             {children}
         </button>
     );
 };
 
-type ButtonGroupProps = {
-    children?: React.ReactNode;
+type ButtonIconProps = React.ComponentPropsWithoutRef<IconType> & {
+    icon: IconType;
     className?: string;
 };
 
-export const ButtonGroup = (props: ButtonGroupProps) => {
-    const { children, className } = props;
-
-    return (
-        <div
-            className={clsx(
-                "border border-gray-200 hover:border-gray-400 transition-all rounded-0.25 flex flex-row",
-                className
-            )}>
-            {children}
-        </div>
-    );
-};
-
-type ButtonIconProps = IconBaseProps & {
-    icon: IconType;
-};
-
 export const ButtonIcon = (props: ButtonIconProps) => {
-    const { icon: Icon, className } = props;
+    const { icon: Icon, className, ...otherProps } = props;
 
-    return <Icon className={clsx("text-1.25", className)} />;
+    return <Icon className={clsx("text-1.25", className)} {...otherProps} />;
 };
 
 export default Button;

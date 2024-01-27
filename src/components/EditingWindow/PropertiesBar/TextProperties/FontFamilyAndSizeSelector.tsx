@@ -1,4 +1,4 @@
-import Button, { ButtonIcon } from "@/components/Button/Button";
+import Button, { ButtonIcon } from "@/components/NewButton/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useToggle } from "@/hooks/useToggle";
 import { useRef } from "react";
@@ -40,11 +40,11 @@ const FontFamilyAndSizeSelector = (props: FontFamilyAndSizeSelectorProps) => {
 
                 <Button
                     onClick={toggle}
-                    regular
-                    btnRef={buttonRef}
+                    buttonRef={buttonRef}
                     variant="outline"
-                    colorScheme="gray-200"
-                    className="">
+                    size="sm"
+                    regular
+                    colorScheme="gray-200">
                     <ButtonIcon icon={LuLigature} />
                 </Button>
             </div>

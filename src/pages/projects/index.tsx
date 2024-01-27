@@ -1,7 +1,9 @@
-import Container, { FullWidthContainer } from "@/components/Container";
+import Container from "@/components/Container";
+import CreateNewProjectModal from "@/components/Modals/CreateNewProjectModal";
 import Section, { SectionTitle } from "@/components/Section/Section";
-import { Project, projects } from "@/data/projects";
 import { useCurrentUser } from "@/context/useCurrentUser";
+import { Project, projects } from "@/data/projects";
+import { useToggle } from "@/hooks/useToggle";
 import { pathConstants } from "@/routes/pathContants";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,13 +19,25 @@ const DashboardProjects = (props: DashboardProjectsProps) => {
         (project) => project.userId === currentUser.userId
     );
 
+    const {
+        open: openCreateNewProjectModal,
+        close: closeCreateNewProjectModal,
+        isOpen: isCreateNewProjectModalOpen,
+    } = useToggle(true);
+
     return (
         <Section>
-            <FullWidthContainer>
+            <Container>
+                {isCreateNewProjectModalOpen && (
+                    <CreateNewProjectModal
+                        open={openCreateNewProjectModal}
+                        close={closeCreateNewProjectModal}
+                        isOpen={isCreateNewProjectModalOpen}
+                    />
+                )}
                 <SectionTitle>All Projects</SectionTitle>
-
                 <div className="grid grid-cols gap-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                    <AddNewProject />
+                    <AddNewProject onClick={openCreateNewProjectModal} />
                     {activeProjects.map((activeProject) => (
                         <ProjectCard
                             key={activeProject.projectId}
@@ -31,7 +45,7 @@ const DashboardProjects = (props: DashboardProjectsProps) => {
                         />
                     ))}
                 </div>
-            </FullWidthContainer>
+            </Container>
         </Section>
     );
 };
@@ -65,13 +79,15 @@ export const ProjectCard = (props: ProjectCardProps) => {
     );
 };
 
-type AddNewProjectProps = {};
+type AddNewProjectProps = React.ComponentPropsWithoutRef<"div">;
 
 export const AddNewProject = (props: AddNewProjectProps) => {
-    const {} = props;
+    const { onClick } = props;
 
     return (
-        <div className="border border-gray-100 rounded-0.5 p-1 bg-gray-50 flex items-center justify-center cursor-pointer hover:border-gray-400 hover:bg-gray-100 text-gray-550 transition-all group/addNewProjectGroup">
+        <div
+            className="border border-gray-100 rounded-0.5 p-1 bg-gray-50 flex items-center justify-center cursor-pointer hover:border-gray-400 hover:bg-gray-100 text-gray-550 transition-all group/addNewProjectGroup"
+            onClick={onClick}>
             <BiPlus className="group-hover/addNewProjectGroup:text-gray-600 transition-all text-gray-500 text-2.75" />
         </div>
     );
