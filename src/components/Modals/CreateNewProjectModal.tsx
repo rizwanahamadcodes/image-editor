@@ -3,7 +3,7 @@ import Modal, {
     ModalBody,
     ModalProps,
 } from "@/components/Modal/Modal";
-import Input, { InputControl, Label } from "../Input/Input";
+import Input, { InputControl, InputFeedback, Label } from "../Input/Input";
 import Button from "../Button/Button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -50,16 +50,31 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
             className="flex flex-col gap-1.5">
             <InputControl>
                 <Label htmlFor="projectName">Name:</Label>
-                <Input id="projectName" {...register("name")} />
+                <Input
+                    id="projectName"
+                    {...register("name")}
+                    error={errors["name"]}
+                />
+                <InputFeedback error={errors["name"]} />
             </InputControl>
             <div className="flex gap-1">
                 <InputControl>
                     <Label htmlFor="projectHeight">Height</Label>
-                    <Input id="projectHeight" {...register("height")} />
+                    <Input
+                        id="projectHeight"
+                        {...register("height")}
+                        error={errors["height"]}
+                    />
+                    <InputFeedback error={errors["height"]} />
                 </InputControl>
                 <InputControl>
                     <Label htmlFor="projectWidth">Width:</Label>
-                    <Input id="projectWidth" {...register("width")} />
+                    <Input
+                        id="projectWidth"
+                        {...register("width")}
+                        error={errors["width"]}
+                    />
+                    <InputFeedback error={errors["width"]} />
                 </InputControl>
             </div>
             <div className="flex justify-end gap-1">
