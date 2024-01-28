@@ -18,6 +18,8 @@ import {
     selectProjectById,
 } from "@/store/slices/projectsSlice";
 import { RootState } from "@/store/store";
+import { useRouter } from "next/router";
+import { pathConstants } from "@/routes/pathContants";
 
 type CreateNewProjectModalProps = Omit<ModalProps, "children">;
 
@@ -39,6 +41,7 @@ type CreateNewProjectFormProps = {
 };
 
 export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
+    const router = useRouter();
     const dispatch = useDispatch();
     const { userId } = useCurrentUser();
     const { close } = props;
@@ -53,27 +56,24 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
     const handleCreateNewProjectFormSubmit: SubmitHandler<
         NewProjectSchema
     > = async (data) => {
-        const canvas = new fabric.Canvas(null, {
-            height: data.height,
-            width: data.width,
-        });
-        const stringifiedCanvas = JSON.stringify(
-            canvas.toJSON([
-                "height",
-                "width",
-                "backgroundColor",
-                "backgroundImage",
-            ])
-        );
+        const canvas = {
+            canvasProperties: {
+                height: data.height,
+                width: data.width,
+            },
+            canvasObjects: [],
+        };
 
         const project: Project = {
-            projectId: 1000,
-            canvas: stringifiedCanvas,
+            projectId: 1000 + new Date().getTime(),
+            canvas: JSON.stringify(canvas),
             name: data.name,
             userId: userId,
         };
 
         dispatch(addProject(project));
+
+        router.push(`${pathConstants.PROJECTS.path}/${project.projectId}/edit`);
     };
 
     const allProjects = useSelector((state: RootState) =>

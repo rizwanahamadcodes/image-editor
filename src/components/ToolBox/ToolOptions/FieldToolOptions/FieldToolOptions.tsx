@@ -5,7 +5,7 @@ import { RootState } from "@/store/store";
 import { useEffect, useState } from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
-import { useCurrentProject } from "@/context/useCurrentProject";
+import { useActiveProject } from "@/context/useActiveProject";
 import FieldView from "@/components/ToolBox/ToolOptions/FieldToolOptions/FieldView";
 import ListView from "@/components/ToolBox/ToolOptions/FieldToolOptions/ListsView";
 
@@ -19,10 +19,10 @@ const FieldToolOptions = (props: FieldToolOptionsProps) => {
         selectListByUserId(state, currentUser.userId)
     );
 
-    const { project, setProject } = useCurrentProject();
+    const { activeProject, setActiveProject } = useActiveProject();
 
-    if (project.listId) {
-        return <FieldView listId={project.listId} />;
+    if (activeProject.listId) {
+        return <FieldView listId={activeProject.listId} />;
     }
 
     return <ListView />;

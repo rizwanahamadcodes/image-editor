@@ -1,5 +1,5 @@
 import { useCanvas } from "@/context/useCanvas";
-import { useCurrentProject } from "@/context/useCurrentProject";
+import { useActiveProject } from "@/context/useActiveProject";
 import { selectListByListId } from "@/store/slices/listsSlice";
 import { RootState } from "@/store/store";
 import { fabric } from "fabric";
@@ -11,7 +11,7 @@ type FieldViewProps = { listId: number };
 
 const FieldView = (props: FieldViewProps) => {
     const { listId } = props;
-    const { project, setProject } = useCurrentProject();
+    const { activeProject, setActiveProject } = useActiveProject();
     const { canvas } = useCanvas();
 
     const list = useSelector((state: RootState) =>
@@ -19,7 +19,7 @@ const FieldView = (props: FieldViewProps) => {
     );
 
     const handleSelectAnotherClick = () => {
-        setProject({ ...project, listId: undefined });
+        setActiveProject({ ...activeProject, listId: undefined });
     };
 
     if (!list) {
@@ -73,7 +73,7 @@ const FieldView = (props: FieldViewProps) => {
                 <IoChevronBackOutline /> Select Another
             </button>
             <h4 className="text-gray-400 font-medium">
-                Click to add to the project
+                Click to add to the activeProject
             </h4>
             <div className="flex flex-wrap gap-0.5">
                 {Object.keys(list.data[0]).map((columnName) => {

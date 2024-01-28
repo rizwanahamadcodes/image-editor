@@ -1,15 +1,15 @@
-import { useCurrentProject } from "@/context/useCurrentProject";
+import { useActiveProject } from "@/context/useActiveProject";
 import Image from "next/image";
 
 type ImageOptionsProps = {};
 
 const ImageToolOptions = (props: ImageOptionsProps) => {
     const {} = props;
-    const { project, setProject } = useCurrentProject();
+    const { activeProject, setActiveProject } = useActiveProject();
 
     return (
         <div className="relative flex-col flex gap-0.5">
-            {project.images.map((imageUrl, index) => (
+            {activeProject.images?.map((imageUrl, index) => (
                 <div key={index} className="relative">
                     <Image
                         className="rounded-1"

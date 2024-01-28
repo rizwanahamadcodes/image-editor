@@ -1,4 +1,4 @@
-import { useCurrentProject } from "@/context/useCurrentProject";
+import { useActiveProject } from "@/context/useActiveProject";
 import { useCurrentUser } from "@/context/useCurrentUser";
 import { selectListByUserId } from "@/store/slices/listsSlice";
 import { RootState } from "@/store/store";
@@ -11,14 +11,14 @@ const ListsView = (props: ListsViewProps) => {
 
     const { userId } = useCurrentUser();
 
-    const { project, setProject } = useCurrentProject();
+    const { activeProject, setActiveProject } = useActiveProject();
 
     const currentUsersLists = useSelector((state: RootState) =>
         selectListByUserId(state, userId)
     );
 
     const handleListClick = (listId: number) => {
-        setProject({ ...project, listId: listId });
+        setActiveProject({ ...activeProject, listId: listId });
     };
 
     return (

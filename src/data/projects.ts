@@ -4,12 +4,34 @@ export type fieldObject = {
     [key: string]: fabric.Object;
 };
 
+export type CanvasType = {
+    version: string;
+    objects: fabric.Object[];
+    height: number;
+    width: number;
+};
+
+export type CanvasProperties = {
+    width?: number;
+    backgroundColor?: string;
+    backgroundImage?: string;
+    height?: number;
+};
+
+export type ActiveProject = {
+    canvasProperties: CanvasProperties;
+    canvasObjects: fabric.Object[];
+    thumbnailUrl?: string;
+    listId?: number;
+    images?: string[];
+};
+
 export type Project = {
     projectId: number;
     userId: number;
     name: string;
-    thumbnailUrl?: string;
     canvas: string;
+    thumbnailUrl?: string;
     listId?: number;
     images?: string[];
 };
@@ -27,7 +49,14 @@ export const projects: Project[] = [
             "/images/projects/thumbnails/thumbnail_3.jpg",
             "/images/projects/thumbnails/thumbnail_4.jpg",
         ],
-        canvas: "new fabric.Canvas(null, { height: 400, width: 300 })",
+        canvas: `{
+            "canvasProperties": {
+              "height": 100,
+              "width": 200,
+              "backgroundColor": "#ffffff"
+            },
+            "canvasObjects": []
+          }`,
     },
     {
         projectId: 2,
@@ -40,6 +69,13 @@ export const projects: Project[] = [
             "/images/projects/thumbnails/thumbnail_6.jpg",
             "/images/projects/thumbnails/thumbnail_7.jpg",
         ],
-        canvas: "new fabric.Canvas(null, { height: 600, width: 900 })",
+        canvas: `{
+            "canvasProperties": {
+              "height": 40,
+              "width": 80,
+              "backgroundColor": "#ffffff"
+            },
+            "canvasObjects": []
+          }`,
     },
 ];

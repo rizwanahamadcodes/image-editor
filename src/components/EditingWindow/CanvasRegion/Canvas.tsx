@@ -1,7 +1,7 @@
+import { useActiveProject } from "@/context/useActiveProject";
 import { useCanvas } from "@/context/useCanvas";
-import { useCurrentProject } from "@/context/useCurrentProject";
+import { useEffect, useRef } from "react";
 import { fabric } from "fabric";
-import { useEffect, useRef, useState } from "react";
 
 type CanvasProps = {
     zoomLevel: number;
@@ -12,47 +12,44 @@ const Canvas = (props: CanvasProps) => {
     const { zoomLevel, setZoomLevel } = props;
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const { canvas, setCanvas } = useCanvas();
-    const { project, setProject } = useCurrentProject();
+    const { activeProject, setActiveProject } = useActiveProject();
 
     useEffect(() => {
-        if (canvasRef.current) {
-            const newCanvas = new fabric.Canvas(null, {
-                width: project.canvasWidth,
-                height: project.canvasHeight,
-            });
-
-            newCanvas.initialize(canvasRef.current);
-
-            newCanvas?.setBackgroundColor("#fff", () => {
-                console.log("background was set to white");
-            });
-
-            setCanvas(newCanvas);
+        if (!canvasRef.current) {
+            return;
         }
-    }, [project.canvasHeight, project.canvasWidth]);
 
-    useEffect(() => {
-        const addToCanvas = () => {
-            if (!canvas) {
-                return;
-            }
+        const newCanvas = new fabric.Canvas(canvasRef.current, {
+            ...activeProject.canvasProperties,
+            backgroundColor:
+                activeProject.canvasProperties.backgroundColor ?? "#ffffff",
+        });
+        canvas?.add(...activeProject.canvasObjects);
 
-            setProject({ ...project, canvasObjects: canvas.getObjects() });
-        };
-        if (!canvas) return;
-        canvas.on("object:modified", addToCanvas);
-        canvas.on("object:added", addToCanvas);
-    }, [canvas]);
+        setCanvas(newCanvas);
+    }, [activeProject]);
 
-    useEffect(() => {
-        console.log(project);
-    }, [project]);
+    // useEffect(() => {
+    //     const addToCanvas = () => {
+    //         if (!canvas) {
+    //             return;
+    //         }
 
-    useEffect(() => {
-        canvas?.setZoom(zoomLevel);
-        canvas?.setHeight(project.canvasHeight * zoomLevel);
-        canvas?.setWidth(project.canvasWidth * zoomLevel);
-    }, [zoomLevel, canvas, project]);
+    //         setActiveProject({
+    //             ...activeProject,
+    //             canvasObjects: canvas.getObjects(),
+    //         });
+    //     };
+    //     if (!canvas) return;
+    //     canvas.on("object:modified", addToCanvas);
+    //     canvas.on("object:added", addToCanvas);
+    // }, [canvas]);
+
+    // useEffect(() => {
+    // canvas?.setZoom(zoomLevel);
+    // canvas?.setHeight(activeProject.canvasHeight * zoomLevel);
+    // canvas?.setWidth(activeProject.canvasWidth * zoomLevel);
+    // }, [zoomLevel, canvas, activeProject]);
 
     return (
         <canvas
