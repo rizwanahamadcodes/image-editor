@@ -36,7 +36,7 @@ const PositionSetter = () => {
             default:
                 return;
         }
-        canvas?.requestRenderAll();
+        canvas?.renderAll();
     };
 
     const { open, close, isOpen, toggle } = useToggle();

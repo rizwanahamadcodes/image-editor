@@ -56,7 +56,6 @@ const FieldView = (props: FieldViewProps) => {
                         left: 0,
                         top: 0,
                     });
-
                     canvas?.add(img);
                 });
                 break;

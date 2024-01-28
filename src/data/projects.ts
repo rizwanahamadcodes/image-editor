@@ -12,10 +12,10 @@ export type CanvasType = {
 };
 
 export type CanvasProperties = {
-    width?: number;
+    width: number;
+    height: number;
     backgroundColor?: string;
     backgroundImage?: string;
-    height?: number;
 };
 
 export type ActiveProject = {
@@ -51,8 +51,8 @@ export const projects: Project[] = [
         ],
         canvas: `{
             "canvasProperties": {
-              "height": 100,
-              "width": 200,
+              "height": 200,
+              "width": 400,
               "backgroundColor": "#ffffff"
             },
             "canvasObjects": []
@@ -71,8 +71,8 @@ export const projects: Project[] = [
         ],
         canvas: `{
             "canvasProperties": {
-              "height": 40,
-              "width": 80,
+              "height": 400,
+              "width": 800,
               "backgroundColor": "#ffffff"
             },
             "canvasObjects": []

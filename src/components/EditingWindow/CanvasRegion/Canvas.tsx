@@ -27,29 +27,33 @@ const Canvas = (props: CanvasProps) => {
         canvas?.add(...activeProject.canvasObjects);
 
         setCanvas(newCanvas);
-    }, [activeProject]);
+    }, []);
 
-    // useEffect(() => {
-    //     const addToCanvas = () => {
-    //         if (!canvas) {
-    //             return;
-    //         }
+    useEffect(() => {
+        const addToCanvas = () => {
+            if (!canvas) {
+                return;
+            }
 
-    //         setActiveProject({
-    //             ...activeProject,
-    //             canvasObjects: canvas.getObjects(),
-    //         });
-    //     };
-    //     if (!canvas) return;
-    //     canvas.on("object:modified", addToCanvas);
-    //     canvas.on("object:added", addToCanvas);
-    // }, [canvas]);
+            setActiveProject({
+                ...activeProject,
+                canvasObjects: canvas.getObjects(),
+            });
+        };
+        if (!canvas) return;
 
-    // useEffect(() => {
-    // canvas?.setZoom(zoomLevel);
-    // canvas?.setHeight(activeProject.canvasHeight * zoomLevel);
-    // canvas?.setWidth(activeProject.canvasWidth * zoomLevel);
-    // }, [zoomLevel, canvas, activeProject]);
+        canvas.on("canvas:background-color:changed", () => {
+            console.log("hey");
+        });
+        canvas.on("object:modified", addToCanvas);
+        canvas.on("object:added", addToCanvas);
+    }, [canvas]);
+
+    useEffect(() => {
+        canvas?.setZoom(zoomLevel);
+        canvas?.setHeight(activeProject.canvasProperties.height * zoomLevel);
+        canvas?.setWidth(activeProject.canvasProperties.width * zoomLevel);
+    }, [zoomLevel, canvas, activeProject]);
 
     return (
         <canvas
