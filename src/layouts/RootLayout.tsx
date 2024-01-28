@@ -10,7 +10,7 @@ const RootLayout = (props: RootLayoutProps) => {
     const { children } = props;
 
     return (
-        <div className="h-[100dvh] relative flex flex-col overflow-hidden">
+        <div className="h-[100dvh] relative flex flex-col overflow-auto">
             <Header />
             <Navbar />
             {children}

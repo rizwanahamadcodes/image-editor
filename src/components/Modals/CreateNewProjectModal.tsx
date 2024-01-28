@@ -3,11 +3,21 @@ import Modal, {
     ModalBody,
     ModalProps,
 } from "@/components/Modal/Modal";
-import Input, { InputControl, InputFeedback, Label } from "../Input/Input";
-import Button from "../Button/Button";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useCurrentUser } from "@/context/useCurrentUser";
 import newProjectSchema, { NewProjectSchema } from "@/schemas/newProjectSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import Button from "../Button/Button";
+import Input, { InputControl, InputFeedback, Label } from "../Input/Input";
+import { fabric } from "fabric";
+import { Project } from "@/data/projects";
+import {
+    addProject,
+    selectAllProject,
+    selectProjectById,
+} from "@/store/slices/projectsSlice";
+import { RootState } from "@/store/store";
 
 type CreateNewProjectModalProps = Omit<ModalProps, "children">;
 
@@ -29,6 +39,8 @@ type CreateNewProjectFormProps = {
 };
 
 export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
+    const dispatch = useDispatch();
+    const { userId } = useCurrentUser();
     const { close } = props;
     const {
         register,
@@ -38,12 +50,37 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
         resolver: zodResolver(newProjectSchema),
     });
 
-    const handleCreateNewProjectFormSubmit: SubmitHandler<NewProjectSchema> = (
-        data
-    ) => {
-        console.log(data);
+    const handleCreateNewProjectFormSubmit: SubmitHandler<
+        NewProjectSchema
+    > = async (data) => {
+        const canvas = new fabric.Canvas(null, {
+            height: data.height,
+            width: data.width,
+        });
+        const stringifiedCanvas = JSON.stringify(
+            canvas.toJSON([
+                "height",
+                "width",
+                "backgroundColor",
+                "backgroundImage",
+            ])
+        );
+
+        const project: Project = {
+            projectId: 1000,
+            canvas: stringifiedCanvas,
+            name: data.name,
+            userId: userId,
+        };
+
+        dispatch(addProject(project));
     };
 
+    const allProjects = useSelector((state: RootState) =>
+        selectAllProject(state)
+    );
+
+    console.log(allProjects);
     return (
         <form
             onSubmit={handleSubmit(handleCreateNewProjectFormSubmit)}

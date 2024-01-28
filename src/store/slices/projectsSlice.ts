@@ -1,13 +1,15 @@
 import { Project, projects } from "@/data/projects";
-import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "@/store/store";
-
-const initialProjectsState: Project[] = projects;
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const projectsSlice = createSlice({
     name: "projects",
-    initialState: initialProjectsState,
-    reducers: {},
+    initialState: projects as Project[],
+    reducers: {
+        addProject: (state, action: PayloadAction<Project>) => {
+            state.push(action.payload);
+        },
+    },
 });
 
 export const selectProjectById = (state: RootState, projectId: number) => {
@@ -21,6 +23,9 @@ export const selectProjectById = (state: RootState, projectId: number) => {
         return null;
     }
 };
+export const selectAllProject = (state: RootState) => {
+    return state.projects;
+};
 
-export const {} = projectsSlice.actions;
+export const { addProject } = projectsSlice.actions;
 export default projectsSlice.reducer;

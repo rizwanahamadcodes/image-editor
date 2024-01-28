@@ -5,9 +5,12 @@ import { useCurrentUser } from "@/context/useCurrentUser";
 import { Project, projects } from "@/data/projects";
 import { useToggle } from "@/hooks/useToggle";
 import { pathConstants } from "@/routes/pathContants";
+import { selectAllProject } from "@/store/slices/projectsSlice";
+import { RootState } from "@/store/store";
 import Image from "next/image";
 import Link from "next/link";
 import { BiPlus } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 type DashboardProjectsProps = {};
 
@@ -15,15 +18,15 @@ const DashboardProjects = (props: DashboardProjectsProps) => {
     const {} = props;
     const currentUser = useCurrentUser();
 
-    const activeProjects = projects.filter(
-        (project) => project.userId === currentUser.userId
+    const activeProjects = useSelector((state: RootState) =>
+        selectAllProject(state)
     );
 
     const {
         open: openCreateNewProjectModal,
         close: closeCreateNewProjectModal,
         isOpen: isCreateNewProjectModalOpen,
-    } = useToggle(true);
+    } = useToggle(false);
 
     return (
         <Section>
@@ -61,7 +64,10 @@ export const ProjectCard = (props: ProjectCardProps) => {
         <div className="border border-gray-100 rounded-0.5 overflow-hidden h-15">
             <div className="h-7 relative mb-1">
                 <Image
-                    src={project.thumbnailUrl}
+                    src={
+                        project.thumbnailUrl ??
+                        "/images/projects/thumbnails/default_thumbnail.jpg"
+                    }
                     alt={project.name}
                     fill
                     className="object-cover"
@@ -69,7 +75,7 @@ export const ProjectCard = (props: ProjectCardProps) => {
             </div>
             <Link
                 title={project.name}
-                href={`${pathConstants.PROJECTS.path}/${project.projectId}`}
+                href={`${pathConstants.PROJECTS.path}/${project.projectId}/edit`}
                 className="inline-block px-1 overflow-hidden max-w-full overflow-ellipsis">
                 <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold">
                     {project.name}
