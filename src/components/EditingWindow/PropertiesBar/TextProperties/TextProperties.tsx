@@ -84,7 +84,7 @@ const TextProperties = (props: TextPropertiesProps) => {
             <div className="flex gap-1">
                 <FontFamilyAndSizeSelector />
                 <ColorSelector />
-                <BoldItalicUnderlineToggles />
+                <BoldItalicUnderlineToggles activeObject={activeTextObject} />
                 <AlignmentSelector />
                 <PositionSetter />
                 <TextResetterAndDeleter />

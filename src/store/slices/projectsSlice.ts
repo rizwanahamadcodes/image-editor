@@ -1,6 +1,7 @@
 import { Project, projects } from "@/data/projects";
 import { RootState } from "@/store/store";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { fabric } from "fabric";
 
 const projectsSlice = createSlice({
     name: "projects",
@@ -8,6 +9,17 @@ const projectsSlice = createSlice({
     reducers: {
         addProject: (state, action: PayloadAction<Project>) => {
             state.push(action.payload);
+        },
+
+        updateProjectCanvas: (state, action: PayloadAction<string>) => {
+            // const canvas = JSON.stringify(action.payload.canvas);
+            // state = state.map((project) => {
+            //     if (project.projectId === action.payload.projectId) {
+            //         return { ...project, canvas: canvas };
+            //     }
+            //     return { ...project };
+            // });
+            // console.log(JSON.parse(state[0].canvas));
         },
     },
 });
@@ -27,5 +39,5 @@ export const selectAllProject = (state: RootState) => {
     return state.projects;
 };
 
-export const { addProject } = projectsSlice.actions;
+export const { addProject, updateProjectCanvas } = projectsSlice.actions;
 export default projectsSlice.reducer;

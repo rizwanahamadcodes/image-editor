@@ -155,8 +155,9 @@ const HeightWidthChanger = () => {
                 <Button
                     variant="outline"
                     regular
+                    size="sm"
                     colorScheme="gray-200"
-                    btnRef={buttonRef}
+                    buttonRef={buttonRef}
                     onClick={toggle}>
                     <ButtonIcon icon={AiOutlineColumnWidth} />
                 </Button>

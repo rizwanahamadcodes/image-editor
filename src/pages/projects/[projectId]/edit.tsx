@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { ActiveProjectContext } from "@/context/useActiveProject";
 import { useEffect, useState } from "react";
-import { ActiveProject, Project } from "@/data/projects";
+import { Project } from "@/data/projects";
 import { CanvasContext } from "@/context/useCanvas";
 import { fabric } from "fabric";
 
@@ -16,9 +16,7 @@ const EditProject = () => {
     const projectIdString = router.query[paramConstants.PROJECTID] as string;
     const projectId = projectIdString ? parseInt(projectIdString) : undefined;
 
-    const [activeProject, setActiveProject] = useState<ActiveProject | null>(
-        null
-    );
+    const [activeProject, setActiveProject] = useState<Project | null>(null);
     const [canvas, setCanvas] = useState<fabric.Canvas | null>(null);
 
     const projectFromGlobalState = useSelector((state: RootState) => {
@@ -28,17 +26,7 @@ const EditProject = () => {
     useEffect(() => {
         if (!projectFromGlobalState) return;
 
-        const canvasFromGlobalState = JSON.parse(projectFromGlobalState.canvas);
-
-        const activeProject: ActiveProject = {
-            canvasObjects: canvasFromGlobalState.canvasObjects,
-            canvasProperties: canvasFromGlobalState.canvasProperties,
-            images: canvasFromGlobalState.images,
-            listId: canvasFromGlobalState.listId,
-            thumbnailUrl: canvasFromGlobalState.thumbnailUrl,
-        };
-
-        setActiveProject(activeProject);
+        setActiveProject(projectFromGlobalState);
     }, [projectFromGlobalState]);
 
     if (!activeProject) {

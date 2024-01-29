@@ -3,6 +3,7 @@ import TextProperties from "@/components/EditingWindow/PropertiesBar/TextPropert
 import { useCanvas } from "@/context/useCanvas";
 import { useEffect, useState } from "react";
 import ImageProperties from "./ImageProperties/ImageProperties";
+import NewComponent from "./TextProperties/NewComponent";
 
 type PropertiesBarProps = {};
 export const PropertiesBar = (props: PropertiesBarProps) => {
@@ -30,13 +31,24 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
         }
     }, [canvas]);
 
+    console.log(activeObject);
+
     const getObjectProperties = (activeObject: fabric.Object) => {
         switch (activeObject.type) {
             case "textbox":
                 {
                     const activeTextObject = activeObject as fabric.Textbox;
                     return (
-                        <TextProperties activeTextObject={activeTextObject} />
+                        <>
+                            <TextProperties
+                                activeTextObject={activeTextObject}
+                            />
+
+                            <NewComponent
+                                activeObject={activeObject}
+                                setActiveObject={setActiveObject}
+                            />
+                        </>
                     );
                 }
                 break;

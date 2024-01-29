@@ -1,11 +1,9 @@
-import { ActiveProject } from "@/data/projects";
+import { Project } from "@/data/projects";
 import { createContext, useContext } from "react";
 
 type ActiveProjectContextType = {
-    activeProject: ActiveProject;
-    setActiveProject: React.Dispatch<
-        React.SetStateAction<ActiveProject | null>
-    >;
+    activeProject: Project;
+    setActiveProject: React.Dispatch<React.SetStateAction<Project | null>>;
 };
 
 export const ActiveProjectContext =

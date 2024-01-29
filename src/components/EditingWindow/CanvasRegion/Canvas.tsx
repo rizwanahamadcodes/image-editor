@@ -20,39 +20,24 @@ const Canvas = (props: CanvasProps) => {
         }
 
         const newCanvas = new fabric.Canvas(canvasRef.current, {
-            ...activeProject.canvasProperties,
-            backgroundColor:
-                activeProject.canvasProperties.backgroundColor ?? "#ffffff",
+            height: 200,
+            width: 200,
+            backgroundColor: "#ffffff",
         });
-        canvas?.add(...activeProject.canvasObjects);
-
-        setCanvas(newCanvas);
+        newCanvas.loadFromJSON(JSON.parse(activeProject.canvas), () => {
+            setCanvas(newCanvas);
+        });
     }, []);
 
     useEffect(() => {
-        const addToCanvas = () => {
-            if (!canvas) {
-                return;
-            }
-
-            setActiveProject({
-                ...activeProject,
-                canvasObjects: canvas.getObjects(),
-            });
-        };
-        if (!canvas) return;
-
-        canvas.on("canvas:background-color:changed", () => {
-            console.log("hey");
-        });
-        canvas.on("object:modified", addToCanvas);
-        canvas.on("object:added", addToCanvas);
-    }, [canvas]);
-
-    useEffect(() => {
         canvas?.setZoom(zoomLevel);
-        canvas?.setHeight(activeProject.canvasProperties.height * zoomLevel);
-        canvas?.setWidth(activeProject.canvasProperties.width * zoomLevel);
+        // get the height and the width from active project,
+        // that will be a static reference,
+        // right now you are refering that which you are changing
+        const canvasHeight = canvas?.getHeight();
+        const canvasWidth = canvas?.getWidth();
+        canvas?.setHeight(200 * zoomLevel);
+        canvas?.setWidth(200 * zoomLevel);
     }, [zoomLevel, canvas, activeProject]);
 
     return (
