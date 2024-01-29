@@ -3,7 +3,6 @@ import TextProperties from "@/components/EditingWindow/PropertiesBar/TextPropert
 import { useCanvas } from "@/context/useCanvas";
 import { useEffect, useState } from "react";
 import ImageProperties from "./ImageProperties/ImageProperties";
-import NewComponent from "./TextProperties/NewComponent";
 
 type PropertiesBarProps = {};
 export const PropertiesBar = (props: PropertiesBarProps) => {
@@ -43,11 +42,6 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
                             <TextProperties
                                 activeTextObject={activeTextObject}
                             />
-
-                            <NewComponent
-                                activeObject={activeObject}
-                                setActiveObject={setActiveObject}
-                            />
                         </>
                     );
                 }
@@ -55,7 +49,8 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
             case "image":
                 const activeImageObject = activeObject as fabric.Image;
                 return (
-                    <ImageProperties activeImageObject={activeImageObject} />
+                    <></>
+                    // <ImageProperties activeImageObject={activeImageObject} />
                 );
                 break;
             default:

@@ -1,24 +1,22 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
-import { useTextProperties } from "@/context/useTextProperties";
+import { useActiveTextObject } from "@/context/useActiveTextObject";
 import { FiMinus, FiPlus } from "react-icons/fi";
+import { fabric } from "fabric";
+import { useState } from "react";
 
 type FontSizeChangerProps = {};
 
 const FontSizeChanger = (props: FontSizeChangerProps) => {
-    const { textProperties, setTextProperties } = useTextProperties();
+    const [fontSizeChanged, setFontSizeChanged] = useState(true);
+
+    const { activeTextObject, setActiveTextObject } = useActiveTextObject();
     const { canvas } = useCanvas();
 
     const setFontSize = (fontSize: number) => {
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
-        const activeTextObject = activeObject as fabric.Textbox;
         activeTextObject.set("fontSize", fontSize);
-
-        setTextProperties({ ...textProperties, fontSize: fontSize });
         canvas?.renderAll();
+        setFontSizeChanged((prevFontSizeChanged) => !prevFontSizeChanged);
     };
 
     return (
@@ -30,7 +28,9 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
                 size="sm"
                 className="!rounded-r-0"
                 onClick={() => {
-                    setFontSize(textProperties.fontSize - 1);
+                    const fontSize = activeTextObject.get("fontSize");
+                    if (!fontSize) return;
+                    setFontSize(fontSize - 1);
                 }}>
                 <ButtonIcon icon={FiMinus} />
             </Button>
@@ -40,7 +40,7 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
                 }}
                 type="number"
                 className="text-center w-3 min-w-0 grow border-y border-y-gray-200 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 focus:z-10 focus:outline-none focus:border-x focus:border-x-gray-200"
-                value={textProperties.fontSize}
+                value={activeTextObject.fontSize}
             />
             <Button
                 regular
@@ -49,7 +49,9 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
                 size="sm"
                 className="!rounded-l-0"
                 onClick={() => {
-                    setFontSize(textProperties.fontSize + 1);
+                    const fontSize = activeTextObject.get("fontSize");
+                    if (!fontSize) return;
+                    setFontSize(fontSize + 1);
                 }}>
                 <ButtonIcon icon={FiPlus} />
             </Button>

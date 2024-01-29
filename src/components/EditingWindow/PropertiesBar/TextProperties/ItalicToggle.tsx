@@ -1,6 +1,6 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
-import { useTextProperties } from "@/context/useTextProperties";
+import { useTextProperties } from "@/context/useActiveTextObject";
 import clsx from "clsx";
 import { RiItalic } from "react-icons/ri";
 

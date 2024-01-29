@@ -1,24 +1,31 @@
+import { useActiveTextObject } from "@/context/useActiveTextObject";
 import { useCanvas } from "@/context/useCanvas";
-import { useTextProperties } from "@/context/useTextProperties";
-import { FontFamily, fontFamilies } from "@/data/fontFamilies";
+import { fontFamilies } from "@/data/fontFamilies";
 import clsx from "clsx";
+import { useState } from "react";
 import Select from "react-select";
 
-type FontFamilySelectorProps = {};
+type FontFamilyOptionObject = { value: string; label: string };
 
-const FontFamilySelector = (props: FontFamilySelectorProps) => {
-    const {} = props;
-    const { textProperties, setTextProperties } = useTextProperties();
+const FontFamilySelector = () => {
+    const [fontFamilyChanged, setFontFamilyChanged] = useState(true);
+
+    const { activeTextObject } = useActiveTextObject();
     const { canvas } = useCanvas();
 
-    const setFontFamily = (fontFamily: FontFamily) => {
-        //  it is important to import the WebFont here inline otherwise app breaks with window not defined error even if it's a client component
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
+    const getSingleValueObjectFromFontFamilyString = (fontValue: string) => {
+        return { value: fontValue, label: fontFamilies[fontValue] };
+    };
 
-        const activeTextObject = activeObject as fabric.Textbox;
+    const fontFamiliOptionsForSelect: FontFamilyOptionObject[] = Object.keys(
+        fontFamilies
+    ).map((fontValue) => {
+        return getSingleValueObjectFromFontFamilyString(fontValue);
+    });
+
+    const setFontFamily = (fontFamily: FontFamilyOptionObject) => {
+        //  it is important to import the WebFont here inline otherwise app breaks with window not defined error even if it's a client component
+
         const WebFont = require("webfontloader");
         WebFont.load({
             google: {
@@ -28,15 +35,21 @@ const FontFamilySelector = (props: FontFamilySelectorProps) => {
             active: () => {
                 activeTextObject.set("fontFamily", fontFamily.value);
                 canvas?.renderAll();
+                // this is done just to cause a re render;
+                setFontFamilyChanged(
+                    (prevFontsetFontFamilyChanged) =>
+                        !prevFontsetFontFamilyChanged
+                );
             },
         });
-        setTextProperties({ ...textProperties, fontFamily: fontFamily });
     };
 
     return (
         <Select
-            options={fontFamilies}
-            value={textProperties.fontFamily}
+            options={fontFamiliOptionsForSelect}
+            value={getSingleValueObjectFromFontFamilyString(
+                activeTextObject.get("fontFamily") || "Times New Roman"
+            )}
             className=""
             classNamePrefix="ff"
             classNames={{
@@ -52,7 +65,9 @@ const FontFamilySelector = (props: FontFamilySelectorProps) => {
                 if (!option) return;
                 setFontFamily(option);
             }}
-            defaultValue={textProperties.fontFamily}
+            defaultValue={getSingleValueObjectFromFontFamilyString(
+                activeTextObject.get("fontFamily") || "Times New Roman"
+            )}
         />
     );
 };

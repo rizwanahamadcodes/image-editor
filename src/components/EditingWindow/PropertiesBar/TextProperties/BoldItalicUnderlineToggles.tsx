@@ -1,15 +1,14 @@
 import Button from "@/components/Button/Button";
+import PopOver from "@/components/PopOver/PopOver";
+import { useToggle } from "@/hooks/useToggle";
+import { useRef } from "react";
 import BoldToggle from "./BoldToggle";
 import ItalicToggle from "./ItalicToggle";
 import UnderlineToggle from "./UnderlineToggle";
-import { useToggle } from "@/hooks/useToggle";
-import { useRef } from "react";
-import PopOver from "@/components/PopOver/PopOver";
 
-type BoldItalicUnderlineTogglesProps = { activeObject: fabric.Object };
+type BoldItalicUnderlineTogglesProps = {};
 
 const BoldItalicUnderlineToggles = (props: BoldItalicUnderlineTogglesProps) => {
-    const { activeObject } = props;
     const { open, close, toggle, isOpen } = useToggle();
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     const boldItalicUnderlineCore = () => {
