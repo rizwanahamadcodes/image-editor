@@ -1,20 +1,17 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
 import { FaTrash } from "react-icons/fa6";
+import { fabric } from "fabric";
 
-type DeleteObjectProps = {};
+type DeleteObjectProps = {
+    activeObject: fabric.Object;
+};
 
 const DeleteObject = (props: DeleteObjectProps) => {
-    const {} = props;
+    const { activeObject } = props;
     const { canvas } = useCanvas();
 
     const handleTrashButtonClick = () => {
-        const activeObject = canvas?.getActiveObject();
-
-        if (!activeObject) {
-            return;
-        }
-
         canvas?.remove(activeObject);
         canvas?.renderAll();
     };

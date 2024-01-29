@@ -14,7 +14,9 @@ const BoldItalicUnderlineToggles = (props: BoldItalicUnderlineTogglesProps) => {
     const boldItalicUnderlineCore = () => {
         return (
             <div className="flex gap-0.5">
-                <BoldToggle /> <ItalicToggle /> <UnderlineToggle />
+                <BoldToggle />
+                <ItalicToggle />
+                <UnderlineToggle />
             </div>
         );
     };

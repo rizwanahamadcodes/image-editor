@@ -3,6 +3,8 @@ import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
 import { useToggle } from "@/hooks/useToggle";
 import { useRef } from "react";
+import { fabric } from "fabric";
+
 import {
     RiBringForward,
     RiBringToFront,
@@ -10,16 +12,18 @@ import {
     RiSendToBack,
 } from "react-icons/ri";
 
-const PositionSetter = () => {
+type PositionSetterProps = {
+    activeObject: fabric.Object;
+};
+
+const PositionSetter = (props: PositionSetterProps) => {
+    const { activeObject } = props;
+
     const { canvas } = useCanvas();
 
     const setPosition = (
         whereTo: "forward" | "front" | "backward" | "back"
     ) => {
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject) {
-            return;
-        }
         switch (whereTo) {
             case "forward":
                 activeObject.bringForward();

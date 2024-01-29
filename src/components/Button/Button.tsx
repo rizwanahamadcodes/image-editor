@@ -56,6 +56,11 @@ export const button = cva(
                 colorScheme: "gray-900",
                 className: "hover:bg-gray-50 text-gray-900 hover:text-gray-950",
             },
+            {
+                active: true,
+                colorScheme: "gray-200",
+                className: "bg-gray-100 border-gray-300 text-gray-700",
+            },
         ],
 
         defaultVariants: {},

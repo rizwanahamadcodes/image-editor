@@ -17,8 +17,6 @@ const TextProperties = (props: TextPropertiesProps) => {
     const [activeTextObject, setActiveTextObject] = useState(
         activeTextObjectFromPropertiesBar
     );
-    const [activeTextObjectChanged, setActiveTextObjectChanged] =
-        useState(true);
 
     useEffect(() => {
         setActiveTextObject(activeTextObjectFromPropertiesBar);
@@ -27,18 +25,16 @@ const TextProperties = (props: TextPropertiesProps) => {
     return (
         <ActiveTextObjectContext.Provider
             value={{
-                activeTextObjectChanged: activeTextObjectChanged,
-                setActiveTextObjectChanged: setActiveTextObjectChanged,
                 activeTextObject: activeTextObject,
                 setActiveTextObject: setActiveTextObject,
             }}>
             <div className="flex gap-1">
                 <FontFamilyAndSizeSelector />
-                {/* <ColorSelector />
-                <BoldItalicUnderlineToggles/>
+                <ColorSelector />
+                <BoldItalicUnderlineToggles />
                 <AlignmentSelector />
-                <PositionSetter />
-                <TextResetterAndDeleter /> */}
+                <PositionSetter activeObject={activeTextObject} />
+                <TextResetterAndDeleter />
             </div>
         </ActiveTextObjectContext.Provider>
     );

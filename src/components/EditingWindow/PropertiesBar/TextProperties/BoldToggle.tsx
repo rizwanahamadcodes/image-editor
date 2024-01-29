@@ -1,32 +1,33 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
-import { useTextProperties } from "@/context/useActiveTextObject";
+import { useActiveTextObject } from "@/context/useActiveTextObject";
 import clsx from "clsx";
 import { BiBold } from "react-icons/bi";
 import { RiBold } from "react-icons/ri";
+import { useEffect, useState } from "react";
 
 type BoldToggleProps = {};
 
 const BoldToggle = (props: BoldToggleProps) => {
-    const { textProperties, setTextProperties } = useTextProperties();
+    const { activeTextObject } = useActiveTextObject();
+    const [isBold, setIsBold] = useState<boolean>(false);
     const { canvas } = useCanvas();
 
-    const handleBoldToggleClick = () => {
-        setTextProperties({
-            ...textProperties,
-            isBold: !textProperties.isBold,
-        });
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
-        const activeTextObject = activeObject as fabric.Textbox;
-        if (activeTextObject.get("fontWeight") === "bold") {
-            activeTextObject.set("fontWeight", "normal");
-        } else {
-            activeTextObject.set("fontWeight", "bold");
-        }
+    useEffect(() => {
+        const fontWeightFromActiveTextObject =
+            activeTextObject.get("fontWeight");
+        if (!fontWeightFromActiveTextObject) return;
+
+        setIsBold(fontWeightFromActiveTextObject === "bold");
+    }, [activeTextObject]);
+
+    useEffect(() => {
+        activeTextObject.set("fontWeight", isBold ? "bold" : "normal");
         canvas?.renderAll();
+    }, [isBold]);
+
+    const handleBoldToggleClick = () => {
+        setIsBold((prevIsBold) => !prevIsBold);
     };
 
     return (
@@ -35,7 +36,7 @@ const BoldToggle = (props: BoldToggleProps) => {
             colorScheme="gray-200"
             regular
             size="sm"
-            active={textProperties.isBold}
+            active={isBold}
             onClick={handleBoldToggleClick}>
             <ButtonIcon icon={RiBold} />
         </Button>

@@ -1,30 +1,36 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
-import { useTextProperties } from "@/context/useActiveTextObject";
+import { useActiveTextObject } from "@/context/useActiveTextObject";
 import { useToggle } from "@/hooks/useToggle";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TbAlignCenter, TbAlignLeft, TbAlignRight } from "react-icons/tb";
 
 const AlignmentSelector = () => {
-    const { textProperties, setTextProperties } = useTextProperties();
+    const { activeTextObject } = useActiveTextObject();
     const { canvas } = useCanvas();
+    const [alignment, setAlignment] = useState<string>("left");
 
-    const setAlignment = (alignment: "left" | "right" | "center") => {
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
-        const activeTextObject = activeObject as fabric.Textbox;
+    useEffect(() => {
+        const alignmentFromActiveTextObject = activeTextObject.get("textAlign");
+        if (!alignmentFromActiveTextObject) return;
 
+        setAlignment(alignmentFromActiveTextObject);
+    }, [activeTextObject]);
+
+    useEffect(() => {
         activeTextObject.set("textAlign", alignment);
         canvas?.renderAll();
+    }, [alignment]);
 
-        setTextProperties({ ...textProperties, alignment: alignment });
+    const handleAlignmentChange = (
+        alignmentFromInput: "left" | "right" | "center"
+    ) => {
+        setAlignment(alignmentFromInput);
     };
 
-    const isActive = (alignment: string) => {
-        return alignment === textProperties.alignment;
+    const isActive = (alignmentFromInput: string) => {
+        return alignment === alignmentFromInput;
     };
 
     const { open, close, isOpen, toggle } = useToggle();
@@ -41,7 +47,7 @@ const AlignmentSelector = () => {
                     className="!rounded-r-none"
                     active={isActive("left")}
                     onClick={() => {
-                        setAlignment("left");
+                        handleAlignmentChange("left");
                     }}>
                     <ButtonIcon icon={TbAlignLeft} />
                 </Button>
@@ -53,7 +59,7 @@ const AlignmentSelector = () => {
                     className="!rounded-r-none !rounded-l-none !border-l-0"
                     active={isActive("center")}
                     onClick={() => {
-                        setAlignment("center");
+                        handleAlignmentChange("center");
                     }}>
                     <ButtonIcon icon={TbAlignCenter} />
                 </Button>
@@ -65,7 +71,7 @@ const AlignmentSelector = () => {
                     className="!rounded-l-none !border-l-0"
                     active={isActive("right")}
                     onClick={() => {
-                        setAlignment("right");
+                        handleAlignmentChange("right");
                     }}>
                     <ButtonIcon icon={TbAlignLeft} />
                 </Button>
@@ -96,7 +102,7 @@ const AlignmentSelector = () => {
                     onClick={toggle}>
                     <ButtonIcon
                         icon={() => {
-                            switch (textProperties.alignment) {
+                            switch (alignment) {
                                 case "left":
                                     return <TbAlignLeft />;
                                 case "center":

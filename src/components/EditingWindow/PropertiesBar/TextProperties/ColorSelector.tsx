@@ -1,26 +1,33 @@
+import { useActiveTextObject } from "@/context/useActiveTextObject";
 import { useCanvas } from "@/context/useCanvas";
-import { useTextProperties } from "@/context/useActiveTextObject";
 import clsx from "clsx";
+import { Pattern, Gradient } from "fabric/fabric-impl";
+import { useEffect, useState } from "react";
 import { MdOutlineFormatColorText } from "react-icons/md";
 
 type ColorSelectorProps = {};
 
 const ColorSelector = (props: ColorSelectorProps) => {
-    const { textProperties, setTextProperties } = useTextProperties();
+    const { activeTextObject, setActiveTextObject } = useActiveTextObject();
+    const [color, setColor] = useState<string | Pattern | Gradient | undefined>(
+        ""
+    );
     const { canvas } = useCanvas();
 
-    const handleColorSelectorChange = (color: string) => {
-        setTextProperties({
-            ...textProperties,
-            color: color,
-        });
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
-        const activeTextObject = activeObject as fabric.Textbox;
+    useEffect(() => {
+        const activeTextObjectColor = activeTextObject.get("fill");
+        if (!activeTextObject) return;
+
+        setColor(activeTextObjectColor);
+    }, [activeTextObject]);
+
+    useEffect(() => {
         activeTextObject.set("fill", color);
         canvas?.renderAll();
+    }, [color]);
+
+    const handleColorSelectorChange = (colorFromInput: string) => {
+        setColor(colorFromInput);
     };
 
     return (
@@ -33,7 +40,7 @@ const ColorSelector = (props: ColorSelectorProps) => {
                 onChange={(e) => handleColorSelectorChange(e.target.value)}
                 type="color"
                 className="w-1.5 h-1.5"
-                value={textProperties.color as string}
+                value={color as string}
             />
         </label>
     );

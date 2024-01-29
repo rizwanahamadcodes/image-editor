@@ -1,32 +1,31 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
-import { useTextProperties } from "@/context/useActiveTextObject";
+import { useActiveTextObject } from "@/context/useActiveTextObject";
 import clsx from "clsx";
 import { RiItalic } from "react-icons/ri";
+import { useEffect, useState } from "react";
 
 type ItalicToggleProps = {};
 
 const ItalicToggle = (props: ItalicToggleProps) => {
-    const { textProperties, setTextProperties } = useTextProperties();
+    const { activeTextObject } = useActiveTextObject();
+    const [isItalic, setIsItalic] = useState<boolean>(false);
     const { canvas } = useCanvas();
 
-    const handleItalicToggleClick = () => {
-        setTextProperties({
-            ...textProperties,
-            isItalic: !textProperties.isItalic,
-        });
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
-        const activeTextObject = activeObject as fabric.Textbox;
+    useEffect(() => {
+        const fontStyleFromActiveTextObject = activeTextObject.get("fontStyle");
+        if (!fontStyleFromActiveTextObject) return;
 
-        if (activeTextObject.get("fontStyle") === "italic") {
-            activeTextObject.set("fontStyle", "normal");
-        } else {
-            activeTextObject.set("fontStyle", "italic");
-        }
+        setIsItalic(fontStyleFromActiveTextObject === "italic");
+    }, [activeTextObject]);
+
+    useEffect(() => {
+        activeTextObject.set("fontStyle", isItalic ? "italic" : "normal");
         canvas?.renderAll();
+    }, [isItalic]);
+
+    const handleItalicButtonClick = () => {
+        setIsItalic((prevIsItalic) => !prevIsItalic);
     };
 
     return (
@@ -35,8 +34,8 @@ const ItalicToggle = (props: ItalicToggleProps) => {
             colorScheme="gray-200"
             regular
             size="sm"
-            active={textProperties.isItalic}
-            onClick={handleItalicToggleClick}>
+            active={isItalic}
+            onClick={handleItalicButtonClick}>
             <ButtonIcon icon={RiItalic} />
         </Button>
     );

@@ -1,7 +1,7 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
-import { useTextProperties } from "@/context/useActiveTextObject";
+import { useActiveTextObject } from "@/context/useActiveTextObject";
 import { useToggle } from "@/hooks/useToggle";
 import { useRef } from "react";
 import { IoReloadSharp } from "react-icons/io5";
@@ -9,15 +9,16 @@ import DeleteObject from "../ImageProperties/DeleteObject";
 import TextResetter from "./TextResetter";
 
 const TextResetterAndDeleter = () => {
-    const { textProperties, setTextProperties } = useTextProperties();
+    const { activeTextObject } = useActiveTextObject();
     const { canvas } = useCanvas();
 
     const { close, isOpen, toggle } = useToggle();
+
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     const textResetterAndDeleterCore = () => {
         return (
             <div className="flex gap-0.25">
-                <DeleteObject />
+                <DeleteObject activeObject={activeTextObject} />
                 <TextResetter />
             </div>
         );
@@ -40,8 +41,9 @@ const TextResetterAndDeleter = () => {
                 <Button
                     variant="outline"
                     regular
+                    size="sm"
                     colorScheme="gray-200"
-                    btnRef={buttonRef}
+                    buttonRef={buttonRef}
                     onClick={toggle}>
                     <ButtonIcon icon={IoReloadSharp} />
                 </Button>

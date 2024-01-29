@@ -1,32 +1,31 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
+import { useActiveTextObject } from "@/context/useActiveTextObject";
 import { useCanvas } from "@/context/useCanvas";
-import { useTextProperties } from "@/context/useActiveTextObject";
-import clsx from "clsx";
+import { useEffect, useState } from "react";
 import { RiUnderline } from "react-icons/ri";
 
 type UnderlineToggleProps = {};
 
 const UnderlineToggle = (props: UnderlineToggleProps) => {
-    const { textProperties, setTextProperties } = useTextProperties();
+    const { activeTextObject } = useActiveTextObject();
+    const [isUnderlined, setIsUnderlined] = useState<boolean>(false);
     const { canvas } = useCanvas();
 
-    const handleUnderlineToggleClick = () => {
-        setTextProperties({
-            ...textProperties,
-            isUnderlined: !textProperties.isUnderlined,
-        });
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("textbox")) {
-            return;
-        }
-        const activeTextObject = activeObject as fabric.Textbox;
+    useEffect(() => {
+        const isUnderlinedFromActiveTextObject =
+            activeTextObject.get("underline");
+        if (!isUnderlinedFromActiveTextObject) return;
 
-        if (activeTextObject.get("underline") === true) {
-            activeTextObject.set("underline", false);
-        } else {
-            activeTextObject.set("underline", true);
-        }
+        setIsUnderlined(isUnderlinedFromActiveTextObject);
+    }, [activeTextObject]);
+
+    useEffect(() => {
+        activeTextObject.set("underline", isUnderlined);
         canvas?.renderAll();
+    }, [isUnderlined]);
+
+    const handleUnderlineToggleClick = () => {
+        setIsUnderlined((prevIsUnderlined) => !prevIsUnderlined);
     };
 
     return (
@@ -35,7 +34,7 @@ const UnderlineToggle = (props: UnderlineToggleProps) => {
             colorScheme="gray-200"
             regular
             size="sm"
-            active={textProperties.isUnderlined}
+            active={isUnderlined}
             onClick={handleUnderlineToggleClick}>
             <ButtonIcon icon={RiUnderline} />
         </Button>
