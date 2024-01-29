@@ -19,11 +19,16 @@ const Canvas = (props: CanvasProps) => {
             return;
         }
 
+        const { version, objects, ...otherProperties } = JSON.parse(
+            activeProject.canvas
+        );
+
+        console.log(otherProperties);
+
         const newCanvas = new fabric.Canvas(canvasRef.current, {
-            height: 200,
-            width: 200,
-            backgroundColor: "#ffffff",
+            ...otherProperties,
         });
+
         newCanvas.loadFromJSON(JSON.parse(activeProject.canvas), () => {
             setCanvas(newCanvas);
         });
@@ -31,13 +36,13 @@ const Canvas = (props: CanvasProps) => {
 
     useEffect(() => {
         canvas?.setZoom(zoomLevel);
-        // get the height and the width from active project,
-        // that will be a static reference,
-        // right now you are refering that which you are changing
-        const canvasHeight = canvas?.getHeight();
-        const canvasWidth = canvas?.getWidth();
-        canvas?.setHeight(200 * zoomLevel);
-        canvas?.setWidth(200 * zoomLevel);
+        const { version, objects, ...otherProperties } = JSON.parse(
+            activeProject.canvas
+        );
+        const canvasHeight = otherProperties.height;
+        const canvasWidth = otherProperties.width;
+        canvas?.setHeight(canvasHeight * zoomLevel);
+        canvas?.setWidth(canvasWidth * zoomLevel);
     }, [zoomLevel, canvas, activeProject]);
 
     return (

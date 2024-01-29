@@ -28,6 +28,9 @@ export const projects: Project[] = [
             "/images/projects/thumbnails/thumbnail_4.jpg",
         ],
         canvas: `{
+            "width": 800,
+            "height": 400,
+            "backgroundColor": "#fff",
             "version": "5.3.0",
             "objects": [
                 {

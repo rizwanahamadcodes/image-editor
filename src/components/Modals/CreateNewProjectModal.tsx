@@ -56,17 +56,21 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
     const handleCreateNewProjectFormSubmit: SubmitHandler<
         NewProjectSchema
     > = async (data) => {
-        const canvas = {
-            canvasProperties: {
-                height: data.height,
-                width: data.width,
-            },
-            canvasObjects: [],
-        };
+        const canvas = new fabric.Canvas(null, {
+            height: data.height,
+            width: data.width,
+            backgroundColor: "#ffffff",
+        });
+
+        const stringifiedCanvas = JSON.stringify(
+            canvas.toJSON(["height", "width", "backgroundColor"])
+        );
+
+        console.log(stringifiedCanvas);
 
         const project: Project = {
             projectId: 1000 + new Date().getTime(),
-            canvas: JSON.stringify(canvas),
+            canvas: stringifiedCanvas,
             name: data.name,
             userId: userId,
         };
