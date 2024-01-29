@@ -30,8 +30,6 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
         }
     }, [canvas]);
 
-    console.log(activeObject);
-
     const getObjectProperties = (activeObject: fabric.Object) => {
         switch (activeObject.type) {
             case "textbox":
@@ -49,8 +47,7 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
             case "image":
                 const activeImageObject = activeObject as fabric.Image;
                 return (
-                    <></>
-                    // <ImageProperties activeImageObject={activeImageObject} />
+                    <ImageProperties activeImageObject={activeImageObject} />
                 );
                 break;
             default:

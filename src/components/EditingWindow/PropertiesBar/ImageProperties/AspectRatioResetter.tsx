@@ -2,19 +2,13 @@ import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
 import { IoReloadSharp } from "react-icons/io5";
 
-type AspectRatioResetterProps = {};
+type AspectRatioResetterProps = { activeImageObject: fabric.Object };
 
 const AspectRatioResetter = (props: AspectRatioResetterProps) => {
-    const {} = props;
+    const { activeImageObject } = props;
     const { canvas } = useCanvas();
 
     const handleAspectRatioReset = () => {
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("image")) {
-            return;
-        }
-        const activeImageObject = activeObject as fabric.Image;
-
         const canvasHeight = canvas?.getHeight() || 1;
         const canvasWidth = canvas?.getWidth() || 1;
         const canvasZoomLevel = canvas?.getZoom() || 1;

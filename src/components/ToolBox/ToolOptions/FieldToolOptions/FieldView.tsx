@@ -56,6 +56,10 @@ const FieldView = (props: FieldViewProps) => {
                         left: 0,
                         top: 0,
                     });
+                    // img.on("scaling", function (e) {
+                    //     console.log(img.width);
+                    //     console.log(img.getScaledWidth());
+                    // });
                     canvas?.add(img);
                 });
                 break;

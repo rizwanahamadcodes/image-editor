@@ -1,4 +1,4 @@
-import { ImagePropertiesContext } from "@/context/useImageProperties";
+import { ActiveImageObjectContext } from "@/context/useActiveImageObject";
 import { fabric } from "fabric";
 import { useEffect, useState } from "react";
 import AspectRatioResetter from "./AspectRatioResetter";
@@ -17,42 +17,28 @@ export type ImageProperties = {
 };
 
 const ImageProperties = (props: ImagePropertiesProps) => {
-    const { activeImageObject } = props;
-    const [imageProperties, setImageProperties] = useState<ImageProperties>({
-        height: 10,
-        width: 100,
-        aspectRatioLocked: true,
-    });
+    const { activeImageObject: activeImageObjectFromPropertiesBar } = props;
+    const [activeImageObject, setActiveImageObject] = useState<fabric.Image>(
+        activeImageObjectFromPropertiesBar
+    );
 
     useEffect(() => {
-        const updateImageProperties = () => {
-            const imageHeight = activeImageObject.getScaledHeight();
-            const imageWidth = activeImageObject.getScaledWidth();
-
-            setImageProperties((prevImageProperties) => {
-                return {
-                    ...prevImageProperties,
-                    height: imageHeight,
-                    width: imageWidth,
-                };
-            });
-        };
-        updateImageProperties();
-    }, [activeImageObject, activeImageObject.scaleX, activeImageObject.scaleY]);
+        setActiveImageObject(activeImageObjectFromPropertiesBar);
+    }, [activeImageObjectFromPropertiesBar]);
 
     return (
-        <ImagePropertiesContext.Provider
+        <ActiveImageObjectContext.Provider
             value={{
-                imageProperties: imageProperties,
-                setImageProperties: setImageProperties,
+                activeImageObject: activeImageObject,
+                setActiveImageObject: setActiveImageObject,
             }}>
             <div className="flex gap-1">
-                <AspectRatioResetter />
+                <AspectRatioResetter activeImageObject={activeImageObject} />
                 <HeightWidthChanger />
-                <PositionSetter />
-                <DeleteObject />
+                <PositionSetter activeObject={activeImageObject} />
+                <DeleteObject activeObject={activeImageObject} />
             </div>
-        </ImagePropertiesContext.Provider>
+        </ActiveImageObjectContext.Provider>
     );
 };
 

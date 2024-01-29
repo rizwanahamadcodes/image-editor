@@ -1,46 +1,42 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
+import { useActiveImageObject } from "@/context/useActiveImageObject";
 import { useCanvas } from "@/context/useCanvas";
-import { useImageProperties } from "@/context/useImageProperties";
 import { useToggle } from "@/hooks/useToggle";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlineColumnHeight, AiOutlineColumnWidth } from "react-icons/ai";
 import { FaLink, FaLinkSlash } from "react-icons/fa6";
 
 const HeightWidthChanger = () => {
-    const { imageProperties, setImageProperties } = useImageProperties();
+    const { activeImageObject, setActiveImageObject } = useActiveImageObject();
+    const [height, setHeight] = useState<number>(100);
+    const [width, setWidth] = useState<number>(100);
+    const [aspectRatioLocked, setAspectRatioLocked] = useState<boolean>(true);
     const { canvas } = useCanvas();
 
-    const setHeight = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newHeight = Number(e.target.value);
+    useEffect(() => {
+        const scaledHeightFromActiveImageObject =
+            activeImageObject.getScaledHeight();
+        const scaledWidthFromActiveImageObject =
+            activeImageObject.getScaledWidth();
 
-        setImageProperties((prevImageProperties) => {
-            return {
-                ...prevImageProperties,
-                height: parseInt(newHeight.toFixed(2)),
-            };
-        });
+        setHeight(scaledHeightFromActiveImageObject);
+        setWidth(scaledWidthFromActiveImageObject);
+    }, [activeImageObject]);
 
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("image")) {
-            return;
-        }
-
-        const activeImageObject = activeObject as fabric.Image;
-
+    useEffect(() => {
         const activeImageHeight = activeImageObject.getScaledHeight();
         const activeImageWidth = activeImageObject.getScaledWidth();
         const activeImageHeightByWidthRatio =
             activeImageHeight / activeImageWidth;
-        const newWidth = newHeight / activeImageHeightByWidthRatio;
+        const newWidth = height / activeImageHeightByWidthRatio;
 
         // const oldScaleY = activeImageObject.get("scaleY"); // activeHeight / height
-
         // hence
         const newScaleX = newWidth / (activeImageObject.width || newWidth);
-        const newScaleY = newHeight / (activeImageObject.height || newHeight);
+        const newScaleY = height / (activeImageObject.height || height);
 
-        if (imageProperties.aspectRatioLocked) {
+        if (aspectRatioLocked) {
             activeImageObject.set("scaleX", newScaleX);
             activeImageObject.set("scaleY", newScaleY);
         } else {
@@ -49,34 +45,19 @@ const HeightWidthChanger = () => {
 
         console.log(canvas?.getZoom());
         canvas?.renderAll();
-    };
-    const setWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newWidth = Number(e.target.value);
+    }, [height]);
 
-        setImageProperties((prevImageProperties) => {
-            return {
-                ...prevImageProperties,
-                width: parseInt(newWidth.toFixed(2)),
-            };
-        });
-
-        const activeObject = canvas?.getActiveObject();
-        if (!activeObject || !activeObject.isType("image")) {
-            return;
-        }
-
-        const activeImageObject = activeObject as fabric.Image;
-
+    useEffect(() => {
         const activeImageWidth = activeImageObject.getScaledWidth();
         const activeImageHeight = activeImageObject.getScaledHeight();
         const activeImageWidthByHeightRatio =
             activeImageWidth / activeImageHeight;
-        const newHeight = newWidth / activeImageWidthByHeightRatio;
+        const newHeight = width / activeImageWidthByHeightRatio;
 
         const newScaleY = newHeight / (activeImageObject.height || newHeight);
-        const newScaleX = newWidth / (activeImageObject.width || newWidth);
+        const newScaleX = width / (activeImageObject.width || width);
 
-        if (imageProperties.aspectRatioLocked) {
+        if (aspectRatioLocked) {
             activeImageObject.set("scaleX", newScaleX);
             activeImageObject.set("scaleY", newScaleY);
         } else {
@@ -84,14 +65,18 @@ const HeightWidthChanger = () => {
         }
 
         canvas?.renderAll();
+    }, [width]);
+
+    const handleHeightChange = (heightFromInput: number) => {
+        setHeight(heightFromInput);
+    };
+    const handleWidthChange = (widthFromInput: number) => {
+        setWidth(widthFromInput);
     };
 
-    const flipAspectRatioLockedStatus = () => {
-        setImageProperties((prevImageProperties) => {
-            return {
-                ...prevImageProperties,
-                aspectRatioLocked: !prevImageProperties.aspectRatioLocked,
-            };
+    const handleAspectRatioButtonClick = () => {
+        setAspectRatioLocked((prevAspectRatioLocked) => {
+            return !prevAspectRatioLocked;
         });
     };
 
@@ -104,17 +89,17 @@ const HeightWidthChanger = () => {
                     <AiOutlineColumnHeight className="text-gray-500 text-1.25 group-hover/dimensionGroup:text-gray-700 group-has-[:focus]/dimensionGroup:text-gray-700" />
                     <input
                         type="number"
-                        value={imageProperties.height.toFixed(2)}
+                        value={height.toFixed(2)}
                         className="text-gray-600 font-medium min-w-0 w-4 h-2 rounded-0.25 focus:outline-none px-0.25"
                         onChange={(e) => {
-                            setHeight(e);
+                            handleHeightChange(Number(e.target.value));
                         }}
                     />
                 </div>
                 <div
                     className="h-1.25 w-2 flex justify-center"
-                    onClick={flipAspectRatioLockedStatus}>
-                    {imageProperties.aspectRatioLocked ? (
+                    onClick={handleAspectRatioButtonClick}>
+                    {aspectRatioLocked ? (
                         <FaLink className={linkIconClasses} />
                     ) : (
                         <FaLinkSlash className={linkIconClasses} />
@@ -124,10 +109,10 @@ const HeightWidthChanger = () => {
                     <AiOutlineColumnWidth className="text-gray-500 text-1.25 group-hover/dimensionGroup:text-gray-700 group-has-[:focus]/dimensionGroup:text-gray-700" />
                     <input
                         type="number"
-                        value={imageProperties.width.toFixed(2)}
+                        value={width.toFixed(2)}
                         className="text-gray-600 font-medium min-w-0 w-4 h-2 rounded-0.25 focus:outline-none px-0.25"
                         onChange={(e) => {
-                            setWidth(e);
+                            handleWidthChange(Number(e.target.value));
                         }}
                     />
                 </div>
