@@ -8,8 +8,10 @@ import { useEffect, useState } from "react";
 type FontSizeChangerProps = {};
 
 const FontSizeChanger = (props: FontSizeChangerProps) => {
-    const [fontSize, setFontSize] = useState<number>(18);
     const { activeTextObject, setActiveTextObject } = useActiveTextObject();
+    const [fontSize, setFontSize] = useState<number>(
+        activeTextObject.get("fontSize") || 0
+    );
 
     useEffect(() => {
         const fontSizeFromActiveTextObject = activeTextObject.get("fontSize");
@@ -38,8 +40,7 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
                 size="sm"
                 className="!rounded-r-0"
                 onClick={() => {
-                    if (!fontSize) return;
-                    handleFontSizeChange(fontSize - 1);
+                    setFontSize((prevFontSize) => prevFontSize - 1);
                 }}>
                 <ButtonIcon icon={FiMinus} />
             </Button>
@@ -58,8 +59,7 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
                 size="sm"
                 className="!rounded-l-0"
                 onClick={() => {
-                    if (!fontSize) return;
-                    handleFontSizeChange(fontSize + 1);
+                    setFontSize((prevFontSize) => prevFontSize + 1);
                 }}>
                 <ButtonIcon icon={FiPlus} />
             </Button>
