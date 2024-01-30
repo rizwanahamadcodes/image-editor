@@ -8,23 +8,18 @@ type ToolOptionsProps = {
     activeTool: ToolType;
 };
 
+const toolOptionsMap: Record<string, React.ReactNode> = {
+    images: <ImageToolOptions />,
+    // text: <TextToolOptions />,
+    fields: <FieldToolOptions />,
+    // shapes: <ShapesToolOptions />,
+};
 export const ToolOptions = (props: ToolOptionsProps) => {
     const { showOptions, activeTool } = props;
 
-    const getToolOptions = () => {
-        switch (activeTool.toolId) {
-            case "images":
-                return <ImageToolOptions />;
-            case "text":
-                return <p>Text Options</p>;
-            case "fields":
-                return <FieldToolOptions />;
-            case "shapes":
-                return <p>Shapes options</p>;
-            default:
-                return <p>Select a Tool</p>;
-        }
-    };
+    const toolOptions = toolOptionsMap[activeTool.toolId] || (
+        <p>Please select a tool</p>
+    );
 
     return (
         <div
@@ -35,7 +30,7 @@ export const ToolOptions = (props: ToolOptionsProps) => {
             <h4 className="shrink-0 capitalize font-medium h-4 border-b border-b-gray-100 px-1.5 text-gray-700 flex items-center">
                 {activeTool.toolName}
             </h4>
-            <div className="p-1 grow overflow-auto">{getToolOptions()}</div>
+            <div className="p-1 grow overflow-auto">{toolOptions}</div>
         </div>
     );
 };

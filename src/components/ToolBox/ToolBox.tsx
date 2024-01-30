@@ -5,14 +5,20 @@ import { useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import { IoIosList } from "react-icons/io";
 import { IoImage, IoShapesOutline, IoText } from "react-icons/io5";
+import { PiSelectionBackground } from "react-icons/pi";
 
 export type ToolType = {
-    toolId: "images" | "fields" | "text" | "shapes";
+    toolId: "images" | "fields" | "text" | "shapes" | "background";
     toolName: string;
     icon: IconType;
 };
 
 const tools: ToolType[] = [
+    {
+        toolId: "background",
+        toolName: "background",
+        icon: PiSelectionBackground,
+    },
     {
         toolId: "images",
         toolName: "images",
