@@ -9,7 +9,9 @@ import { TbAlignCenter, TbAlignLeft, TbAlignRight } from "react-icons/tb";
 const AlignmentSelector = () => {
     const { activeTextObject } = useActiveTextObject();
     const { canvas } = useCanvas();
-    const [alignment, setAlignment] = useState<string>("left");
+    const [alignment, setAlignment] = useState<string>(
+        activeTextObject.get("textAlign") || "left"
+    );
 
     useEffect(() => {
         const alignmentFromActiveTextObject = activeTextObject.get("textAlign");

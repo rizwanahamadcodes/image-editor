@@ -9,7 +9,9 @@ type ItalicToggleProps = {};
 
 const ItalicToggle = (props: ItalicToggleProps) => {
     const { activeTextObject } = useActiveTextObject();
-    const [isItalic, setIsItalic] = useState<boolean>(false);
+    const [isItalic, setIsItalic] = useState<boolean>(
+        (activeTextObject.get("fontStyle") || "normal") == "italic"
+    );
     const { canvas } = useCanvas();
 
     useEffect(() => {

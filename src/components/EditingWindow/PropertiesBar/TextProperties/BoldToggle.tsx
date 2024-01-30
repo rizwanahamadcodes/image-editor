@@ -10,7 +10,9 @@ type BoldToggleProps = {};
 
 const BoldToggle = (props: BoldToggleProps) => {
     const { activeTextObject } = useActiveTextObject();
-    const [isBold, setIsBold] = useState<boolean>(false);
+    const [isBold, setIsBold] = useState<boolean>(
+        (activeTextObject.get("fontWeight") || "normal") === "bold"
+    );
     const { canvas } = useCanvas();
 
     useEffect(() => {

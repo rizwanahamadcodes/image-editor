@@ -10,7 +10,7 @@ type ColorSelectorProps = {};
 const ColorSelector = (props: ColorSelectorProps) => {
     const { activeTextObject, setActiveTextObject } = useActiveTextObject();
     const [color, setColor] = useState<string | Pattern | Gradient | undefined>(
-        ""
+        activeTextObject.get("fill") || "black"
     );
     const { canvas } = useCanvas();
 

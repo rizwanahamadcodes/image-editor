@@ -9,8 +9,12 @@ import { FaLink, FaLinkSlash } from "react-icons/fa6";
 
 const HeightWidthChanger = () => {
     const { activeImageObject, setActiveImageObject } = useActiveImageObject();
-    const [height, setHeight] = useState<number>(100);
-    const [width, setWidth] = useState<number>(100);
+    const [height, setHeight] = useState<number>(
+        activeImageObject.getScaledHeight() || 100
+    );
+    const [width, setWidth] = useState<number>(
+        activeImageObject.getScaledWidth() || 100
+    );
     const [aspectRatioLocked, setAspectRatioLocked] = useState<boolean>(true);
     const { canvas } = useCanvas();
 

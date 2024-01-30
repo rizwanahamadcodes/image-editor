@@ -8,7 +8,9 @@ type UnderlineToggleProps = {};
 
 const UnderlineToggle = (props: UnderlineToggleProps) => {
     const { activeTextObject } = useActiveTextObject();
-    const [isUnderlined, setIsUnderlined] = useState<boolean>(false);
+    const [isUnderlined, setIsUnderlined] = useState<boolean>(
+        activeTextObject.get("underline") || false
+    );
     const { canvas } = useCanvas();
 
     useEffect(() => {
