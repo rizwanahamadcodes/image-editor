@@ -21,6 +21,7 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
 
         setFontSize(fontSizeFromActiveTextObject);
     }, [activeTextObject]);
+
     const { canvas } = useCanvas();
 
     useEffect(() => {
