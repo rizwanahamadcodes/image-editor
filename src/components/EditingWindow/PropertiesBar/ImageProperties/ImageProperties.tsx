@@ -1,4 +1,7 @@
-import { ActiveImageObjectContext } from "@/context/useActiveImageObject";
+import {
+    ActiveImageAndPropertiesContext,
+    ImagePropertiesType,
+} from "@/context/useActiveImageAndProperties";
 import { fabric } from "fabric";
 import { useEffect, useState } from "react";
 import AspectRatioResetter from "./AspectRatioResetter";
@@ -7,38 +10,51 @@ import HeightWidthChanger from "./HeightWidthChanger";
 import PositionSetter from "../PositionSetter";
 
 type ImagePropertiesProps = {
-    activeImageObject: fabric.Image;
-};
-
-export type ImageProperties = {
-    height: number;
-    width: number;
-    aspectRatioLocked: boolean;
+    activeImage: fabric.Image;
 };
 
 const ImageProperties = (props: ImagePropertiesProps) => {
-    const { activeImageObject: activeImageObjectFromPropertiesBar } = props;
-    const [activeImageObject, setActiveImageObject] = useState<fabric.Image>(
-        activeImageObjectFromPropertiesBar
-    );
+    const { activeImage } = props;
+
+    const getImagePropertiesFromImage = (
+        image: fabric.Image
+    ): ImagePropertiesType => {
+        return {
+            height: image.getScaledHeight(),
+            width: image.getScaledWidth(),
+        };
+    };
+
+    const [activeImageAndProperties, setActiveImageProperties] =
+        useState<ImagePropertiesType>(getImagePropertiesFromImage(activeImage));
+
+    const updateImagePropertiesToActiveImage = () => {
+        setActiveImageProperties(getImagePropertiesFromImage(activeImage));
+    };
 
     useEffect(() => {
-        setActiveImageObject(activeImageObjectFromPropertiesBar);
-    }, [activeImageObjectFromPropertiesBar]);
+        updateImagePropertiesToActiveImage();
+
+        activeImage.on("modified", updateImagePropertiesToActiveImage);
+        return () => {
+            activeImage.off("modified", updateImagePropertiesToActiveImage);
+        };
+    }, [activeImage]);
 
     return (
-        <ActiveImageObjectContext.Provider
+        <ActiveImageAndPropertiesContext.Provider
             value={{
-                activeImageObject: activeImageObject,
-                setActiveImageObject: setActiveImageObject,
+                activeImage: activeImage,
+                activeImageProperties: activeImageAndProperties,
+                setActiveImageProperties: setActiveImageProperties,
             }}>
             <div className="flex gap-1">
-                <AspectRatioResetter activeImageObject={activeImageObject} />
+                <AspectRatioResetter />
                 <HeightWidthChanger />
-                <PositionSetter activeObject={activeImageObject} />
-                <DeleteObject activeObject={activeImageObject} />
+                <PositionSetter activeObject={activeImage} />
+                <DeleteObject activeObject={activeImage} />
             </div>
-        </ActiveImageObjectContext.Provider>
+        </ActiveImageAndPropertiesContext.Provider>
     );
 };
 

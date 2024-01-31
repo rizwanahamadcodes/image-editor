@@ -42,19 +42,17 @@ const TextProperties = (props: TextPropertiesProps) => {
     };
 
     useEffect(() => {
-        activeTextbox.on("resizing", updateTextBoxPropertiesToActiveTextbox);
+        updateTextBoxPropertiesToActiveTextbox();
+
+        activeTextbox.on("modified", updateTextBoxPropertiesToActiveTextbox);
 
         return () => {
             activeTextbox.off(
-                "resizing",
+                "modified",
                 updateTextBoxPropertiesToActiveTextbox
             );
         };
     }, []);
-
-    useEffect(() => {
-        updateTextBoxPropertiesToActiveTextbox();
-    }, [activeTextbox]);
 
     return (
         <ActiveTextboxAndPropertiesContext.Provider

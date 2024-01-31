@@ -43,10 +43,8 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
                 }
                 break;
             case "image":
-                const activeImageObject = activeObject as fabric.Image;
-                return (
-                    <ImageProperties activeImageObject={activeImageObject} />
-                );
+                const activeImage = activeObject as fabric.Image;
+                return <ImageProperties activeImage={activeImage} />;
                 break;
             default:
                 return <p>No properties</p>;

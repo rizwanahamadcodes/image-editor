@@ -1,11 +1,13 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
+import { useActiveImageAndProperties } from "@/context/useActiveImageAndProperties";
 import { useCanvas } from "@/context/useCanvas";
 import { IoReloadSharp } from "react-icons/io5";
 
-type AspectRatioResetterProps = { activeImageObject: fabric.Object };
+type AspectRatioResetterProps = {};
 
 const AspectRatioResetter = (props: AspectRatioResetterProps) => {
-    const { activeImageObject } = props;
+    const { activeImage, activeImageProperties, setActiveImageProperties } =
+        useActiveImageAndProperties();
     const { canvas } = useCanvas();
 
     const handleAspectRatioReset = () => {
@@ -15,20 +17,33 @@ const AspectRatioResetter = (props: AspectRatioResetterProps) => {
         const percievedCanvasHeight = canvasHeight / canvasZoomLevel;
         const percievedCanvasWidth = canvasWidth / canvasZoomLevel;
 
-        const imageHeight = activeImageObject.get("height") || 1;
-        const imageWidth = activeImageObject.get("width") || 1;
+        const imageHeight = activeImage.get("height") || 1;
+        const imageWidth = activeImage.get("width") || 1;
 
         const scaleRatioX = canvasWidth / imageWidth;
 
-        activeImageObject.set({
+        activeImage.set({
             left: 0,
             top: 0,
         });
 
         if (scaleRatioX * imageHeight <= canvasHeight) {
-            activeImageObject.scaleToWidth(percievedCanvasWidth, true);
+            activeImage.scaleToWidth(percievedCanvasWidth, true);
+
+            setActiveImageProperties((prevActiveImageProperties) => {
+                return {
+                    ...prevActiveImageProperties,
+                    width: percievedCanvasWidth,
+                };
+            });
         } else {
-            activeImageObject.scaleToHeight(percievedCanvasHeight, true);
+            activeImage.scaleToHeight(percievedCanvasHeight, true);
+            setActiveImageProperties((prevActiveImageProperties) => {
+                return {
+                    ...prevActiveImageProperties,
+                    height: percievedCanvasHeight,
+                };
+            });
         }
 
         canvas?.renderAll();
