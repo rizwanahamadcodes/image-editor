@@ -1,68 +1,59 @@
-import { useActiveTextObject } from "@/context/useActiveTextObject";
+import { useActiveTextboxAndProperties } from "@/context/useActiveTextboxAndProperties";
 import { useCanvas } from "@/context/useCanvas";
 import { fontFamilies } from "@/data/fontFamilies";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
 import Select from "react-select";
 
 type FontFamilyOptionObject = { value: string; label: string };
 
-export const getSingleValueObjectFromFontFamilyString = (fontValue: string) => {
+export const getFontFamilyOptionObjectFromFontFamily = (fontValue: string) => {
     return { value: fontValue, label: fontFamilies[fontValue] };
 };
 
 const FontFamilySelector = () => {
-    const [fontFamily, setFontFamily] = useState<FontFamilyOptionObject>(
-        getSingleValueObjectFromFontFamilyString("Times New Roman")
-    );
-    const { activeTextObject } = useActiveTextObject();
+    const {
+        activeTextbox,
+        activeTextboxProperties,
+        setActiveTextboxProperties,
+    } = useActiveTextboxAndProperties();
     const { canvas } = useCanvas();
 
-    useEffect(() => {
-        const fontFamilyFromActiveTextObject =
-            activeTextObject.get("fontFamily");
-        if (!fontFamilyFromActiveTextObject) return;
-
-        setFontFamily(
-            getSingleValueObjectFromFontFamilyString(
-                fontFamilyFromActiveTextObject
-            )
-        );
-    }, [activeTextObject]);
-
-    const fontFamiliOptionsForSelect: FontFamilyOptionObject[] = Object.keys(
+    const fontFamilyOptionsForSelect: FontFamilyOptionObject[] = Object.keys(
         fontFamilies
     ).map((fontValue) => {
-        return getSingleValueObjectFromFontFamilyString(fontValue);
+        return getFontFamilyOptionObjectFromFontFamily(fontValue);
     });
-
-    useEffect(() => {
-        //  it is important to import the WebFont here inline otherwise app breaks with window not defined error even if it's a client component
-
-        const WebFont = require("webfontloader");
-        WebFont.load({
-            google: {
-                families: [fontFamily.value],
-            },
-
-            active: () => {
-                activeTextObject.set("fontFamily", fontFamily.value);
-                canvas?.renderAll();
-                // this is done just to cause a re render;
-            },
-        });
-    }, [fontFamily]);
 
     const handleFontFamilyChange = (
         fontFamilyFromSelect: FontFamilyOptionObject
     ) => {
-        setFontFamily(fontFamilyFromSelect);
+        //  it is important to import the WebFont here inline otherwise app breaks with window not defined error even if it's a client component
+        const WebFont = require("webfontloader");
+        WebFont.load({
+            google: {
+                families: [fontFamilyFromSelect.value],
+            },
+
+            active: () => {
+                activeTextbox.set("fontFamily", fontFamilyFromSelect.value);
+                canvas?.renderAll();
+            },
+        });
+
+        setActiveTextboxProperties((prevActiveTextboxProperties) => {
+            return {
+                ...prevActiveTextboxProperties,
+                fontFamily: fontFamilyFromSelect.value,
+            };
+        });
     };
 
     return (
         <Select
-            options={fontFamiliOptionsForSelect}
-            value={fontFamily}
+            options={fontFamilyOptionsForSelect}
+            value={getFontFamilyOptionObjectFromFontFamily(
+                activeTextboxProperties.fontFamily
+            )}
             className=""
             classNamePrefix="ff"
             classNames={{
@@ -78,7 +69,9 @@ const FontFamilySelector = () => {
                 if (!option) return;
                 handleFontFamilyChange(option);
             }}
-            defaultValue={fontFamily}
+            defaultValue={getFontFamilyOptionObjectFromFontFamily(
+                activeTextboxProperties.fontFamily
+            )}
         />
     );
 };

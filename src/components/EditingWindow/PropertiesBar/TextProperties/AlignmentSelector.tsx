@@ -1,7 +1,7 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
-import { useActiveTextObject } from "@/context/useActiveTextObject";
+import { useActiveTextObject } from "@/context/useActiveTextboxAndProperties";
 import { useToggle } from "@/hooks/useToggle";
 import { useEffect, useRef, useState } from "react";
 import { TbAlignCenter, TbAlignLeft, TbAlignRight } from "react-icons/tb";

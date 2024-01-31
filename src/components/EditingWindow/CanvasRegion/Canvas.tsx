@@ -23,8 +23,6 @@ const Canvas = (props: CanvasProps) => {
             activeProject.canvas
         );
 
-        console.log(otherProperties);
-
         const newCanvas = new fabric.Canvas(canvasRef.current, {
             ...otherProperties,
         });

@@ -1,5 +1,5 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
-import { useActiveTextObject } from "@/context/useActiveTextObject";
+import { useActiveTextObject } from "@/context/useActiveTextboxAndProperties";
 import { useCanvas } from "@/context/useCanvas";
 import { useEffect, useState } from "react";
 import { RiUnderline } from "react-icons/ri";

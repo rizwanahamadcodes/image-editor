@@ -17,7 +17,7 @@ const FontFamilyAndSizeSelector = (props: FontFamilyAndSizeSelectorProps) => {
         return (
             <div className="flex gap-0.5">
                 <FontFamilySelector />
-                <FontSizeChanger />
+                {/* <FontSizeChanger /> */}
             </div>
         );
     };

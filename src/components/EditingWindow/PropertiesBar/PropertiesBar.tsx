@@ -34,12 +34,10 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
         switch (activeObject.type) {
             case "textbox":
                 {
-                    const activeTextObject = activeObject as fabric.Textbox;
+                    const activeTextbox = activeObject as fabric.Textbox;
                     return (
                         <>
-                            <TextProperties
-                                activeTextObject={activeTextObject}
-                            />
+                            <TextProperties activeTextbox={activeTextbox} />
                         </>
                     );
                 }

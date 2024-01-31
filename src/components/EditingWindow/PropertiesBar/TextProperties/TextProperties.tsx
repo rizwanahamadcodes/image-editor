@@ -1,4 +1,7 @@
-import { ActiveTextObjectContext } from "@/context/useActiveTextObject";
+import {
+    ActiveTextboxAndPropertiesContext,
+    TextboxPropertiesType,
+} from "@/context/useActiveTextboxAndProperties";
 import { fabric } from "fabric";
 import { useEffect, useState } from "react";
 import PositionSetter from "../PositionSetter";
@@ -9,34 +12,66 @@ import FontFamilyAndSizeSelector from "./FontFamilyAndSizeSelector";
 import TextResetterAndDeleter from "./TextResetterAndDeleter";
 
 type TextPropertiesProps = {
-    activeTextObject: fabric.Textbox;
+    activeTextbox: fabric.Textbox;
 };
 
 const TextProperties = (props: TextPropertiesProps) => {
-    const { activeTextObject: activeTextObjectFromPropertiesBar } = props;
-    const [activeTextObject, setActiveTextObject] = useState(
-        activeTextObjectFromPropertiesBar
-    );
+    const { activeTextbox } = props;
+
+    const getTextboxPropertiesFromTextBox = (
+        textbox: fabric.Textbox
+    ): TextboxPropertiesType => {
+        return {
+            fontFamily: textbox.get("fontFamily") || "Times New Roman",
+            fontSize: textbox.get("fontSize") || 18,
+            color: textbox.get("fill") || "#000000",
+            alignment: textbox.get("textAlign") || "left",
+            isBold: (textbox.get("fontWeight") || "normal") === "bold",
+            isItalic: (textbox.get("fontStyle") || "normal") === "italic",
+            isUnderlined: textbox.get("underline") || false,
+        };
+    };
+
+    const [activeTextboxAndProperties, setActiveTextProperties] =
+        useState<TextboxPropertiesType>(
+            getTextboxPropertiesFromTextBox(activeTextbox)
+        );
+
+    const updateTextBoxPropertiesToActiveTextbox = () => {
+        setActiveTextProperties(getTextboxPropertiesFromTextBox(activeTextbox));
+    };
 
     useEffect(() => {
-        setActiveTextObject(activeTextObjectFromPropertiesBar);
-    }, [activeTextObjectFromPropertiesBar]);
+        activeTextbox.on("resizing", updateTextBoxPropertiesToActiveTextbox);
+
+        return () => {
+            activeTextbox.off(
+                "resizing",
+                updateTextBoxPropertiesToActiveTextbox
+            );
+        };
+    }, []);
+
+    useEffect(() => {
+        updateTextBoxPropertiesToActiveTextbox();
+    }, [activeTextbox]);
 
     return (
-        <ActiveTextObjectContext.Provider
+        <ActiveTextboxAndPropertiesContext.Provider
             value={{
-                activeTextObject: activeTextObject,
-                setActiveTextObject: setActiveTextObject,
+                activeTextbox: activeTextbox,
+                activeTextboxProperties: activeTextboxAndProperties,
+                setActiveTextboxProperties: setActiveTextProperties,
             }}>
             <div className="flex gap-1">
                 <FontFamilyAndSizeSelector />
-                <ColorSelector />
-                <BoldItalicUnderlineToggles />
-                <AlignmentSelector />
-                <PositionSetter activeObject={activeTextObject} />
-                <TextResetterAndDeleter />
+                {/* <ColorSelector /> */}
+                {/* <BoldItalicUnderlineToggles /> */}
+                {/* <AlignmentSelector /> */}
+                {/* <PositionSetter activeObject={activeTextbox} /> */}
+                {/* <TextResetterAndDeleter /> */}
             </div>
-        </ActiveTextObjectContext.Provider>
+        </ActiveTextboxAndPropertiesContext.Provider>
     );
 };
 

@@ -1,6 +1,6 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
-import { useActiveTextObject } from "@/context/useActiveTextObject";
+import { useActiveTextObject } from "@/context/useActiveTextboxAndProperties";
 import { fontFamilies } from "@/data/fontFamilies";
 import { IoReloadSharp } from "react-icons/io5";
 

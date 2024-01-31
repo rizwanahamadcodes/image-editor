@@ -1,4 +1,4 @@
-import { useActiveTextObject } from "@/context/useActiveTextObject";
+import { useActiveTextObject } from "@/context/useActiveTextboxAndProperties";
 import { useCanvas } from "@/context/useCanvas";
 import clsx from "clsx";
 import { Pattern, Gradient } from "fabric/fabric-impl";

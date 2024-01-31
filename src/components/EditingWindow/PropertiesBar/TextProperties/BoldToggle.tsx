@@ -1,6 +1,6 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import { useCanvas } from "@/context/useCanvas";
-import { useActiveTextObject } from "@/context/useActiveTextObject";
+import { useActiveTextObject } from "@/context/useActiveTextboxAndProperties";
 import clsx from "clsx";
 import { BiBold } from "react-icons/bi";
 import { RiBold } from "react-icons/ri";
@@ -19,7 +19,7 @@ const BoldToggle = (props: BoldToggleProps) => {
         const fontWeightFromActiveTextObject =
             activeTextObject.get("fontWeight");
         if (!fontWeightFromActiveTextObject) return;
-
+        activeTextObject.set("alignment", "");
         setIsBold(fontWeightFromActiveTextObject === "bold");
     }, [activeTextObject]);
 
