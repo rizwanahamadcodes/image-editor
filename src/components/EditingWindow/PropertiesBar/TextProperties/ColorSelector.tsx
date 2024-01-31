@@ -1,4 +1,7 @@
-import { useActiveTextObject } from "@/context/useActiveTextboxAndProperties";
+import {
+    TextboxPropertiesType,
+    useActiveTextboxAndProperties,
+} from "@/context/useActiveTextboxAndProperties";
 import { useCanvas } from "@/context/useCanvas";
 import clsx from "clsx";
 import { Pattern, Gradient } from "fabric/fabric-impl";
@@ -8,26 +11,21 @@ import { MdOutlineFormatColorText } from "react-icons/md";
 type ColorSelectorProps = {};
 
 const ColorSelector = (props: ColorSelectorProps) => {
-    const { activeTextObject, setActiveTextObject } = useActiveTextObject();
-    const [color, setColor] = useState<string | Pattern | Gradient | undefined>(
-        activeTextObject.get("fill") || "black"
-    );
+    const {
+        activeTextbox,
+        activeTextboxProperties,
+        setActiveTextboxProperties,
+    } = useActiveTextboxAndProperties();
     const { canvas } = useCanvas();
 
-    useEffect(() => {
-        const activeTextObjectColor = activeTextObject.get("fill");
-        if (!activeTextObject) return;
+    const handleColorChange = (colorFromInput: string) => {
+        setActiveTextboxProperties({
+            ...activeTextboxProperties,
+            color: colorFromInput,
+        });
 
-        setColor(activeTextObjectColor);
-    }, [activeTextObject]);
-
-    useEffect(() => {
-        activeTextObject.set("fill", color);
+        activeTextbox.set("fill", colorFromInput);
         canvas?.renderAll();
-    }, [color]);
-
-    const handleColorSelectorChange = (colorFromInput: string) => {
-        setColor(colorFromInput);
     };
 
     return (
@@ -37,10 +35,10 @@ const ColorSelector = (props: ColorSelectorProps) => {
             )}>
             <MdOutlineFormatColorText className="text-1.25 text-gray-500 mr-0.5" />
             <input
-                onChange={(e) => handleColorSelectorChange(e.target.value)}
+                onChange={(e) => handleColorChange(e.target.value)}
                 type="color"
                 className="w-1.5 h-1.5"
-                value={color as string}
+                value={activeTextboxProperties.color as string}
             />
         </label>
     );

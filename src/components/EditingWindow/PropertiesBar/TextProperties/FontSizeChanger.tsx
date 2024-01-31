@@ -1,37 +1,28 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
+import { useActiveTextboxAndProperties } from "@/context/useActiveTextboxAndProperties";
 import { useCanvas } from "@/context/useCanvas";
-import { useActiveTextObject } from "@/context/useActiveTextboxAndProperties";
 import { FiMinus, FiPlus } from "react-icons/fi";
-import { fabric } from "fabric";
-import { useEffect, useState } from "react";
 
 type FontSizeChangerProps = {};
 
 const FontSizeChanger = (props: FontSizeChangerProps) => {
-    const { activeTextObject, setActiveTextObject } = useActiveTextObject();
-    const [fontSize, setFontSize] = useState<number>(
-        activeTextObject.get("fontSize") || 0
-    );
-
-    useEffect(() => {
-        const fontSizeFromActiveTextObject = activeTextObject.get("fontSize");
-        if (!fontSizeFromActiveTextObject) {
-            return;
-        }
-
-        setFontSize(fontSizeFromActiveTextObject);
-    }, [activeTextObject]);
-
+    const {
+        activeTextbox,
+        activeTextboxProperties,
+        setActiveTextboxProperties,
+    } = useActiveTextboxAndProperties();
     const { canvas } = useCanvas();
 
-    useEffect(() => {
-        activeTextObject.set("fontSize", fontSize);
-        canvas?.renderAll();
-    }, [fontSize]);
+    const setFontSize = (fontSizeFromInput: number) => {
+        setActiveTextboxProperties({
+            ...activeTextboxProperties,
+            fontSize: fontSizeFromInput,
+        });
 
-    const handleFontSizeChange = (fontSizeFromInput: number) => {
-        setFontSize(fontSizeFromInput);
+        activeTextbox.set("fontSize", fontSizeFromInput);
+        canvas?.renderAll();
     };
+
     return (
         <div className="flex">
             <Button
@@ -41,17 +32,17 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
                 size="sm"
                 className="!rounded-r-0"
                 onClick={() => {
-                    setFontSize((prevFontSize) => prevFontSize - 1);
+                    setFontSize(activeTextboxProperties.fontSize - 1);
                 }}>
                 <ButtonIcon icon={FiMinus} />
             </Button>
             <input
                 onChange={(e) => {
-                    handleFontSizeChange(Number(e.target.value));
+                    setFontSize(Number(e.target.value));
                 }}
                 type="number"
                 className="text-center w-3 min-w-0 grow border-y border-y-gray-200 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 focus:z-10 focus:outline-none focus:border-x focus:border-x-gray-200"
-                value={activeTextObject.fontSize}
+                value={activeTextboxProperties.fontSize}
             />
             <Button
                 regular
@@ -60,7 +51,7 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
                 size="sm"
                 className="!rounded-l-0"
                 onClick={() => {
-                    setFontSize((prevFontSize) => prevFontSize + 1);
+                    setFontSize(activeTextboxProperties.fontSize + 1);
                 }}>
                 <ButtonIcon icon={FiPlus} />
             </Button>

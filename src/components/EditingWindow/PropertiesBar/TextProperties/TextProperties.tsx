@@ -65,11 +65,11 @@ const TextProperties = (props: TextPropertiesProps) => {
             }}>
             <div className="flex gap-1">
                 <FontFamilyAndSizeSelector />
-                {/* <ColorSelector /> */}
-                {/* <BoldItalicUnderlineToggles /> */}
-                {/* <AlignmentSelector /> */}
-                {/* <PositionSetter activeObject={activeTextbox} /> */}
-                {/* <TextResetterAndDeleter /> */}
+                <ColorSelector />
+                <BoldItalicUnderlineToggles />
+                <AlignmentSelector />
+                <PositionSetter activeObject={activeTextbox} />
+                <TextResetterAndDeleter />
             </div>
         </ActiveTextboxAndPropertiesContext.Provider>
     );

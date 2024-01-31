@@ -1,35 +1,28 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
+import { useActiveTextboxAndProperties } from "@/context/useActiveTextboxAndProperties";
 import { useCanvas } from "@/context/useCanvas";
-import { useActiveTextObject } from "@/context/useActiveTextboxAndProperties";
-import clsx from "clsx";
-import { BiBold } from "react-icons/bi";
 import { RiBold } from "react-icons/ri";
-import { useEffect, useState } from "react";
 
 type BoldToggleProps = {};
 
 const BoldToggle = (props: BoldToggleProps) => {
-    const { activeTextObject } = useActiveTextObject();
-    const [isBold, setIsBold] = useState<boolean>(
-        (activeTextObject.get("fontWeight") || "normal") === "bold"
-    );
+    const {
+        activeTextbox,
+        activeTextboxProperties,
+        setActiveTextboxProperties,
+    } = useActiveTextboxAndProperties();
     const { canvas } = useCanvas();
 
-    useEffect(() => {
-        const fontWeightFromActiveTextObject =
-            activeTextObject.get("fontWeight");
-        if (!fontWeightFromActiveTextObject) return;
-        activeTextObject.set("alignment", "");
-        setIsBold(fontWeightFromActiveTextObject === "bold");
-    }, [activeTextObject]);
+    const handleToggleBold = () => {
+        const newIsBold = !activeTextboxProperties.isBold;
 
-    useEffect(() => {
-        activeTextObject.set("fontWeight", isBold ? "bold" : "normal");
+        setActiveTextboxProperties({
+            ...activeTextboxProperties,
+            isBold: newIsBold,
+        });
+
+        activeTextbox.set("fontWeight", newIsBold ? "bold" : "normal");
         canvas?.renderAll();
-    }, [isBold]);
-
-    const handleBoldToggleClick = () => {
-        setIsBold((prevIsBold) => !prevIsBold);
     };
 
     return (
@@ -38,8 +31,8 @@ const BoldToggle = (props: BoldToggleProps) => {
             colorScheme="gray-200"
             regular
             size="sm"
-            active={isBold}
-            onClick={handleBoldToggleClick}>
+            active={activeTextboxProperties.isBold}
+            onClick={handleToggleBold}>
             <ButtonIcon icon={RiBold} />
         </Button>
     );

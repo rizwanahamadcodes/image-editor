@@ -2,10 +2,9 @@ import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useToggle } from "@/hooks/useToggle";
 import { useRef } from "react";
+import { LuLigature } from "react-icons/lu";
 import FontFamilySelector from "./FontFamilySelector";
 import FontSizeChanger from "./FontSizeChanger";
-import { ImLigature } from "react-icons/im";
-import { LuLigature } from "react-icons/lu";
 
 type FontFamilyAndSizeSelectorProps = {};
 
@@ -17,7 +16,7 @@ const FontFamilyAndSizeSelector = (props: FontFamilyAndSizeSelectorProps) => {
         return (
             <div className="flex gap-0.5">
                 <FontFamilySelector />
-                {/* <FontSizeChanger /> */}
+                <FontSizeChanger />
             </div>
         );
     };

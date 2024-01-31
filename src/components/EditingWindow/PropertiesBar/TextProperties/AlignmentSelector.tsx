@@ -1,38 +1,31 @@
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useCanvas } from "@/context/useCanvas";
-import { useActiveTextObject } from "@/context/useActiveTextboxAndProperties";
+import { useActiveTextboxAndProperties } from "@/context/useActiveTextboxAndProperties";
 import { useToggle } from "@/hooks/useToggle";
 import { useEffect, useRef, useState } from "react";
 import { TbAlignCenter, TbAlignLeft, TbAlignRight } from "react-icons/tb";
 
 const AlignmentSelector = () => {
-    const { activeTextObject } = useActiveTextObject();
+    const {
+        activeTextbox,
+        activeTextboxProperties,
+        setActiveTextboxProperties,
+    } = useActiveTextboxAndProperties();
     const { canvas } = useCanvas();
-    const [alignment, setAlignment] = useState<string>(
-        activeTextObject.get("textAlign") || "left"
-    );
 
-    useEffect(() => {
-        const alignmentFromActiveTextObject = activeTextObject.get("textAlign");
-        if (!alignmentFromActiveTextObject) return;
+    const handleAlignmentChange = (alignmentFromInput: string) => {
+        setActiveTextboxProperties({
+            ...activeTextboxProperties,
+            alignment: alignmentFromInput,
+        });
 
-        setAlignment(alignmentFromActiveTextObject);
-    }, [activeTextObject]);
-
-    useEffect(() => {
-        activeTextObject.set("textAlign", alignment);
+        activeTextbox.set("textAlign", alignmentFromInput);
         canvas?.renderAll();
-    }, [alignment]);
-
-    const handleAlignmentChange = (
-        alignmentFromInput: "left" | "right" | "center"
-    ) => {
-        setAlignment(alignmentFromInput);
     };
 
     const isActive = (alignmentFromInput: string) => {
-        return alignment === alignmentFromInput;
+        return activeTextboxProperties.alignment === alignmentFromInput;
     };
 
     const { open, close, isOpen, toggle } = useToggle();
@@ -104,7 +97,7 @@ const AlignmentSelector = () => {
                     onClick={toggle}>
                     <ButtonIcon
                         icon={() => {
-                            switch (alignment) {
+                            switch (activeTextboxProperties.alignment) {
                                 case "left":
                                     return <TbAlignLeft />;
                                 case "center":
