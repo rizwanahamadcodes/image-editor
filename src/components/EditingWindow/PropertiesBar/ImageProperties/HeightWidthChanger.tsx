@@ -134,7 +134,7 @@ const HeightWidthChanger = () => {
                     toggleButtonRefs={[buttonRef]}
                     isOpen={isOpen}
                     close={close}
-                    className="left-1/2 -translate-x-1/2">
+                    className="left-0">
                     <div className="bg-white shadow border border-gray-100 rounded-0.375 mt-0.5 right-0 p-0.25">
                         {heightWidthChangerCore()}
                     </div>
