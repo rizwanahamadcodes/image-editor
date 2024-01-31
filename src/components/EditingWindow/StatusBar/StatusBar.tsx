@@ -35,9 +35,11 @@ const StatusBar = (props: StatusBarProps) => {
     return (
         <div className="h-4 shrink-0">
             <FullWidthContainer className="flex gap-1 justify-end h-full items-center">
-                <div className="hidden sm:block">
-                    <ZoomControls />
-                </div>
+                <p className="font-medium text-gray-700 min-w-3 text-center shrink-0">
+                    {`${Math.floor(zoomLevel * 100)}%`}
+                </p>
+
+                <ZoomSlider zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
                 <div className="flex sm:hidden gap-0.5 relative">
                     <PopOver
                         isOpen={isOpen}
@@ -60,12 +62,9 @@ const StatusBar = (props: StatusBarProps) => {
                         <ButtonIcon icon={HiMagnifyingGlass} />
                     </Button>
                 </div>
-
-                <ZoomSlider zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
-
-                <p className="font-medium text-gray-700 min-w-3 text-center shrink-0">
-                    {`${Math.floor(zoomLevel * 100)}%`}
-                </p>
+                <div className="hidden sm:block">
+                    <ZoomControls />
+                </div>
             </FullWidthContainer>
         </div>
     );

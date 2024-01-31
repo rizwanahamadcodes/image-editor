@@ -9,7 +9,7 @@ const ZoomControls = (props: ZoomControlsProps) => {
     const {} = props;
 
     return (
-        <div className="flex gap-0.5 flex-col sm:flex-row">
+        <div className="flex gap-0.5 flex-col sm:flex-row-reverse">
             <div className="flex gap-0.25  flex-col sm:flex-row">
                 <Button
                     colorScheme="gray-200"
