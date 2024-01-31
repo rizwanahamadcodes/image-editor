@@ -44,7 +44,7 @@ const StatusBar = (props: StatusBarProps) => {
                         close={close}
                         className="!bottom-full mb-0.5 !top-auto left-1/2 -translate-x-1/2"
                         toggleButtonRefs={[buttonRef]}>
-                        <div className="bg-white shadow border border-gray-100 rounded-0.375 mt-0.25 right-0 p-0.25">
+                        <div className="bg-white shadow border border-gray-100 rounded-0.375 mt-0.5 right-0 p-0.25">
                             <ZoomControls />
                         </div>
                     </PopOver>

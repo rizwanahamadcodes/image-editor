@@ -84,7 +84,7 @@ const AlignmentSelector = () => {
                     isOpen={isOpen}
                     close={close}
                     className="right-0">
-                    <div className="bg-white shadow border border-gray-100 rounded-0.375 mt-0.25 right-0 p-0.25">
+                    <div className="bg-white shadow border border-gray-100 rounded-0.375 mt-0.5 right-0 p-0.25">
                         {alignmentSelectorCore()}
                     </div>
                 </PopOver>
