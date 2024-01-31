@@ -52,7 +52,7 @@ const TextProperties = (props: TextPropertiesProps) => {
                 updateTextBoxPropertiesToActiveTextbox
             );
         };
-    }, []);
+    }, [activeTextbox]);
 
     return (
         <ActiveTextboxAndPropertiesContext.Provider
