@@ -24,7 +24,7 @@ const PopOver = (props: PopOverProps) => {
         <div
             ref={popOverRef}
             className={clsx(
-                "absolute atop-full z-20 transition-all",
+                "absolute top-full z-20 transition-all",
                 isOpen ? "opacity-100 visible" : "opacity-0 invisible",
                 className
             )}>
