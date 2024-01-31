@@ -22,8 +22,8 @@ const TextResetterAndDeleter = () => {
     const textResetterAndDeleterCore = () => {
         return (
             <div className="flex gap-0.25">
-                <DeleteObject activeObject={activeTextbox} />
                 <TextResetter />
+                <DeleteObject activeObject={activeTextbox} />
             </div>
         );
     };

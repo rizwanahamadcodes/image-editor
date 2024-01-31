@@ -1,3 +1,4 @@
+import { PiUploadSimpleBold } from "react-icons/pi";
 import EditingWindow from "@/components/EditingWindow/EditingWindow";
 import { ToolBox } from "@/components/ToolBox/ToolBox";
 import { paramConstants } from "@/routes/pathContants";
@@ -12,6 +13,8 @@ import { CanvasContext } from "@/context/useCanvas";
 import { fabric } from "fabric";
 import Container from "@/components/Container";
 import BrandLogo from "@/components/BrandLogo/BrandLogo";
+import Button, { ButtonIcon } from "@/components/Button/Button";
+import { FaSave } from "react-icons/fa";
 
 const EditProject = () => {
     const router = useRouter();
@@ -57,6 +60,16 @@ EditProject.getLayout = (page: React.ReactNode) => (
         <nav className="h-navHeight shrink-0 border-b border-b-gray-100">
             <Container className="flex justify-between h-full items-center gap-1">
                 <BrandLogo />
+                <div className="flex gap-1">
+                    <Button variant="solid" colorScheme="primary" size="sm">
+                        <ButtonIcon icon={FaSave} />
+                        Save
+                    </Button>
+                    <Button variant="outline" colorScheme="primary" size="sm">
+                        <ButtonIcon icon={PiUploadSimpleBold} />
+                        Export
+                    </Button>
+                </div>
             </Container>
         </nav>
         {page}

@@ -1,3 +1,4 @@
+import { RxFontSize } from "react-icons/rx";
 import Button, { ButtonIcon } from "@/components/Button/Button";
 import PopOver from "@/components/PopOver/PopOver";
 import { useToggle } from "@/hooks/useToggle";
@@ -5,6 +6,7 @@ import { useRef } from "react";
 import { LuLigature } from "react-icons/lu";
 import FontFamilySelector from "./FontFamilySelector";
 import FontSizeChanger from "./FontSizeChanger";
+import { AiOutlineFontSize } from "react-icons/ai";
 
 type FontFamilyAndSizeSelectorProps = {};
 
@@ -44,7 +46,7 @@ const FontFamilyAndSizeSelector = (props: FontFamilyAndSizeSelectorProps) => {
                     size="sm"
                     regular
                     colorScheme="gray-200">
-                    <ButtonIcon icon={LuLigature} />
+                    <ButtonIcon icon={AiOutlineFontSize} />
                 </Button>
             </div>
         </>

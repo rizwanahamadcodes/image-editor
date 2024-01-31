@@ -41,7 +41,7 @@ const FontSizeChanger = (props: FontSizeChangerProps) => {
                     setFontSize(Number(e.target.value));
                 }}
                 type="number"
-                className="text-center w-3 min-w-0 grow border-y border-y-gray-200 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 focus:z-10 focus:outline-none focus:border-x focus:border-x-gray-200"
+                className="text-center w-3 min-w-0 grow border-y border-y-gray-200 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 focus:z-10 focus:outline-none focus:border-x focus:border-x-gray-200 font-medium text-gray-800"
                 value={activeTextboxProperties.fontSize}
             />
             <Button

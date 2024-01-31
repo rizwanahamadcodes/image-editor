@@ -49,9 +49,9 @@ const ImageProperties = (props: ImagePropertiesProps) => {
                 setActiveImageProperties: setActiveImageProperties,
             }}>
             <div className="flex gap-1">
-                <AspectRatioResetter />
                 <HeightWidthChanger />
                 <PositionSetter activeObject={activeImage} />
+                <AspectRatioResetter />
                 <DeleteObject activeObject={activeImage} />
             </div>
         </ActiveImageAndPropertiesContext.Provider>

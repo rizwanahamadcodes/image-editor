@@ -30,18 +30,17 @@ export const ToolBar = (props: ToolBarProps) => {
                 )}
             </button>
             <nav className="grow p-0.375 overflow-y-auto">
-                <ul>
-                    <li>
-                        {tools.map((tool) => (
+                <ul className="flex gap-0.375 flex-col w-full">
+                    {tools.map((tool) => (
+                        <li className="w-full" key={tool.toolId}>
                             <Tool
-                                key={tool.toolId}
                                 tool={tool}
                                 activeTool={activeTool}
                                 setActiveTool={setActiveTool}
                                 setShowOptions={setShowOptions}
                             />
-                        ))}
-                    </li>
+                        </li>
+                    ))}
                 </ul>
             </nav>
         </div>

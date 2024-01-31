@@ -4,7 +4,7 @@ import { IconType } from "react-icons";
 
 export const button = cva(
     [
-        "font-medium focus:outline-none items-center active:scale-95 flex gap-0.75 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 rounded-0.25 justify-center",
+        "font-medium focus:outline-none items-center active:scale-95 flex gap-0.75 focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-primary/50 rounded-0.375 justify-center",
     ],
     {
         variants: {
@@ -52,9 +52,25 @@ export const button = cva(
                 className: "bg-gray-900 text-gray-100 hover:bg-gray-950",
             },
             {
+                variant: "solid",
+                colorScheme: "primary",
+                className: "bg-primary text-white hover:bg-primary-600",
+            },
+            {
+                variant: "outline",
+                colorScheme: "primary",
+                className:
+                    "text-primary border-primary hover:border-primary-600 hover:text-primary-600",
+            },
+            {
                 variant: "ghost",
                 colorScheme: "gray-900",
                 className: "hover:bg-gray-50 text-gray-900 hover:text-gray-950",
+            },
+            {
+                variant: "ghost",
+                colorScheme: "gray-200",
+                className: "hover:bg-gray-50 text-gray-500 hover:text-gray-700",
             },
             {
                 active: true,

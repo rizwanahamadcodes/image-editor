@@ -50,7 +50,12 @@ const AspectRatioResetter = (props: AspectRatioResetterProps) => {
     };
 
     return (
-        <Button onClick={handleAspectRatioReset}>
+        <Button
+            onClick={handleAspectRatioReset}
+            colorScheme="gray-200"
+            size="sm"
+            variant="outline"
+            regular>
             <ButtonIcon icon={IoReloadSharp} />
         </Button>
     );
