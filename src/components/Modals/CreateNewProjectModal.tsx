@@ -66,8 +66,6 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
             canvas.toJSON(["height", "width", "backgroundColor"])
         );
 
-        console.log(stringifiedCanvas);
-
         const project: Project = {
             projectId: 1000 + new Date().getTime(),
             canvas: stringifiedCanvas,
@@ -84,7 +82,6 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
         selectAllProject(state)
     );
 
-    console.log(allProjects);
     return (
         <form
             onSubmit={handleSubmit(handleCreateNewProjectFormSubmit)}
