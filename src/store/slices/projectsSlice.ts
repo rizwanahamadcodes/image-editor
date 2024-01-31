@@ -20,6 +20,7 @@ const projectsSlice = createSlice({
             //     return { ...project };
             // });
             // console.log(JSON.parse(state[0].canvas));
+            // console.log(JSON.parse(state[0].canvas));
         },
     },
 });
