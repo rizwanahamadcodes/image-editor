@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import { Project } from "@/data/projects";
 import { CanvasContext } from "@/context/useCanvas";
 import { fabric } from "fabric";
+import Container from "@/components/Container";
+import BrandLogo from "@/components/BrandLogo/BrandLogo";
 
 const EditProject = () => {
     const router = useRouter();
@@ -49,4 +51,15 @@ const EditProject = () => {
         </CanvasContext.Provider>
     );
 };
+
+EditProject.getLayout = (page: React.ReactNode) => (
+    <div className="h-[100dvh] relative flex flex-col overflow-auto">
+        <nav className="h-navHeight shrink-0 border-b border-b-gray-100">
+            <Container className="flex justify-between h-full items-center gap-1">
+                <BrandLogo />
+            </Container>
+        </nav>
+        {page}
+    </div>
+);
 export default EditProject;

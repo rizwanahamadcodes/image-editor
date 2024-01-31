@@ -47,7 +47,6 @@ const HeightWidthChanger = () => {
             activeImageObject.set("scaleY", newScaleY);
         }
 
-        console.log(canvas?.getZoom());
         canvas?.renderAll();
     }, [height]);
 
