@@ -30,7 +30,7 @@ const BoldItalicUnderlineToggles = (props: BoldItalicUnderlineTogglesProps) => {
                     close={close}
                     className="right-0"
                     toggleButtonRefs={[buttonRef]}>
-                    <div className="bg-white shadow border border-gray-100 rounded-0.375 mt-0.5 right-0 p-0.25">
+                    <div className="bg-white shadow border border-gray-100 rounded-0.625 mt-0.5 right-0 p-0.25">
                         {boldItalicUnderlineCore()}
                     </div>
                 </PopOver>
