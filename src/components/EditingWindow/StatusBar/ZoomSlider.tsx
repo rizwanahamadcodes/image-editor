@@ -7,6 +7,10 @@ type ZoomSliderProps = {
 
 const ZoomSlider = (props: ZoomSliderProps) => {
     const { zoomLevel, setZoomLevel } = props;
+
+    // this functions are defined such that,
+    // we scale from 10 to 100 when we reach 50% mark on the rangeSlider
+    // and we scale from 100 to 500 when we reach 100% from 51%
     const getRangeFromZoom = (zoom: number) => {
         const scaledZoom = zoom * 100;
 
@@ -19,9 +23,9 @@ const ZoomSlider = (props: ZoomSliderProps) => {
 
     const getZoomFromRange = (range: number) => {
         if (range <= 50) {
-            return ((18 / 10) * range + 10) / 100;
+            return Number((((18 / 10) * range + 10) / 100).toFixed(2));
         } else {
-            return (8 * range - 300) / 100;
+            return Number(((8 * range - 300) / 100).toFixed(2));
         }
     };
 

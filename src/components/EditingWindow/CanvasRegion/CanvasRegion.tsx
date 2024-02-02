@@ -1,16 +1,19 @@
 import Canvas from "@/components/EditingWindow/CanvasRegion/Canvas";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 type CanvasRegionProps = {
     zoomLevel: number;
     setZoomLevel: React.Dispatch<React.SetStateAction<number>>;
+    canvasParentRef: React.MutableRefObject<HTMLElement | null>;
 };
 
 const CanvasRegion = (props: CanvasRegionProps) => {
-    const { zoomLevel, setZoomLevel } = props;
+    const { zoomLevel, setZoomLevel, canvasParentRef } = props;
 
     return (
-        <section className="bg-gray-100 grow overflow-auto grid place-items-center shadow-inner">
+        <section
+            ref={canvasParentRef}
+            className="bg-gray-100 grow overflow-auto grid place-items-center shadow-inner">
             <Canvas zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
         </section>
     );

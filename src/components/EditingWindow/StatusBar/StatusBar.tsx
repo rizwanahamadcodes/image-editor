@@ -12,10 +12,11 @@ import { useRef } from "react";
 type StatusBarProps = {
     zoomLevel: number;
     setZoomLevel: React.Dispatch<React.SetStateAction<number>>;
+    canvasParentRef: React.MutableRefObject<HTMLElement | null>;
 };
 
 const StatusBar = (props: StatusBarProps) => {
-    const { zoomLevel, setZoomLevel } = props;
+    const { zoomLevel, setZoomLevel, canvasParentRef } = props;
     const { activeProject, setActiveProject } = useActiveProject();
     const dispatch = useDispatch();
     const saveProject = () => {
@@ -47,7 +48,11 @@ const StatusBar = (props: StatusBarProps) => {
                         className="!bottom-full mb-0.5 !top-auto left-1/2 -translate-x-1/2"
                         toggleButtonRefs={[buttonRef]}>
                         <div className="bg-white shadow border border-gray-100 rounded-0.625 mt-0.5 right-0 p-0.25">
-                            <ZoomControls />
+                            <ZoomControls
+                                canvasParentRef={canvasParentRef}
+                                zoomLevel={zoomLevel}
+                                setZoomLevel={setZoomLevel}
+                            />
                         </div>
                     </PopOver>
 
@@ -63,7 +68,11 @@ const StatusBar = (props: StatusBarProps) => {
                     </Button>
                 </div>
                 <div className="hidden sm:block">
-                    <ZoomControls />
+                    <ZoomControls
+                        zoomLevel={zoomLevel}
+                        setZoomLevel={setZoomLevel}
+                        canvasParentRef={canvasParentRef}
+                    />
                 </div>
             </FullWidthContainer>
         </div>
