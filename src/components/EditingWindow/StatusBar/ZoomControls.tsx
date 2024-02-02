@@ -8,10 +8,16 @@ type ZoomControlsProps = {
     zoomLevel: number;
     setZoomLevel: React.Dispatch<React.SetStateAction<number>>;
     canvasParentRef: React.MutableRefObject<HTMLElement | null>;
+    calculateZoomLevelWithinBounds: (rawZoom: number) => number;
 };
 
 const ZoomControls = (props: ZoomControlsProps) => {
-    const { zoomLevel, setZoomLevel, canvasParentRef } = props;
+    const {
+        zoomLevel,
+        setZoomLevel,
+        canvasParentRef,
+        calculateZoomLevelWithinBounds,
+    } = props;
     const { canvas } = useCanvas();
 
     const changeZoomBy = (delta: number) => {
@@ -24,9 +30,7 @@ const ZoomControls = (props: ZoomControlsProps) => {
             newZoom = scaledUpZoom + (-(diffFromLowerStep - delta) % delta);
         }
 
-        setZoomLevel(
-            Math.min(Math.max(Number((newZoom / 100).toFixed(2)), 0.1), 5)
-        );
+        setZoomLevel(calculateZoomLevelWithinBounds(newZoom / 100));
     };
 
     const fitToScreen = () => {
@@ -54,9 +58,9 @@ const ZoomControls = (props: ZoomControlsProps) => {
             const xZoom = (parentWidth - 2 * padding) / originalCanvasWidth;
 
             if (originalCanvasWidth * yZoom > parentWidth) {
-                setZoomLevel(Number(xZoom.toFixed(2)));
+                setZoomLevel(calculateZoomLevelWithinBounds(Number(xZoom)));
             } else {
-                setZoomLevel(Number(yZoom.toFixed(2)));
+                setZoomLevel(calculateZoomLevelWithinBounds(Number(yZoom)));
             }
         } catch (error) {
             console.error("An error occurred in fitToScreen:", error);

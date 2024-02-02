@@ -13,10 +13,16 @@ type StatusBarProps = {
     zoomLevel: number;
     setZoomLevel: React.Dispatch<React.SetStateAction<number>>;
     canvasParentRef: React.MutableRefObject<HTMLElement | null>;
+    calculateZoomLevelWithinBounds: (rawZoom: number) => number;
 };
 
 const StatusBar = (props: StatusBarProps) => {
-    const { zoomLevel, setZoomLevel, canvasParentRef } = props;
+    const {
+        zoomLevel,
+        setZoomLevel,
+        canvasParentRef,
+        calculateZoomLevelWithinBounds,
+    } = props;
     const { activeProject, setActiveProject } = useActiveProject();
     const dispatch = useDispatch();
     const saveProject = () => {
@@ -52,6 +58,9 @@ const StatusBar = (props: StatusBarProps) => {
                                 canvasParentRef={canvasParentRef}
                                 zoomLevel={zoomLevel}
                                 setZoomLevel={setZoomLevel}
+                                calculateZoomLevelWithinBounds={
+                                    calculateZoomLevelWithinBounds
+                                }
                             />
                         </div>
                     </PopOver>
@@ -72,6 +81,9 @@ const StatusBar = (props: StatusBarProps) => {
                         zoomLevel={zoomLevel}
                         setZoomLevel={setZoomLevel}
                         canvasParentRef={canvasParentRef}
+                        calculateZoomLevelWithinBounds={
+                            calculateZoomLevelWithinBounds
+                        }
                     />
                 </div>
             </FullWidthContainer>

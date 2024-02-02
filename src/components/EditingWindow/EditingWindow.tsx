@@ -8,6 +8,13 @@ type EditingWindowProps = {};
 const EditingWindow = (props: EditingWindowProps) => {
     const {} = props;
     const [zoomLevel, setZoomLevel] = useState(1);
+
+    const calculateZoomLevelWithinBounds = (newZoom: number): number => {
+        const minZoom = 0.1;
+        const maxZoom = 5;
+
+        return Math.min(Math.max(Number(newZoom.toFixed(2)), minZoom), maxZoom);
+    };
     const canvasParentRef = useRef<HTMLElement | null>(null);
 
     return (
@@ -22,6 +29,7 @@ const EditingWindow = (props: EditingWindowProps) => {
                 canvasParentRef={canvasParentRef}
                 zoomLevel={zoomLevel}
                 setZoomLevel={setZoomLevel}
+                calculateZoomLevelWithinBounds={calculateZoomLevelWithinBounds}
             />
         </main>
     );
