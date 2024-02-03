@@ -31,6 +31,12 @@ const Canvas = (props: CanvasProps) => {
             "/images/projects/thumbnails/thumbnail_4.jpg",
             (bgImg) => {
                 bgImg.scaleToWidth(newCanvas.getWidth());
+                const centerX = newCanvas.getWidth() / 2;
+                const centerY = newCanvas.getHeight() / 2;
+                bgImg.set({
+                    left: centerX - bgImg.getScaledWidth() / 2,
+                    top: centerY - bgImg.getScaledHeight() / 2,
+                });
                 newCanvas.setBackgroundImage(bgImg, () => {});
                 newCanvas.renderAll();
             }
