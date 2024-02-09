@@ -2,6 +2,7 @@ import { ToolType } from "@/components/ToolBox/ToolBox";
 import FieldToolOptions from "@/components/ToolBox/ToolOptions/FieldToolOptions/FieldToolOptions";
 import ImageToolOptions from "@/components/ToolBox/ToolOptions/ImageToolOptions";
 import clsx from "clsx";
+import BackgroundToolOptions from "@/components/ToolBox/ToolOptions/BackgroundToolOptions";
 
 type ToolOptionsProps = {
     showOptions: boolean;
@@ -9,6 +10,7 @@ type ToolOptionsProps = {
 };
 
 const toolOptionsMap: Record<string, React.ReactNode> = {
+    background: <BackgroundToolOptions />,
     images: <ImageToolOptions />,
     // text: <TextToolOptions />,
     fields: <FieldToolOptions />,
@@ -30,7 +32,7 @@ export const ToolOptions = (props: ToolOptionsProps) => {
             <h4 className="shrink-0 capitalize font-medium h-4 border-b border-b-gray-100 px-1.5 text-gray-700 flex items-center">
                 {activeTool.toolName}
             </h4>
-            <div className="p-1 grow overflow-auto">{toolOptions}</div>
+            <div className="grow overflow-auto">{toolOptions}</div>
         </div>
     );
 };
