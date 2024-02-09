@@ -47,7 +47,7 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
                 return <ImageProperties activeImage={activeImage} />;
                 break;
             default:
-                return <p>No properties</p>;
+                return <p></p>;
         }
 
         return;

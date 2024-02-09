@@ -6,13 +6,22 @@ type ToolBarProps = {
     tools: ToolType[];
     activeTool: ToolType;
     setActiveTool: React.Dispatch<React.SetStateAction<ToolType>>;
+    prevActiveTool: ToolType;
+    setPrevActiveTool: React.Dispatch<React.SetStateAction<ToolType>>;
     showOptions: boolean;
     setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const ToolBar = (props: ToolBarProps) => {
-    const { tools, activeTool, setActiveTool, showOptions, setShowOptions } =
-        props;
+    const {
+        tools,
+        prevActiveTool,
+        setPrevActiveTool,
+        activeTool,
+        setActiveTool,
+        showOptions,
+        setShowOptions,
+    } = props;
 
     const handleToolbarHamburgerClick = () => {
         setShowOptions((prevShowProperty) => !prevShowProperty);
@@ -37,6 +46,8 @@ export const ToolBar = (props: ToolBarProps) => {
                                 tool={tool}
                                 activeTool={activeTool}
                                 setActiveTool={setActiveTool}
+                                prevActiveTool={prevActiveTool}
+                                setPrevActiveTool={setPrevActiveTool}
                                 setShowOptions={setShowOptions}
                             />
                         </li>

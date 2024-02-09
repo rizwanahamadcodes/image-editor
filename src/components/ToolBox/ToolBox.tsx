@@ -25,11 +25,6 @@ const tools: ToolType[] = [
         icon: IoImage,
     },
     {
-        toolId: "fields",
-        toolName: "fields",
-        icon: IoIosList,
-    },
-    {
         toolId: "text",
         toolName: "text",
         icon: IoText,
@@ -43,6 +38,7 @@ const tools: ToolType[] = [
 
 export const ToolBox = () => {
     const [activeTool, setActiveTool] = useState<ToolType>(tools[0]);
+    const [prevActiveTool, setPrevActiveTool] = useState<ToolType>(tools[0]);
     const [showOptions, setShowOptions] = useState(false);
 
     // toolbox width = toolbarwidth + tooloptions width
@@ -63,6 +59,8 @@ export const ToolBox = () => {
                 tools={tools}
                 activeTool={activeTool}
                 setActiveTool={setActiveTool}
+                prevActiveTool={prevActiveTool}
+                setPrevActiveTool={setPrevActiveTool}
                 setShowOptions={setShowOptions}
             />
             <ToolOptions showOptions={showOptions} activeTool={activeTool} />

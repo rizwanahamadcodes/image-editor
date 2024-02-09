@@ -5,16 +5,31 @@ type ToolProps = {
     tool: ToolType;
     activeTool: ToolType;
     setActiveTool: React.Dispatch<React.SetStateAction<ToolType>>;
+    prevActiveTool: ToolType;
+    setPrevActiveTool: React.Dispatch<React.SetStateAction<ToolType>>;
     setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Tool = (props: ToolProps) => {
-    const { tool, activeTool, setActiveTool, setShowOptions } = props;
+    const {
+        tool,
+        activeTool,
+        setActiveTool,
+        setShowOptions,
+        prevActiveTool,
+        setPrevActiveTool,
+    } = props;
     const { toolId, icon: Icon, toolName } = tool;
 
     const handleToolClick = () => {
         setActiveTool(tool);
-        setShowOptions(true);
+        if (tool.toolId === prevActiveTool.toolId) {
+            setShowOptions((prevSetShowOptions) => !prevSetShowOptions);
+        } else {
+            setShowOptions(true);
+        }
+
+        setPrevActiveTool(tool);
     };
 
     return (

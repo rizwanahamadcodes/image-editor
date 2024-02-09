@@ -1,3 +1,4 @@
+import Button, { button } from "@/components/Button/Button";
 import Container from "@/components/Container";
 import CreateNewProjectModal from "@/components/Modals/CreateNewProjectModal";
 import Section, { SectionTitle } from "@/components/Section/Section";
@@ -75,26 +76,37 @@ export const ProjectCard = (props: ProjectCardProps) => {
     const { project } = props;
 
     return (
-        <div className="border border-gray-100 rounded-0.5 overflow-hidden h-15">
-            <div className="h-7 relative mb-1">
-                <Image
-                    src={
-                        project.thumbnailUrl ??
-                        "/images/projects/thumbnails/default_thumbnail.jpg"
-                    }
-                    alt={project.name}
-                    fill
-                    className="object-cover"
-                />
+        <div className="border border-gray-100 rounded-0.5 overflow-hidden h-15 relative group/projectCardGroup cursor-pointer">
+            <Image
+                src={
+                    project.thumbnailUrl ??
+                    "/images/projects/thumbnails/default_thumbnail.jpg"
+                }
+                alt={project.name}
+                fill
+                className="object-cover"
+            />
+            <div className="h-full w-full left-0 top-0 bg-black/20 z-1 absolute group-hover/projectCardGroup:bg-black/30 flex justify-end p-1.5 flex-col">
+                <Link
+                    title={project.name}
+                    href={`${pathConstants.PROJECTS.path}/${project.projectId}/edit`}
+                    className="overflow-hidden max-w-full overflow-ellipsis mb-0.5">
+                    <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap text-white font-medium text-1.125">
+                        {project.name}
+                    </h3>
+                </Link>
+                <Link
+                    title={project.name}
+                    href={`${pathConstants.PROJECTS.path}/${project.projectId}/edit`}
+                    className={button({
+                        variant: "solid",
+                        colorScheme: "white",
+                        className: "px-1 self-start inline-block",
+                        size: "sm",
+                    })}>
+                    Edit
+                </Link>
             </div>
-            <Link
-                title={project.name}
-                href={`${pathConstants.PROJECTS.path}/${project.projectId}/edit`}
-                className="inline-block px-1 overflow-hidden max-w-full overflow-ellipsis">
-                <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold">
-                    {project.name}
-                </h3>
-            </Link>
         </div>
     );
 };
