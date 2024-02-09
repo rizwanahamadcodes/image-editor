@@ -1,9 +1,7 @@
-type HomeProps = {};
+import AllProjectsSection from "./projects/AllProjectsSection";
 
-const Home = (props: HomeProps) => {
-    const {} = props;
-
-    return <div>Home</div>;
+const Home = () => {
+    return <AllProjectsSection />;
 };
 
 export default Home;

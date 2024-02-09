@@ -14,7 +14,6 @@ type NavbarProps = {};
 const navbarNavLinks: PathConstant[] = [
     { label: "Home", path: pathConstants.HOME.path },
     { label: "Projects", path: pathConstants.PROJECTS.path },
-    { label: "Lists", path: pathConstants.LISTS.path },
 ];
 
 const Navbar = (props: NavbarProps) => {
