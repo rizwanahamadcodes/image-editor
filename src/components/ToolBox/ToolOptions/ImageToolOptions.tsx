@@ -20,6 +20,7 @@ const ImageToolOptions = (props: ImageOptionsProps) => {
                     />
                 </div>
             ))}
+            \
         </div>
     );
 };

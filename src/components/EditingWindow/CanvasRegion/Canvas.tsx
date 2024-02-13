@@ -27,33 +27,18 @@ const Canvas = (props: CanvasProps) => {
             ...otherProperties,
         });
 
-        fabric.Image.fromURL(
-            "/images/projects/thumbnails/thumbnail_4.jpg",
-            (bgImg) => {
-                bgImg.scaleToWidth(newCanvas.getWidth());
-                const centerX = newCanvas.getWidth() / 2;
-                const centerY = newCanvas.getHeight() / 2;
-                bgImg.set({
-                    left: centerX - bgImg.getScaledWidth() / 2,
-                    top: centerY - bgImg.getScaledHeight() / 2,
-                });
-                newCanvas.setBackgroundImage(bgImg, () => {});
-                newCanvas.renderAll();
-            }
-        );
-
         newCanvas.loadFromJSON(JSON.parse(activeProject.canvas), () => {
             setCanvas(newCanvas);
         });
 
-        const newRect = new fabric.Rect({
-            height: 100,
-            width: 100,
-            backgroundColor: "black",
-            opacity: 0.1,
-        });
+        // const newRect = new fabric.Rect({
+        //     height: 100,
+        //     width: 100,
+        //     backgroundColor: "black",
+        //     opacity: 0.1,
+        // });
 
-        newCanvas.add(newRect);
+        // newCanvas.add(newRect);
         newCanvas.renderAll();
     }, []);
 

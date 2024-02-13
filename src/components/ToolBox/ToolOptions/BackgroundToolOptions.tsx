@@ -1,8 +1,10 @@
 import { useActiveProject } from "@/context/useActiveProject";
 import { useCanvas } from "@/context/useCanvas";
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import { fabric } from "fabric";
+import { IoChevronDown } from "react-icons/io5";
 
 type BackgroundOptionsProps = {};
 
@@ -14,7 +16,56 @@ type BackgroundTabType = {
 type ColorBackgroundOptionsProps = {};
 
 export const ColorBackgroundOptions = (props: ColorBackgroundOptionsProps) => {
-    return <div>color</div>;
+    const { canvas } = useCanvas();
+    const [backgroundColor, setBackgroundColor] = useState("white");
+
+    useEffect(() => {
+        if (!canvas) {
+            return;
+        }
+        setBackgroundColor((canvas.backgroundColor as string) || "white");
+    }, [canvas]);
+
+    return (
+        <div className="relative flex-col flex gap-0.5 p-1">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                    <div
+                        className="h-2.5 w-2.5 rounded-full shadow-inner bg-primary border border-gray-100"
+                        style={{
+                            background: backgroundColor,
+                        }}></div>
+                    <p className="font-medium text-gray-700">
+                        {backgroundColor}
+                    </p>
+                </div>
+                <label
+                    htmlFor="backgroundColorInput"
+                    className=" cursor-pointer">
+                    <IoChevronDown className="text-gray-600" />
+                </label>
+                <input
+                    onChange={(e) => {
+                        if (!canvas) {
+                            return;
+                        }
+                        // @ts-ignore
+                        canvas.setBackgroundImage(null, () => {});
+
+                        canvas.setBackgroundColor(e.target.value, () => {
+                            setBackgroundColor(
+                                canvas.backgroundColor as string
+                            );
+                        });
+                        canvas.renderAll();
+                    }}
+                    id="backgroundColorInput"
+                    type="color"
+                    className="absolute invisible top-2.5"
+                />
+            </div>
+        </div>
+    );
 };
 
 type PictureBackgroundOptionsProps = {};
@@ -23,17 +74,50 @@ export const PictureBackgroundOptions = (
     props: PictureBackgroundOptionsProps
 ) => {
     const { activeProject, setActiveProject } = useActiveProject();
+    const { canvas } = useCanvas();
+
+    const handleBackgroundImageClick = (imgUrl: string) => {
+        if (!canvas) {
+            return;
+        }
+        fabric.Image.fromURL(imgUrl, (bgImg) => {
+            const canvasHeight = canvas.getHeight();
+            const canvasWidth = canvas.getWidth();
+            const canvasZoomLevel = canvas?.getZoom() || 1;
+            const percievedCanvasHeight = canvasHeight / canvasZoomLevel;
+            const percievedCanvasWidth = canvasWidth / canvasZoomLevel;
+            bgImg.scaleToWidth(percievedCanvasWidth);
+
+            if (bgImg.getScaledHeight() < percievedCanvasHeight) {
+                bgImg.scaleToHeight(percievedCanvasHeight);
+            }
+
+            const centerX = percievedCanvasWidth / 2;
+            const centerY = percievedCanvasHeight / 2;
+            bgImg.set({
+                left: centerX - bgImg.getScaledWidth() / 2,
+                top: centerY - bgImg.getScaledHeight() / 2,
+            });
+            canvas.setBackgroundImage(bgImg, () => {});
+            canvas.renderAll();
+        });
+    };
+
+    console.log(canvas?.backgroundImage);
 
     return (
         <div className="relative flex-col flex gap-0.5 p-1">
             {activeProject.images?.map((imageUrl, index) => (
                 <div key={index} className="relative">
                     <Image
-                        className="rounded-1"
+                        className="rounded-1 cursor-pointer"
                         src={imageUrl}
                         width={300}
                         height={300}
                         alt={imageUrl}
+                        onClick={() => {
+                            handleBackgroundImageClick(imageUrl);
+                        }}
                     />
                 </div>
             ))}
@@ -62,8 +146,6 @@ const BackgroundToolOptions = (props: BackgroundOptionsProps) => {
     const { activeProject, setActiveProject } = useActiveProject();
     const [activeBackgroundType, setActiveBackgroundType] =
         useState<BackgroundTabType>(backgroundTypeTabs[0]);
-    const { canvas } = useCanvas();
-    console.log(canvas);
 
     return (
         <div className="relative flex-col flex h-full w-full">
