@@ -17,6 +17,7 @@ export const button = cva(
                 primary: "",
                 "gray-200": "",
                 "gray-900": "",
+                "gray-500": "",
                 white: "",
             },
             size: {
@@ -51,6 +52,11 @@ export const button = cva(
                 variant: "solid",
                 colorScheme: "gray-900",
                 className: "bg-gray-900 text-gray-100 hover:bg-gray-950",
+            },
+            {
+                variant: "solid",
+                colorScheme: "gray-500",
+                className: "bg-gray-500 text-white hover:bg-gray-600",
             },
             {
                 variant: "solid",

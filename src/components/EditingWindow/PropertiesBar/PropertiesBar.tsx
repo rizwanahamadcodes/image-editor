@@ -1,5 +1,6 @@
 import { FullWidthContainer } from "@/components/Container";
 import TextProperties from "@/components/EditingWindow/PropertiesBar/TextProperties/TextProperties";
+import ShapeProperties from "@/components/EditingWindow/PropertiesBar/ShapeProperties/ShapeProperties";
 import { useCanvas } from "@/context/useCanvas";
 import { useEffect, useState } from "react";
 import ImageProperties from "./ImageProperties/ImageProperties";
@@ -45,6 +46,10 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
             case "image":
                 const activeImage = activeObject as fabric.Image;
                 return <ImageProperties activeImage={activeImage} />;
+                break;
+            case "rect":
+                const activePolygon = activeObject as fabric.Polygon;
+                return <ShapeProperties activePolygon={activePolygon} />;
                 break;
             default:
                 return <p></p>;

@@ -1,8 +1,10 @@
 import { ToolType } from "@/components/ToolBox/ToolBox";
+import BackgroundToolOptions from "@/components/ToolBox/ToolOptions/BackgroundToolOptions";
 import FieldToolOptions from "@/components/ToolBox/ToolOptions/FieldToolOptions/FieldToolOptions";
 import ImageToolOptions from "@/components/ToolBox/ToolOptions/ImageToolOptions";
+import ShapesToolOptions from "@/components/ToolBox/ToolOptions/ShapesToolOptions";
+import TextToolOptions from "@/components/ToolBox/ToolOptions/TextToolOptions";
 import clsx from "clsx";
-import BackgroundToolOptions from "@/components/ToolBox/ToolOptions/BackgroundToolOptions";
 
 type ToolOptionsProps = {
     showOptions: boolean;
@@ -12,9 +14,9 @@ type ToolOptionsProps = {
 const toolOptionsMap: Record<string, React.ReactNode> = {
     background: <BackgroundToolOptions />,
     images: <ImageToolOptions />,
-    // text: <TextToolOptions />,
+    text: <TextToolOptions />,
     fields: <FieldToolOptions />,
-    // shapes: <ShapesToolOptions />,
+    shapes: <ShapesToolOptions />,
 };
 export const ToolOptions = (props: ToolOptionsProps) => {
     const { showOptions, activeTool } = props;

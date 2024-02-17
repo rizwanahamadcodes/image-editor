@@ -43,7 +43,7 @@ const ImageToolOptions = (props: ImageOptionsProps) => {
     return (
         <div className="relative flex-col flex gap-0.5 p-1">
             {activeProject.images?.map((imageUrl, index) => (
-                <div key={index} className="relative">
+                <div key={index} className="relative cursor-pointer">
                     <Image
                         onClick={() => {
                             addImageToCanvas(imageUrl);
