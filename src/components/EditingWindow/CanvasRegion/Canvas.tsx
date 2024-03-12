@@ -31,14 +31,6 @@ const Canvas = (props: CanvasProps) => {
             setCanvas(newCanvas);
         });
 
-        // const newRect = new fabric.Rect({
-        //     height: 100,
-        //     width: 100,
-        //     backgroundColor: "black",
-        //     opacity: 0.1,
-        // });
-
-        // newCanvas.add(newRect);
         newCanvas.renderAll();
     }, []);
 

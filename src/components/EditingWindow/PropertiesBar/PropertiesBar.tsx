@@ -48,6 +48,7 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
                 return <ImageProperties activeImage={activeImage} />;
                 break;
             case "rect":
+            case "ellipse":
                 const activePolygon = activeObject as fabric.Polygon;
                 return <ShapeProperties activePolygon={activePolygon} />;
                 break;
