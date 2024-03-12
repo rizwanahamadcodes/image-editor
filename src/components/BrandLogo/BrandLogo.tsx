@@ -1,7 +1,6 @@
 import { pathConstants } from "@/routes/pathContants";
 import Link from "next/link";
 
-// logo
 const BrandLogo = () => {
     return (
         <Link
