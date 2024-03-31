@@ -1,9 +1,10 @@
 import { FullWidthContainer } from "@/components/Container";
-import TextProperties from "@/components/EditingWindow/PropertiesBar/TextProperties/TextProperties";
 import ShapeProperties from "@/components/EditingWindow/PropertiesBar/ShapeProperties/ShapeProperties";
+import TextProperties from "@/components/EditingWindow/PropertiesBar/TextProperties/TextProperties";
 import { useCanvas } from "@/context/useCanvas";
 import { useEffect, useState } from "react";
 import ImageProperties from "./ImageProperties/ImageProperties";
+import SaveAndExport from "./SaveAndExport";
 
 type PropertiesBarProps = {};
 export const PropertiesBar = (props: PropertiesBarProps) => {
@@ -61,10 +62,12 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
 
     return (
         <div className="border-b border-b-gray-100 h-4 shrink-0">
-            <FullWidthContainer className="flex flex-col justify-center items-center h-full">
-                <div>
+            <FullWidthContainer className="flex flex-row justify-center items-center h-full">
+                <div className="flex grow justify-center">
                     {activeObject ? getObjectProperties(activeObject) : <></>}
                 </div>
+
+                <SaveAndExport />
             </FullWidthContainer>
         </div>
     );

@@ -10,6 +10,19 @@ const projectsSlice = createSlice({
         addProject: (state, action: PayloadAction<Project>) => {
             state.push(action.payload);
         },
+        updateProject: (
+            state,
+            action: PayloadAction<{ project: Project; projectId: number }>
+        ) => {
+            return state.map((oldProject) => {
+                if (oldProject.projectId === action.payload.projectId) {
+                    // Return a new object with the updated project
+                    return action.payload.project;
+                }
+                // If the projectId doesn't match, return the old project
+                return oldProject;
+            });
+        },
 
         updateProjectCanvas: (state, action: PayloadAction<string>) => {
             // const canvas = JSON.stringify(action.payload.canvas);
@@ -40,5 +53,6 @@ export const selectAllProject = (state: RootState) => {
     return state.projects;
 };
 
-export const { addProject, updateProjectCanvas } = projectsSlice.actions;
+export const { addProject, updateProjectCanvas, updateProject } =
+    projectsSlice.actions;
 export default projectsSlice.reducer;
