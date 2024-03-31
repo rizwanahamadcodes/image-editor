@@ -5,10 +5,7 @@ import Drawer, {
     DrawerDefaultHead,
 } from "@/components/Drawer/Drawer";
 import Hamburger from "@/components/Hamburger/Hamburger";
-import NavMenuWithTabIndicator from "@/components/Navbar/NavMenuWithTabIndicator";
-import SaveAndExport from "@/components/SaveAndExport/SaveAndExport";
 import { useToggle } from "@/hooks/useToggle";
-import { PathConstant, pathConstants } from "@/routes/pathContants";
 import { useRef } from "react";
 
 export const EditPageLayout = (page: React.ReactNode) => {
@@ -20,7 +17,6 @@ export const EditPageLayout = (page: React.ReactNode) => {
             <nav className="h-navHeight shrink-0 border-b border-b-gray-100">
                 <Container className="flex justify-between h-full items-center gap-1">
                     <BrandLogo />
-                    <SaveAndExport className="hidden sm:flex" />
 
                     <Hamburger
                         onClick={open}
@@ -34,9 +30,7 @@ export const EditPageLayout = (page: React.ReactNode) => {
                         excludeElementRefs={[hamburgerRef]}
                         className="sm:hidden">
                         <DrawerDefaultHead />
-                        <DrawerBody defaultPadding>
-                            <SaveAndExport className="sm:hidden flex" />
-                        </DrawerBody>
+                        <DrawerBody defaultPadding>a</DrawerBody>
                     </Drawer>
                 </Container>
             </nav>
