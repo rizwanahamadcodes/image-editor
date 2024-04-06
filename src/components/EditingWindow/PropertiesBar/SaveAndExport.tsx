@@ -41,6 +41,18 @@ const SaveAndExport = (props: SaveAndExportProps) => {
         });
     };
 
+    const exportProject = () => {
+        const canvasPng = canvas?.toDataURL({ format: "png" });
+        const link = document.createElement("a");
+        link.download = "canvas_export.png";
+        if (canvasPng) {
+            link.href = canvasPng;
+        }
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     useEffect(() => {
         dispatch(
             updateProject({
@@ -52,7 +64,7 @@ const SaveAndExport = (props: SaveAndExportProps) => {
 
     return (
         <>
-            <div className="flex md:hidden gap-0.5 relative">
+            <div className="flex gap-0.5 relative">
                 <PopOver
                     isOpen={isOpen}
                     close={close}
@@ -68,6 +80,7 @@ const SaveAndExport = (props: SaveAndExportProps) => {
                             Save
                         </Button>
                         <Button
+                            onClick={exportProject}
                             variant="outline"
                             colorScheme="primary"
                             size="sm">

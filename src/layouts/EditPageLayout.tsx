@@ -18,7 +18,7 @@ export const EditPageLayout = (page: React.ReactNode) => {
                 <Container className="flex justify-between h-full items-center gap-1">
                     <BrandLogo />
 
-                    <Hamburger
+                    {/* <Hamburger
                         onClick={open}
                         hamburgerRef={hamburgerRef}
                         className="sm:hidden"
@@ -31,7 +31,7 @@ export const EditPageLayout = (page: React.ReactNode) => {
                         className="sm:hidden">
                         <DrawerDefaultHead />
                         <DrawerBody defaultPadding>a</DrawerBody>
-                    </Drawer>
+                    </Drawer> */}
                 </Container>
             </nav>
             {page}

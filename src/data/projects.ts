@@ -18,7 +18,7 @@ export const projects: Project[] = [
     {
         projectId: 1,
         userId: 1,
-        name: "Student ID card",
+        name: "Blog Post Design",
         thumbnailUrl: "/images/projects/thumbnails/thumbnail_1.jpg",
         listId: 1,
         images: [
@@ -41,7 +41,7 @@ export const projects: Project[] = [
     {
         projectId: 2,
         userId: 1,
-        name: "Employee ID card",
+        name: "Flyer",
         thumbnailUrl: "/images/projects/thumbnails/thumbnail_2.jpg",
         listId: 2,
         images: [
