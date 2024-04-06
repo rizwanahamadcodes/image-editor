@@ -105,15 +105,6 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
             </InputControl>
             <div className="flex gap-1">
                 <InputControl>
-                    <Label htmlFor="projectHeight">Height</Label>
-                    <Input
-                        id="projectHeight"
-                        {...register("height")}
-                        error={errors["height"]}
-                    />
-                    <InputFeedback error={errors["height"]} />
-                </InputControl>
-                <InputControl>
                     <Label htmlFor="projectWidth">Width:</Label>
                     <Input
                         id="projectWidth"
@@ -121,6 +112,15 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
                         error={errors["width"]}
                     />
                     <InputFeedback error={errors["width"]} />
+                </InputControl>
+                <InputControl>gita dd .
+                    <Label htmlFor="projectHeight">Height</Label>
+                    <Input
+                        id="projectHeight"
+                        {...register("height")}
+                        error={errors["height"]}
+                    />
+                    <InputFeedback error={errors["height"]} />
                 </InputControl>
             </div>
             <div className="flex justify-end gap-1">
