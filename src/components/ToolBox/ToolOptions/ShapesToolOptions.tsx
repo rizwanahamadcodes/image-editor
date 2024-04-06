@@ -29,7 +29,7 @@ const ShapesToolOptions = (props: ShapesToolOptionsProps) => {
     };
 
     return (
-        <div className="p-1">
+        <div className="p-1 flex gap-1">
             <div
                 className="h-3 w-3 bg-primary"
                 onClick={() => {
