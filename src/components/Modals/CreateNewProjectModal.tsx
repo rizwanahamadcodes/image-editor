@@ -113,7 +113,7 @@ export const CreateNewProjectForm = (props: CreateNewProjectFormProps) => {
                     />
                     <InputFeedback error={errors["width"]} />
                 </InputControl>
-                <InputControl>gita dd .
+                <InputControl>
                     <Label htmlFor="projectHeight">Height</Label>
                     <Input
                         id="projectHeight"
