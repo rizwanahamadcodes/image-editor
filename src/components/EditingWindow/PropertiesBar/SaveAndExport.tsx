@@ -42,15 +42,25 @@ const SaveAndExport = (props: SaveAndExportProps) => {
     };
 
     const exportProject = () => {
-        const canvasPng = canvas?.toDataURL({ format: "png" });
-        const link = document.createElement("a");
-        link.download = "canvas_export.png";
-        if (canvasPng) {
-            link.href = canvasPng;
-        }
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        const clonedCanvas = canvas?.clone((clone: any) => {
+            const { version, objects, ...otherProperties } = JSON.parse(
+                activeProject.canvas
+            );
+            const canvasHeight = otherProperties.height;
+            const canvasWidth = otherProperties.width;
+            clone.setHeight(canvasHeight);
+            clone.setWidth(canvasWidth);
+
+            const canvasPng = clone?.toDataURL({ format: "jpeg" });
+            const link = document.createElement("a");
+            link.download = "canvas_export.jpeg";
+            if (canvasPng) {
+                link.href = canvasPng;
+            }
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
     };
 
     useEffect(() => {
