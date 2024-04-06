@@ -55,9 +55,9 @@ const SaveAndExport = (props: SaveAndExportProps) => {
 
             const canvasPng = clone?.toDataURL({ format: "jpeg" });
             const link = document.createElement("a");
-            link.download = `canvas_export.jpeg ${nowDate
+            link.download = `${activeProject.name}_${nowDate
                 .getTime()
-                .toString()}`;
+                .toString()}.jpeg`;
             if (canvasPng) {
                 link.href = canvasPng;
             }
