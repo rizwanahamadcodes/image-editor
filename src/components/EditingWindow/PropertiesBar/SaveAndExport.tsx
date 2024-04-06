@@ -51,9 +51,13 @@ const SaveAndExport = (props: SaveAndExportProps) => {
             clone.setHeight(canvasHeight);
             clone.setWidth(canvasWidth);
 
+            const nowDate = new Date();
+
             const canvasPng = clone?.toDataURL({ format: "jpeg" });
             const link = document.createElement("a");
-            link.download = "canvas_export.jpeg";
+            link.download = `canvas_export.jpeg ${nowDate
+                .getTime()
+                .toString()}`;
             if (canvasPng) {
                 link.href = canvasPng;
             }
