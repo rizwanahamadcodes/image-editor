@@ -1,6 +1,5 @@
 import Section, { SectionTitle } from "@/components/Section/Section";
 import { pathConstants } from "@/routes/pathContants";
-import NavMenuWithTabIndicator from "../Navbar/NavMenuWithTabIndicator";
 import Container, { FullWidthContainer } from "@/components/Container";
 
 type SidebarProps = {};
@@ -21,10 +20,10 @@ const Sidebar = (props: SidebarProps) => {
                 </FullWidthContainer>
             </Section>
             <div className="grow flex flex-col">
-                <NavMenuWithTabIndicator
+                {/* <NavMenuWithTabIndicator
                     navLinks={sidebarNavLinks}
                     direction="vertical"
-                />
+                /> */}
             </div>
         </aside>
     );
