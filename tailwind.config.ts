@@ -15,7 +15,7 @@ module.exports = {
                 spacing[i] = `${i}rem`;
             }
 
-            spacing["navHeight"] = "4rem";
+            spacing["navHeight"] = "5rem";
 
             return spacing;
         },
@@ -132,6 +132,7 @@ module.exports = {
             boxShadow: {
                 "halo-primary": "0px 0px 0px 3px hsla(200deg, 100%, 50%, 0.5)",
                 "halo-gray-500": "0px 0px 0px 3px hsl(200deg, 5%, 50%, 0.5)",
+                cta: "0px 8px 20px 0px hsl(200deg, 100%, 50%, 40%)",
             },
         },
 

@@ -1,13 +1,11 @@
-import Link from "next/link";
-import Container from "../Container";
-import User from "../User";
-import NavMenuWithTabIndicator from "./NavMenuWithTabIndicator";
-import { PathConstant, pathConstants } from "@/routes/pathContants";
 import BrandLogo from "@/components/BrandLogo/BrandLogo";
-import Hamburger from "../Hamburger/Hamburger";
-import Drawer, { DrawerBody, DrawerDefaultHead } from "../Drawer/Drawer";
 import { useToggle } from "@/hooks/useToggle";
+import { PathConstant, pathConstants } from "@/routes/pathContants";
 import { useRef } from "react";
+import Container from "../Container";
+import Drawer, { DrawerBody, DrawerDefaultHead } from "../Drawer/Drawer";
+import Hamburger from "../Hamburger/Hamburger";
+import NavMenu from "./NavMenu";
 
 type NavbarProps = {};
 
@@ -20,15 +18,22 @@ const Navbar = (props: NavbarProps) => {
     const {} = props;
     const { open, isOpen, close } = useToggle(false);
     const hamburgerRef = useRef<HTMLDivElement | null>(null);
+    const navLinks: PathConstant[] = [
+        {
+            label: "Home",
+            path: pathConstants.HOME.path,
+        },
+        {
+            label: "Projects",
+            path: pathConstants.PROJECTS.path,
+        },
+    ];
 
     return (
-        <nav className="h-navHeight shrink-0 border-b border-b-gray-100">
+        <nav className="h-navHeight shrink-0">
             <Container className="flex justify-between h-full items-center gap-1">
                 <BrandLogo />
-                <NavMenuWithTabIndicator
-                    navLinks={navbarNavLinks}
-                    className="ml-auto hidden sm:flex"
-                />
+                <NavMenu navLinks={navLinks} />
                 <Drawer
                     open={open}
                     isOpen={isOpen}
@@ -37,10 +42,11 @@ const Navbar = (props: NavbarProps) => {
                     className="sm:hidden">
                     <DrawerDefaultHead />
                     <DrawerBody>
-                        <NavMenuWithTabIndicator
+                        hello
+                        {/* <NavMenuWithTabIndicator
                             navLinks={navbarNavLinks}
                             direction="vertical"
-                        />
+                        /> */}
                     </DrawerBody>
                 </Drawer>
                 <Hamburger

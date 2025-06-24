@@ -31,5 +31,33 @@ export const SectionTitle = (props: SectionTitleProps) => {
         </h2>
     );
 };
+export const PageHeading = (props: SectionTitleProps) => {
+    const { children, defaultBottomMargin = true, ...otherProps } = props;
+
+    return (
+        <h2
+            {...otherProps}
+            className={clsx(
+                "text-4.5 leading-1 font-thin text-primary",
+                defaultBottomMargin ? "mb-1" : ""
+            )}>
+            {children}
+        </h2>
+    );
+};
+export const PageSubHeading = (props: SectionTitleProps) => {
+    const { children, defaultBottomMargin = true, ...otherProps } = props;
+
+    return (
+        <h2
+            {...otherProps}
+            className={clsx(
+                "text-1.5 leading-1 font-thin text-gray-500",
+                defaultBottomMargin ? "mb-1" : ""
+            )}>
+            {children}
+        </h2>
+    );
+};
 
 export default Section;
