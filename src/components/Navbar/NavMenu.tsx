@@ -2,6 +2,7 @@ import { PathConstant } from "@/routes/pathContants";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { IconType } from "react-icons";
 
 export type NavMenuProps = {
     navLinks: PathConstant[];
@@ -14,7 +15,7 @@ const NavMenu = (props: NavMenuProps) => {
     const pathname = usePathname();
 
     const stylesAsPerDirection = {
-        horizontal: "flex-row gap-x-1",
+        horizontal: "flex-row gap-x-0.5",
         vertical: "flex-col",
     };
 
@@ -25,26 +26,26 @@ const NavMenu = (props: NavMenuProps) => {
                 stylesAsPerDirection[direction],
                 className
             )}>
-            {navLinks.map((navLink) => {
+            {navLinks.map(({ path, label, icon, activeIcon }) => {
+                const isActive = path === pathname;
                 return (
-                    <li key={navLink.path}>
+                    <li key={path}>
                         <Link
-                            href={navLink.path}
+                            href={path}
                             className={clsx(
                                 "flex h-2.75 px-1.375 rounded-full items-center text-0.875 font-medium capitalize transition-all",
                                 stylesAsPerDirection[direction],
-                                navLink.path === pathname
+                                isActive
                                     ? "text-primary-600 bg-primary-100"
                                     : "text-gray-500 hover:text-gray-500 hover:bg-gray-100"
                             )}>
-                            {navLink.label}
+                            <NavIcon
+                                isActive={isActive}
+                                icon={icon}
+                                activeIcon={activeIcon}
+                            />
+                            {label}
                         </Link>
-                        {/* <NavItem
-                            setTabIndicatorBounds={setTabIndicatorBounds}
-                            direction={direction}
-                            href={navLink.path}>
-                            {navLink.label}
-                        </NavItem> */}
                     </li>
                 );
             })}
@@ -53,3 +54,25 @@ const NavMenu = (props: NavMenuProps) => {
 };
 
 export default NavMenu;
+
+interface NavIconProps {
+    isActive: boolean;
+    icon?: IconType;
+    activeIcon?: IconType;
+}
+
+export const NavIcon: React.FC<NavIconProps> = ({
+    isActive,
+    icon: Icon,
+    activeIcon: ActiveIcon,
+}) => {
+    if (isActive && ActiveIcon) {
+        return <ActiveIcon className="text-1.25" />;
+    }
+
+    if (!isActive && Icon) {
+        return <Icon className="text-1.25" />;
+    }
+
+    return null;
+};

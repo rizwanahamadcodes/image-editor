@@ -1,3 +1,5 @@
+import { IconType } from "react-icons";
+
 export type ParamConstants = {
     [key: string]: string;
 };
@@ -10,6 +12,8 @@ export const paramConstants: ParamConstants = {
 export type PathConstant = {
     label: string;
     path: string;
+    icon?: IconType;
+    activeIcon?: IconType;
 };
 
 export type pathConstants = {

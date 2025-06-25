@@ -6,6 +6,7 @@ import Container from "../Container";
 import Drawer, { DrawerBody, DrawerDefaultHead } from "../Drawer/Drawer";
 import Hamburger from "../Hamburger/Hamburger";
 import NavMenu from "./NavMenu";
+import { GoHome, GoHomeFill } from "react-icons/go";
 
 type NavbarProps = {};
 
@@ -22,10 +23,14 @@ const Navbar = (props: NavbarProps) => {
         {
             label: "Home",
             path: pathConstants.HOME.path,
+            icon: GoHome,
+            activeIcon: GoHomeFill,
         },
         {
             label: "Projects",
             path: pathConstants.PROJECTS.path,
+            icon: GoHome,
+            activeIcon: GoHomeFill,
         },
     ];
 
