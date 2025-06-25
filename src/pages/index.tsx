@@ -5,10 +5,10 @@ import Image from "next/image";
 
 const Home = () => {
     return (
-        <section className="h-[calc(100vh-theme(spacing.navHeight))]">
-            <Container className="flex h-full gap-1 items-center">
-                <div className="flex-1 flex justify-start items-center relative  h-full">
-                    <div className="w-4/5 h-4/5 relative">
+        <section className="h-[calc(100vh-theme(spacing.navHeight))] py-4">
+            <Container className="flex h-full gap-1 items-start justify-center flex-col-reverse lg:flex-row">
+                <div className="flex-1 flex justify-center lg:justify-start items-center relative  h-full w-full ">
+                    <div className="w-4/5 h-4/5 relative hidden lg:block">
                         <Image
                             src={"/hero-2.png"}
                             fill
