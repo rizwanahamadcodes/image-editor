@@ -32,6 +32,7 @@ const ProjectDetails = (props: ProjectDetailsProps) => {
                 <SectionTitle>{project.name}</SectionTitle>
 
                 <Link
+                    target="_blank"
                     href={`${pathConstants.PROJECTS.path}/${project.projectId}/edit`}>
                     Edit
                 </Link>

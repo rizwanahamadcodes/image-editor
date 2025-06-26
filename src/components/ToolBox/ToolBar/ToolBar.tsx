@@ -33,9 +33,9 @@ export const ToolBar = (props: ToolBarProps) => {
                 className="h-4 w-4 flex items-center justify-center border-b-gray-100 border-b shrink-0"
                 onClick={handleToolbarHamburgerClick}>
                 {showOptions ? (
-                    <IoChevronBackOutline className="text-1.325 text-gray-500 hover:text-gray-700" />
+                    <IoChevronBackOutline className="text-1.5 text-gray-500 hover:text-gray-700" />
                 ) : (
-                    <IoChevronForwardOutline className="text-1.325 text-gray-500 hover:text-gray-700" />
+                    <IoChevronForwardOutline className="text-1.5 text-gray-500 hover:text-gray-700" />
                 )}
             </button>
             <nav className="grow p-0.375 overflow-y-auto">

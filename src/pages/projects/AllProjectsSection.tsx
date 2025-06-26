@@ -88,6 +88,7 @@ export const ProjectCard = (props: ProjectCardProps) => {
             />
             <div className="h-full w-full left-0 top-0 bg-black/20 z-1 absolute group-hover/projectCardGroup:bg-black/30 flex justify-end p-1.5 flex-col">
                 <Link
+                    target="_blank"
                     title={project.name}
                     href={`${pathConstants.PROJECTS.path}/${project.projectId}/edit`}
                     className="overflow-hidden max-w-full overflow-ellipsis mb-0.5">
@@ -96,6 +97,7 @@ export const ProjectCard = (props: ProjectCardProps) => {
                     </h3>
                 </Link>
                 <Link
+                    target="_blank"
                     title={project.name}
                     href={`${pathConstants.PROJECTS.path}/${project.projectId}/edit`}
                     className={button({
