@@ -28,7 +28,7 @@ export const ToolOptions = (props: ToolOptionsProps) => {
     return (
         <div
             className={clsx(
-                "overflow-hidden transition-all duration-300 grow flex flex-col ml-auto h-full w-16 bg-white rounded-0.875 relative",
+                "overflow-hidden transition-all duration-300 grow flex flex-col ml-auto h-full bg-white rounded-0.875 relative",
                 showOptions ? "w-16" : "w-0"
             )}>
             <div className="w-16 absolute right-0 rounded-0.875">
