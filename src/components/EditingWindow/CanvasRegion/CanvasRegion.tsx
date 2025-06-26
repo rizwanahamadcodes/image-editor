@@ -13,7 +13,7 @@ const CanvasRegion = (props: CanvasRegionProps) => {
     return (
         <section
             ref={canvasParentRef}
-            className="bg-gray-100 grow overflow-auto grid place-items-center shadow-inner">
+            className="bg-gray-100 grow overflow-auto grid place-items-center">
             <Canvas zoomLevel={zoomLevel} setZoomLevel={setZoomLevel} />
         </section>
     );

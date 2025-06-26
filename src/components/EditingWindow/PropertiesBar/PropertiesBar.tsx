@@ -61,14 +61,15 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
     };
 
     return (
-        <div className="border-b border-b-gray-100 h-4 shrink-0">
-            <FullWidthContainer className="flex flex-row justify-center items-center h-full">
-                <div className="flex grow justify-center">
-                    {activeObject ? getObjectProperties(activeObject) : <></>}
-                </div>
-
-                <SaveAndExport />
-            </FullWidthContainer>
+        <div className="h-4 flex gap-0.5">
+            <div className="flex grow justify-center rounded-0.875 shrink-0 bg-white">
+                {activeObject ? getObjectProperties(activeObject) : <></>}
+            </div>
+            <div className="rounded-0.875 p-0.375 h-full w-4 shrink-0 bg-white">
+                <button className="h-3.25 text-gray-500 items-center flex justify-center rounded-0.5 flex-col w-full hover:text-gray-800 hover:bg-gray-100">
+                    <SaveAndExport />
+                </button>
+            </div>
         </div>
     );
 };

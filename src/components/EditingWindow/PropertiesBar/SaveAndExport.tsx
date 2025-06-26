@@ -103,16 +103,12 @@ const SaveAndExport = (props: SaveAndExportProps) => {
                         </Button>
                     </div>
                 </PopOver>
-
-                <Button
+                <button
                     onClick={toggle}
-                    buttonRef={buttonRef}
-                    variant="ghost"
-                    size="sm"
-                    regular
-                    colorScheme="gray-200">
+                    ref={buttonRef}
+                    className="h-3.25 text-gray-500 items-center flex justify-center rounded-0.5 flex-col w-full hover:text-gray-800 hover:bg-gray-100">
                     <ButtonIcon icon={HiOutlineDotsVertical} />
-                </Button>
+                </button>
             </div>
         </>
     );

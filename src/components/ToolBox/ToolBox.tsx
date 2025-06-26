@@ -51,7 +51,7 @@ export const ToolBox = () => {
     return (
         <aside
             className={clsx(
-                "relative shrink-0 transition-all overflow-hidden",
+                "relative flex gap-0.5 shrink-0 transition-all overflow-hidden",
                 showOptions ? "w-20" : "w-4"
             )}>
             <ToolBar

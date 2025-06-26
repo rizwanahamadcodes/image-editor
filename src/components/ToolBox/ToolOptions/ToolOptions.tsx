@@ -28,7 +28,7 @@ export const ToolOptions = (props: ToolOptionsProps) => {
     return (
         <div
             className={clsx(
-                "overflow-hidden transition-all duration-[7000] grow flex flex-col ml-auto h-full w-16",
+                "overflow-hidden transition-all duration-[7000] grow flex flex-col ml-auto h-full w-16 bg-white rounded-0.875",
                 showOptions ? "border-r border-r-gray-100" : ""
             )}>
             <h4 className="shrink-0 capitalize font-medium h-4 border-b border-b-gray-100 px-1.5 text-gray-700 flex items-center">

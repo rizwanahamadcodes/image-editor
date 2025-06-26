@@ -28,9 +28,9 @@ export const ToolBar = (props: ToolBarProps) => {
     };
 
     return (
-        <div className="flex absolute bg-white z-50 h-full w-4 flex-col border-r border-r-gray-100">
+        <div className="flex rounded-0.875 gap-0.375 p-0.375 bg-white z-50 h-full w-4 flex-col">
             <button
-                className="h-4 w-4 flex items-center justify-center border-b-gray-100 border-b shrink-0"
+                className="h-3.25 text-gray-500 items-center flex justify-center rounded-0.5 flex-col w-full hover:text-gray-800 hover:bg-gray-100"
                 onClick={handleToolbarHamburgerClick}>
                 {showOptions ? (
                     <IoChevronBackOutline className="text-1.5 text-gray-500 hover:text-gray-700" />
@@ -38,7 +38,7 @@ export const ToolBar = (props: ToolBarProps) => {
                     <IoChevronForwardOutline className="text-1.5 text-gray-500 hover:text-gray-700" />
                 )}
             </button>
-            <nav className="grow p-0.375 overflow-y-auto">
+            <nav className="grow overflow-y-auto">
                 <ul className="flex gap-0.375 flex-col w-full">
                     {tools.map((tool) => (
                         <li className="w-full" key={tool.toolId}>
