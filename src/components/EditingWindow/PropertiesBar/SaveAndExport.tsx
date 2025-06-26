@@ -4,12 +4,9 @@ import { useActiveProject } from "@/context/useActiveProject";
 import { useCanvas } from "@/context/useCanvas";
 import { useToggle } from "@/hooks/useToggle";
 import { updateProject } from "@/store/slices/projectsSlice";
-import { RootState } from "@/store/store";
-import clsx from "clsx";
 import { useEffect, useRef } from "react";
-import { AiOutlineFontSize } from "react-icons/ai";
 import { FaSave } from "react-icons/fa";
-import { HiOutlineDotsVertical } from "react-icons/hi";
+import { HiBars3 } from "react-icons/hi2";
 import { PiUploadSimpleBold } from "react-icons/pi";
 import { useDispatch } from "react-redux";
 type SaveAndExportProps = {
@@ -107,7 +104,7 @@ const SaveAndExport = (props: SaveAndExportProps) => {
                     onClick={toggle}
                     ref={buttonRef}
                     className="h-3.25 text-gray-500 items-center flex justify-center rounded-0.5 flex-col w-full hover:text-gray-800 hover:bg-gray-100">
-                    <ButtonIcon icon={HiOutlineDotsVertical} />
+                    <ButtonIcon icon={HiBars3} />
                 </button>
             </div>
         </>

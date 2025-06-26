@@ -79,7 +79,7 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
     };
 
     return (
-        <div className="h-4 flex gap-0.5">
+        <div className="h-4 flex gap-0.5 justify-between">
             <div className="rounded-0.875 p-0.375 h-full w-4 shrink-0 bg-white">
                 <button
                     className="h-3.25 text-gray-500 items-center flex justify-center rounded-0.5 flex-col w-full hover:text-gray-800 hover:bg-gray-100"
@@ -95,10 +95,11 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
                     )}
                 </button>
             </div>
-
-            <div className="flex grow justify-center rounded-0.875 shrink-0 bg-white">
-                {activeObject ? getObjectProperties(activeObject) : <></>}
-            </div>
+            {activeObject ? (
+                <div className="flex grow justify-center rounded-0.875 shrink-0 bg-white items-center">
+                    {getObjectProperties(activeObject)}
+                </div>
+            ) : null}
             <div className="rounded-0.875 p-0.375 h-full w-4 shrink-0 bg-white">
                 <button className="h-3.25 text-gray-500 items-center flex justify-center rounded-0.5 flex-col w-full hover:text-gray-800 hover:bg-gray-100">
                     <SaveAndExport />
