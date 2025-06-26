@@ -13,11 +13,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
+export type PropertiesBarMode = "hidden" | "menu" | "options";
+
 const EditProject = () => {
     const router = useRouter();
     const projectIdString = router.query[paramConstants.PROJECTID] as string;
     const projectId = projectIdString ? parseInt(projectIdString) : undefined;
-    const [showOptions, setShowOptions] = useState(false);
+    const [showOptions, setShowOptions] = useState<PropertiesBarMode>("menu");
 
     const [activeProject, setActiveProject] = useState<Project | null>(null);
     const [canvas, setCanvas] = useState<fabric.Canvas | null>(null);

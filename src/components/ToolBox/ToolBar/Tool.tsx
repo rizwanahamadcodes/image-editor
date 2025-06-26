@@ -1,4 +1,5 @@
 import { ToolType } from "@/components/ToolBox/ToolBox";
+import { PropertiesBarMode } from "@/pages/projects/[projectId]/edit";
 import clsx from "clsx";
 
 type ToolProps = {
@@ -7,7 +8,7 @@ type ToolProps = {
     setActiveTool: React.Dispatch<React.SetStateAction<ToolType>>;
     prevActiveTool: ToolType;
     setPrevActiveTool: React.Dispatch<React.SetStateAction<ToolType>>;
-    setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
+    setShowOptions: React.Dispatch<React.SetStateAction<PropertiesBarMode>>;
 };
 
 const Tool = (props: ToolProps) => {
@@ -23,10 +24,15 @@ const Tool = (props: ToolProps) => {
 
     const handleToolClick = () => {
         setActiveTool(tool);
+
         if (tool.toolId === prevActiveTool.toolId) {
-            setShowOptions((prevSetShowOptions) => !prevSetShowOptions);
+            setShowOptions((prev) => {
+                if (prev === "options") return "menu";
+                if (prev === "menu") return "options";
+                return "menu";
+            });
         } else {
-            setShowOptions(true);
+            setShowOptions("options");
         }
 
         setPrevActiveTool(tool);

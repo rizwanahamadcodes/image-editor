@@ -6,11 +6,15 @@ import { useEffect, useState } from "react";
 import ImageProperties from "./ImageProperties/ImageProperties";
 import SaveAndExport from "./SaveAndExport";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import { PropertiesBarMode } from "@/pages/projects/[projectId]/edit";
+import { TbDotsVertical, TbMenu2 } from "react-icons/tb";
+import { RiListUnordered } from "react-icons/ri";
 
 type PropertiesBarProps = {
-    showOptions: boolean;
-    setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
+    showOptions: PropertiesBarMode;
+    setShowOptions: React.Dispatch<React.SetStateAction<PropertiesBarMode>>;
 };
+
 export const PropertiesBar = (props: PropertiesBarProps) => {
     const { showOptions, setShowOptions } = props;
     const { canvas } = useCanvas();
@@ -58,13 +62,20 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
                 return <ShapeProperties activePolygon={activePolygon} />;
                 break;
             default:
+                // Toggle between 'menu' and 'options' if the same tool is clicked
                 return <p></p>;
         }
 
         return;
     };
     const handleToolbarHamburgerClick = () => {
-        setShowOptions((prevShowProperty) => !prevShowProperty);
+        setShowOptions((prev) => {
+            if (prev === "hidden") return "menu";
+            if (prev === "menu") return "options";
+            if (prev === "options") return "hidden";
+
+            return "hidden";
+        });
     };
 
     return (
@@ -73,10 +84,14 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
                 <button
                     className="h-3.25 text-gray-500 items-center flex justify-center rounded-0.5 flex-col w-full hover:text-gray-800 hover:bg-gray-100"
                     onClick={handleToolbarHamburgerClick}>
-                    {showOptions ? (
+                    {showOptions === "hidden" && (
+                        <TbDotsVertical className="text-1.5 text-gray-500 hover:text-gray-700" />
+                    )}
+                    {showOptions === "menu" && (
+                        <RiListUnordered className="text-1.5 text-gray-500 hover:text-gray-700" />
+                    )}
+                    {showOptions === "options" && (
                         <IoChevronBackOutline className="text-1.5 text-gray-500 hover:text-gray-700" />
-                    ) : (
-                        <IoChevronForwardOutline className="text-1.5 text-gray-500 hover:text-gray-700" />
                     )}
                 </button>
             </div>

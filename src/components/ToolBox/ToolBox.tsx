@@ -1,5 +1,6 @@
 import { ToolBar } from "@/components/ToolBox/ToolBar/ToolBar";
 import { ToolOptions } from "@/components/ToolBox/ToolOptions/ToolOptions";
+import { PropertiesBarMode } from "@/pages/projects/[projectId]/edit";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { IconType } from "react-icons";
@@ -36,8 +37,8 @@ const tools: ToolType[] = [
     },
 ];
 type ToolBoxProps = {
-    showOptions: boolean;
-    setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
+    showOptions: PropertiesBarMode;
+    setShowOptions: React.Dispatch<React.SetStateAction<PropertiesBarMode>>;
 };
 export const ToolBox = (props: ToolBoxProps) => {
     const { showOptions, setShowOptions } = props;
@@ -55,8 +56,8 @@ export const ToolBox = (props: ToolBoxProps) => {
     return (
         <aside
             className={clsx(
-                "relative flex shrink-0 transition-all duration-1000 overflow-hidden ",
-                showOptions ? "gap-0.5" : "gap-0"
+                "relative flex shrink-0 transition-all duration-1000 overflow-hidden",
+                showOptions === "options" ? " gap-0.5" : ""
             )}>
             <ToolBar
                 showOptions={showOptions}

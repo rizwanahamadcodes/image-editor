@@ -1,6 +1,7 @@
 import Tool from "@/components/ToolBox/ToolBar/Tool";
 import { ToolType } from "@/components/ToolBox/ToolBox";
-import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import { PropertiesBarMode } from "@/pages/projects/[projectId]/edit";
+import clsx from "clsx";
 
 type ToolBarProps = {
     tools: ToolType[];
@@ -8,8 +9,8 @@ type ToolBarProps = {
     setActiveTool: React.Dispatch<React.SetStateAction<ToolType>>;
     prevActiveTool: ToolType;
     setPrevActiveTool: React.Dispatch<React.SetStateAction<ToolType>>;
-    showOptions: boolean;
-    setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
+    showOptions: PropertiesBarMode;
+    setShowOptions: React.Dispatch<React.SetStateAction<PropertiesBarMode>>;
 };
 
 export const ToolBar = (props: ToolBarProps) => {
@@ -24,7 +25,11 @@ export const ToolBar = (props: ToolBarProps) => {
     } = props;
 
     return (
-        <div className="flex rounded-0.875 gap-0.375 p-0.375 bg-white z-50 h-full w-4 flex-col">
+        <div
+            className={clsx(
+                "flex rounded-0.875 gap-0.375 bg-white py-0.375 transition-all duration-300 z-50 h-full flex-col",
+                showOptions != "hidden" ? "w-4 px-0.375" : "w-0 px-0"
+            )}>
             <nav className="grow overflow-y-auto">
                 <ul className="flex gap-0.375 flex-col w-full">
                     {tools.map((tool) => (

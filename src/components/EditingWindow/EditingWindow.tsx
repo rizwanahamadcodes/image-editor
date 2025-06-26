@@ -1,11 +1,13 @@
 import CanvasRegion from "@/components/EditingWindow/CanvasRegion/CanvasRegion";
 import StatusBar from "@/components/EditingWindow/StatusBar/StatusBar";
 import { ToolBox } from "@/components/ToolBox/ToolBox";
+import { PropertiesBarMode } from "@/pages/projects/[projectId]/edit";
+import clsx from "clsx";
 import { useRef, useState } from "react";
 
 type EditingWindowProps = {
-    showOptions: boolean;
-    setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
+    showOptions: PropertiesBarMode;
+    setShowOptions: React.Dispatch<React.SetStateAction<PropertiesBarMode>>;
 };
 
 const EditingWindow = (props: EditingWindowProps) => {
@@ -21,12 +23,16 @@ const EditingWindow = (props: EditingWindowProps) => {
     const canvasParentRef = useRef<HTMLElement | null>(null);
 
     return (
-        <main className="flex gap-0.5 overflow-auto grow flex-row">
+        <main
+            className={clsx(
+                "flex flex-row overflow-hidden grow",
+                showOptions != "hidden" ? " gap-0.5" : ""
+            )}>
             <ToolBox
                 showOptions={showOptions}
                 setShowOptions={setShowOptions}
             />
-            <div className="w-full flex flex-col">
+            <div className="flex flex-col grow overflow-auto gap-0.5">
                 <CanvasRegion
                     canvasParentRef={canvasParentRef}
                     zoomLevel={zoomLevel}

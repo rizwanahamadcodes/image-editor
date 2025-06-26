@@ -4,10 +4,11 @@ import FieldToolOptions from "@/components/ToolBox/ToolOptions/FieldToolOptions/
 import ImageToolOptions from "@/components/ToolBox/ToolOptions/ImageToolOptions";
 import ShapesToolOptions from "@/components/ToolBox/ToolOptions/ShapesToolOptions";
 import TextToolOptions from "@/components/ToolBox/ToolOptions/TextToolOptions";
+import { PropertiesBarMode } from "@/pages/projects/[projectId]/edit";
 import clsx from "clsx";
 
 type ToolOptionsProps = {
-    showOptions: boolean;
+    showOptions: PropertiesBarMode;
     activeTool: ToolType;
 };
 
@@ -29,7 +30,7 @@ export const ToolOptions = (props: ToolOptionsProps) => {
         <div
             className={clsx(
                 "overflow-hidden transition-all duration-300 grow flex flex-col ml-auto h-full bg-white rounded-0.875 relative",
-                showOptions ? "w-16" : "w-0"
+                showOptions === "options" ? "w-16" : "w-0"
             )}>
             <div className="w-16 absolute right-0 rounded-0.875">
                 <h4 className="shrink-0 capitalize font-medium h-4 border-b border-b-gray-100 px-1.5 text-gray-700 flex items-center">
