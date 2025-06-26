@@ -18,7 +18,7 @@ const EditingWindow = (props: EditingWindowProps) => {
     const canvasParentRef = useRef<HTMLElement | null>(null);
 
     return (
-        <main className="flex overflow-auto grow flex-col">
+        <main className="flex gap-0.5 overflow-auto grow flex-col">
             <PropertiesBar />
             <CanvasRegion
                 canvasParentRef={canvasParentRef}

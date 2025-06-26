@@ -28,13 +28,15 @@ export const ToolOptions = (props: ToolOptionsProps) => {
     return (
         <div
             className={clsx(
-                "overflow-hidden transition-all duration-[7000] grow flex flex-col ml-auto h-full w-16 bg-white rounded-0.875",
-                showOptions ? "border-r border-r-gray-100" : ""
+                "overflow-hidden transition-all duration-300 grow flex flex-col ml-auto h-full w-16 bg-white rounded-0.875 relative",
+                showOptions ? "w-16" : "w-0"
             )}>
-            <h4 className="shrink-0 capitalize font-medium h-4 border-b border-b-gray-100 px-1.5 text-gray-700 flex items-center">
-                {activeTool.toolName}
-            </h4>
-            <div className="grow overflow-auto">{toolOptions}</div>
+            <div className="w-16 absolute right-0 rounded-0.875">
+                <h4 className="shrink-0 capitalize font-medium h-4 border-b border-b-gray-100 px-1.5 text-gray-700 flex items-center">
+                    {activeTool.toolName}
+                </h4>
+                <div className="grow overflow-auto">{toolOptions}</div>
+            </div>
         </div>
     );
 };
