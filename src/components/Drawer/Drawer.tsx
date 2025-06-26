@@ -108,16 +108,24 @@ export const DrawerDefaultHead = (props: DrawerDefaultHeadProps) => {
     );
 };
 
-type DrawerBodyProps = { children: React.ReactNode; defaultPadding?: boolean };
+type DrawerBodyProps = React.ComponentPropsWithoutRef<"div"> & {
+    defaultPadding?: boolean;
+};
 
 export const DrawerBody = (props: DrawerBodyProps) => {
-    const { children, defaultPadding = false } = props;
+    const {
+        children,
+        className,
+        defaultPadding = false,
+        ...otherProps
+    } = props;
 
     return (
         <div
             className={clsx(
                 "grow overflow-y-auto",
-                defaultPadding ? "px-2 py-1" : ""
+                defaultPadding ? "px-2 py-1" : "",
+                className
             )}>
             {children}
         </div>

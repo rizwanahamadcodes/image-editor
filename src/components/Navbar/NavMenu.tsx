@@ -16,7 +16,7 @@ const NavMenu = (props: NavMenuProps) => {
 
     const stylesAsPerDirection = {
         horizontal: "flex-row gap-x-0.5",
-        vertical: "flex-col",
+        vertical: "flex-col gap-y-0.5",
     };
 
     return (
@@ -33,8 +33,7 @@ const NavMenu = (props: NavMenuProps) => {
                         <Link
                             href={path}
                             className={clsx(
-                                "flex h-2.75 px-1.375 rounded-full items-center text-0.875 font-medium capitalize transition-all",
-                                stylesAsPerDirection[direction],
+                                "flex h-2.75 px-1.375 rounded-full items-center text-0.875 font-medium capitalize gap-0.5 transition-all duration-300",
                                 isActive
                                     ? "text-primary-600 bg-primary-100"
                                     : "text-gray-500 hover:text-gray-500 hover:bg-gray-100"

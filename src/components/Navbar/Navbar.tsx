@@ -7,6 +7,10 @@ import Drawer, { DrawerBody, DrawerDefaultHead } from "../Drawer/Drawer";
 import Hamburger from "../Hamburger/Hamburger";
 import NavMenu from "./NavMenu";
 import { GoHome, GoHomeFill } from "react-icons/go";
+import {
+    PiProjectorScreenChart,
+    PiProjectorScreenChartFill,
+} from "react-icons/pi";
 
 type NavbarProps = {};
 
@@ -29,8 +33,8 @@ const Navbar = (props: NavbarProps) => {
         {
             label: "Projects",
             path: pathConstants.PROJECTS.path,
-            icon: GoHome,
-            activeIcon: GoHomeFill,
+            icon: PiProjectorScreenChart,
+            activeIcon: PiProjectorScreenChartFill,
         },
     ];
 
@@ -38,7 +42,7 @@ const Navbar = (props: NavbarProps) => {
         <nav className="h-navHeight shrink-0">
             <Container className="flex justify-between h-full items-center gap-1">
                 <BrandLogo />
-                <NavMenu navLinks={navLinks} />
+                <NavMenu navLinks={navLinks} className="hidden sm:flex" />
                 <Drawer
                     open={open}
                     isOpen={isOpen}
@@ -46,12 +50,8 @@ const Navbar = (props: NavbarProps) => {
                     excludeElementRefs={[hamburgerRef]}
                     className="sm:hidden">
                     <DrawerDefaultHead />
-                    <DrawerBody>
-                        hello
-                        {/* <NavMenuWithTabIndicator
-                            navLinks={navbarNavLinks}
-                            direction="vertical"
-                        /> */}
+                    <DrawerBody className="p-1">
+                        <NavMenu navLinks={navLinks} direction="vertical" />
                     </DrawerBody>
                 </Drawer>
                 <Hamburger

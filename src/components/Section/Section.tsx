@@ -38,7 +38,7 @@ export const PageHeading = (props: SectionTitleProps) => {
         <h2
             {...otherProps}
             className={clsx(
-                "text-4.5 leading-1 font-thin text-primary",
+                "text-3 leading-1 font-thin text-primary",
                 defaultBottomMargin ? "mb-1" : ""
             )}>
             {children}
@@ -52,7 +52,7 @@ export const PageSubHeading = (props: SectionTitleProps) => {
         <h2
             {...otherProps}
             className={clsx(
-                "text-1.5 leading-1 font-thin text-gray-500",
+                "text-1.25 leading-1 font-thin text-gray-500",
                 defaultBottomMargin ? "mb-1" : ""
             )}>
             {children}
