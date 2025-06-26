@@ -1,4 +1,5 @@
 import EditingWindow from "@/components/EditingWindow/EditingWindow";
+import { PropertiesBar } from "@/components/EditingWindow/PropertiesBar/PropertiesBar";
 import { ToolBox } from "@/components/ToolBox/ToolBox";
 import { ActiveProjectContext } from "@/context/useActiveProject";
 import { CanvasContext } from "@/context/useCanvas";
@@ -16,6 +17,7 @@ const EditProject = () => {
     const router = useRouter();
     const projectIdString = router.query[paramConstants.PROJECTID] as string;
     const projectId = projectIdString ? parseInt(projectIdString) : undefined;
+    const [showOptions, setShowOptions] = useState(false);
 
     const [activeProject, setActiveProject] = useState<Project | null>(null);
     const [canvas, setCanvas] = useState<fabric.Canvas | null>(null);
@@ -42,9 +44,15 @@ const EditProject = () => {
                     activeProject: activeProject,
                     setActiveProject: setActiveProject,
                 }}>
-                <div className="gap-0.5 overflow-y-auto flex grow p-0.5 bg-gray-100">
-                    <ToolBox />
-                    <EditingWindow />
+                <div className="gap-0.5 overflow-y-auto flex flex-col grow p-0.5 bg-gray-100">
+                    <PropertiesBar
+                        showOptions={showOptions}
+                        setShowOptions={setShowOptions}
+                    />
+                    <EditingWindow
+                        showOptions={showOptions}
+                        setShowOptions={setShowOptions}
+                    />
                 </div>
             </ActiveProjectContext.Provider>
         </CanvasContext.Provider>

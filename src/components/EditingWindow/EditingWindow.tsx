@@ -1,12 +1,15 @@
 import CanvasRegion from "@/components/EditingWindow/CanvasRegion/CanvasRegion";
-import { PropertiesBar } from "@/components/EditingWindow/PropertiesBar/PropertiesBar";
 import StatusBar from "@/components/EditingWindow/StatusBar/StatusBar";
+import { ToolBox } from "@/components/ToolBox/ToolBox";
 import { useRef, useState } from "react";
 
-type EditingWindowProps = {};
+type EditingWindowProps = {
+    showOptions: boolean;
+    setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 const EditingWindow = (props: EditingWindowProps) => {
-    const {} = props;
+    const { showOptions, setShowOptions } = props;
     const [zoomLevel, setZoomLevel] = useState(1);
 
     const calculateZoomLevelWithinBounds = (newZoom: number): number => {
@@ -18,19 +21,26 @@ const EditingWindow = (props: EditingWindowProps) => {
     const canvasParentRef = useRef<HTMLElement | null>(null);
 
     return (
-        <main className="flex gap-0.5 overflow-auto grow flex-col">
-            <PropertiesBar />
-            <CanvasRegion
-                canvasParentRef={canvasParentRef}
-                zoomLevel={zoomLevel}
-                setZoomLevel={setZoomLevel}
+        <main className="flex gap-0.5 overflow-auto grow flex-row">
+            <ToolBox
+                showOptions={showOptions}
+                setShowOptions={setShowOptions}
             />
-            <StatusBar
-                canvasParentRef={canvasParentRef}
-                zoomLevel={zoomLevel}
-                setZoomLevel={setZoomLevel}
-                calculateZoomLevelWithinBounds={calculateZoomLevelWithinBounds}
-            />
+            <div className="w-full flex flex-col">
+                <CanvasRegion
+                    canvasParentRef={canvasParentRef}
+                    zoomLevel={zoomLevel}
+                    setZoomLevel={setZoomLevel}
+                />
+                <StatusBar
+                    canvasParentRef={canvasParentRef}
+                    zoomLevel={zoomLevel}
+                    setZoomLevel={setZoomLevel}
+                    calculateZoomLevelWithinBounds={
+                        calculateZoomLevelWithinBounds
+                    }
+                />
+            </div>
         </main>
     );
 };

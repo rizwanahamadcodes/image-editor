@@ -5,10 +5,14 @@ import { useCanvas } from "@/context/useCanvas";
 import { useEffect, useState } from "react";
 import ImageProperties from "./ImageProperties/ImageProperties";
 import SaveAndExport from "./SaveAndExport";
+import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 
-type PropertiesBarProps = {};
+type PropertiesBarProps = {
+    showOptions: boolean;
+    setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
+};
 export const PropertiesBar = (props: PropertiesBarProps) => {
-    const {} = props;
+    const { showOptions, setShowOptions } = props;
     const { canvas } = useCanvas();
     const [activeObject, setActiveObject] = useState<fabric.Object | null>(
         null
@@ -59,9 +63,24 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
 
         return;
     };
+    const handleToolbarHamburgerClick = () => {
+        setShowOptions((prevShowProperty) => !prevShowProperty);
+    };
 
     return (
         <div className="h-4 flex gap-0.5">
+            <div className="rounded-0.875 p-0.375 h-full w-4 shrink-0 bg-white">
+                <button
+                    className="h-3.25 text-gray-500 items-center flex justify-center rounded-0.5 flex-col w-full hover:text-gray-800 hover:bg-gray-100"
+                    onClick={handleToolbarHamburgerClick}>
+                    {showOptions ? (
+                        <IoChevronBackOutline className="text-1.5 text-gray-500 hover:text-gray-700" />
+                    ) : (
+                        <IoChevronForwardOutline className="text-1.5 text-gray-500 hover:text-gray-700" />
+                    )}
+                </button>
+            </div>
+
             <div className="flex grow justify-center rounded-0.875 shrink-0 bg-white">
                 {activeObject ? getObjectProperties(activeObject) : <></>}
             </div>

@@ -35,11 +35,15 @@ const tools: ToolType[] = [
         icon: IoShapesOutline,
     },
 ];
+type ToolBoxProps = {
+    showOptions: boolean;
+    setShowOptions: React.Dispatch<React.SetStateAction<boolean>>;
+};
+export const ToolBox = (props: ToolBoxProps) => {
+    const { showOptions, setShowOptions } = props;
 
-export const ToolBox = () => {
     const [activeTool, setActiveTool] = useState<ToolType>(tools[0]);
     const [prevActiveTool, setPrevActiveTool] = useState<ToolType>(tools[0]);
-    const [showOptions, setShowOptions] = useState(false);
 
     // toolbox width = toolbarwidth + tooloptions width
     // 20 = 4 + 16
