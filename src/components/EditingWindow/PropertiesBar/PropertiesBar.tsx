@@ -2,7 +2,7 @@ import { FullWidthContainer } from "@/components/Container";
 import ShapeProperties from "@/components/EditingWindow/PropertiesBar/ShapeProperties/ShapeProperties";
 import TextProperties from "@/components/EditingWindow/PropertiesBar/TextProperties/TextProperties";
 import { useCanvas } from "@/context/useCanvas";
-import { useEffect, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import ImageProperties from "./ImageProperties/ImageProperties";
 import SaveAndExport from "./SaveAndExport";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
@@ -13,10 +13,11 @@ import { RiListUnordered } from "react-icons/ri";
 type PropertiesBarProps = {
     showOptions: PropertiesBarMode;
     setShowOptions: React.Dispatch<React.SetStateAction<PropertiesBarMode>>;
+    optionsButtonRef: MutableRefObject<HTMLButtonElement | null>;
 };
 
 export const PropertiesBar = (props: PropertiesBarProps) => {
-    const { showOptions, setShowOptions } = props;
+    const { showOptions, setShowOptions, optionsButtonRef } = props;
     const { canvas } = useCanvas();
     const [activeObject, setActiveObject] = useState<fabric.Object | null>(
         null
@@ -82,6 +83,7 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
         <div className="h-4 flex gap-0.5 justify-between">
             <div className="rounded-0.875 p-0.375 h-full w-4 shrink-0 bg-white">
                 <button
+                    ref={optionsButtonRef}
                     className="h-3.25 text-gray-500 items-center flex justify-center rounded-0.5 flex-col w-full hover:text-gray-800 hover:bg-gray-100"
                     onClick={handleToolbarHamburgerClick}>
                     {showOptions === "hidden" && (
@@ -101,9 +103,7 @@ export const PropertiesBar = (props: PropertiesBarProps) => {
                 </div>
             ) : null}
             <div className="rounded-0.875 p-0.375 h-full w-4 shrink-0 bg-white">
-                <button className="h-3.25 text-gray-500 items-center flex justify-center rounded-0.5 flex-col w-full hover:text-gray-800 hover:bg-gray-100">
-                    <SaveAndExport />
-                </button>
+                <SaveAndExport />
             </div>
         </div>
     );

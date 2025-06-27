@@ -10,7 +10,7 @@ import { selectProjectById } from "@/store/slices/projectsSlice";
 import { RootState } from "@/store/store";
 import { fabric } from "fabric";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 export type PropertiesBarMode = "hidden" | "menu" | "options";
@@ -20,6 +20,7 @@ const EditProject = () => {
     const projectIdString = router.query[paramConstants.PROJECTID] as string;
     const projectId = projectIdString ? parseInt(projectIdString) : undefined;
     const [showOptions, setShowOptions] = useState<PropertiesBarMode>("menu");
+    const optionsButtonRef = useRef<HTMLButtonElement | null>(null);
 
     const [activeProject, setActiveProject] = useState<Project | null>(null);
     const [canvas, setCanvas] = useState<fabric.Canvas | null>(null);
@@ -48,12 +49,14 @@ const EditProject = () => {
                 }}>
                 <div className="gap-0.5 overflow-y-auto flex flex-col grow p-0.5 bg-gray-100">
                     <PropertiesBar
+                        optionsButtonRef={optionsButtonRef}
                         showOptions={showOptions}
                         setShowOptions={setShowOptions}
                     />
                     <EditingWindow
-                        showOptions={showOptions}
-                        setShowOptions={setShowOptions}
+                    optionsButtonRef={optionsButtonRef}
+                    showOptions={showOptions}
+                    setShowOptions={setShowOptions}
                     />
                 </div>
             </ActiveProjectContext.Provider>

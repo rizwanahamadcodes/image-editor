@@ -3,15 +3,16 @@ import StatusBar from "@/components/EditingWindow/StatusBar/StatusBar";
 import { ToolBox } from "@/components/ToolBox/ToolBox";
 import { PropertiesBarMode } from "@/pages/projects/[projectId]/edit";
 import clsx from "clsx";
-import { useRef, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 
 type EditingWindowProps = {
     showOptions: PropertiesBarMode;
     setShowOptions: React.Dispatch<React.SetStateAction<PropertiesBarMode>>;
+    optionsButtonRef: MutableRefObject<HTMLButtonElement | null>;
 };
 
 const EditingWindow = (props: EditingWindowProps) => {
-    const { showOptions, setShowOptions } = props;
+    const { showOptions, setShowOptions, optionsButtonRef } = props;
     const [zoomLevel, setZoomLevel] = useState(1);
 
     const calculateZoomLevelWithinBounds = (newZoom: number): number => {
@@ -29,6 +30,7 @@ const EditingWindow = (props: EditingWindowProps) => {
                 showOptions != "hidden" ? " gap-0.5" : ""
             )}>
             <ToolBox
+                optionsButtonRef={optionsButtonRef}
                 showOptions={showOptions}
                 setShowOptions={setShowOptions}
             />
