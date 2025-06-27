@@ -1,7 +1,7 @@
 import BrandLogo from "@/components/BrandLogo/BrandLogo";
 import { useToggle } from "@/hooks/useToggle";
 import { PathConstant, pathConstants } from "@/routes/pathContants";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Container from "../Container";
 import Drawer, { DrawerBody, DrawerDefaultHead } from "../Drawer/Drawer";
 import Hamburger from "../Hamburger/Hamburger";
@@ -11,6 +11,7 @@ import {
     PiProjectorScreenChart,
     PiProjectorScreenChartFill,
 } from "react-icons/pi";
+import { usePathname } from "next/navigation";
 
 type NavbarProps = {};
 
@@ -37,6 +38,12 @@ const Navbar = (props: NavbarProps) => {
             activeIcon: PiProjectorScreenChartFill,
         },
     ];
+
+    const pathname = usePathname();
+
+    useEffect(() => {
+        close();
+    }, [pathname]);
 
     return (
         <nav className="h-navHeight shrink-0">
