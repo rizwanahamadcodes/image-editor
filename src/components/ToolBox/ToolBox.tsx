@@ -68,11 +68,11 @@ export const ToolBox = (props: ToolBoxProps) => {
                 !asideRef.current.contains(target) &&
                 !optionsButtonRef.current.contains(target)
             ) {
-                setShowOptions((prevOptions) => {
-                    if (prevOptions === "options") {
+                setShowOptions((prevOption) => {
+                    if (prevOption === "options" || prevOption === "menu") {
                         return "menu";
                     }
-                    return "menu";
+                    return prevOption;
                 });
             }
         };
